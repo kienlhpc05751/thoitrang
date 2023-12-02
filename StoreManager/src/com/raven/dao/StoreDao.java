@@ -9,8 +9,6 @@ import java.util.List;
 /**
  *
  * @author hongk
- * @param <E>
- * @param <K>
  */
 public abstract class StoreDao<E, K> {
     abstract public void insert(E e);

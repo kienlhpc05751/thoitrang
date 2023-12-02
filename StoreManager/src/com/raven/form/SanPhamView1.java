@@ -80,25 +80,6 @@ public class SanPhamView1 extends javax.swing.JPanel {
 
             cboModel.addElement(itempCD.getMaloaiSP());
         }
-
-//             listSP = dao.selectAll();
-//        DefaultComboBoxModel cboModel = (DefaultComboBoxModel) CboMaloai.getModel();
-//        cboModel.removeAllElements();
-//        for (Sanpham itempCD : listSP) {
-//            cboModel.addElement(itempCD.getMaLoai());
-//        }
-//        System.out.println("Size of listSP: " + listSP.size());
-//        List<Object[]> list = new ArrayList<>();
-//        list = dao.getco();
-//        
-//        System.out.println("Size of listSP: " + listSP.size());
-//
-//        DefaultComboBoxModel cboModel = (DefaultComboBoxModel) CboMaloai.getModel();
-//        cboModel.removeAllElements();
-//        for (Object[] objects : list) {
-//                        cboModel.addElement(objects.row);
-//
-//        }
     }
     // fill dữ liệu lên bảng
 
@@ -146,14 +127,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
         kh.setGia(Double.parseDouble(txtGiaBan.getText()));
         kh.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
 
-//        kh.setMaCD(maCD);
-////        kh.setMaKH(maKH);
-//        kh.setThoiLuong(Integer.parseInt(txtSoLuongH.getText()));
-//        kh.setHocPhi(Double.valueOf(txtHocPhi.getText()));
-//        kh.setNgayKG(txtKhaiGiang.getText());
-//        kh.setMaNV(Auth.user.getMaNV());
-//        kh.setNgayTao(txtNgayTao.getText());
-//        kh.setGhiChu(txtGhiChu.getText());
+
         return kh;
     }
 

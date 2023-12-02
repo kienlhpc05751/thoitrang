@@ -4,7 +4,7 @@
  */
 package com.raven.utils;
 
-//import com.raven.component.ButtonRound;
+import com.raven.component.ButtonRound;
 import java.awt.Color;
 import javax.swing.JTextField;
 
@@ -14,18 +14,18 @@ import javax.swing.JTextField;
  */
 public class UI {
 
-//    public static void changeTransBG(Color color, JTextField... txts) {
-//        for (JTextField txt : txts) {
-//            txt.setOpaque(false);
-//            txt.setBackground(color);
-//        }
-//    }
+    public static void changeTransBG(Color color, JTextField... txts) {
+        for (JTextField txt : txts) {
+            txt.setOpaque(false);
+            txt.setBackground(color);
+        }
+    }
 
-//    public static void accept(ButtonRound... button) {
-//        if (!Auth.isManager()) {
-//            for (ButtonRound btn : button) {
-//                btn.setBackground(Color.decode("#686D76"));
-//            }
-//        }
-//    }
+    public static void accept(ButtonRound... button) {
+        if (!Auth.isManager()) {
+            for (ButtonRound btn : button) {
+                btn.setBackground(Color.decode("#686D76"));
+            }
+        }
+    }
 }

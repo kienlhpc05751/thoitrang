@@ -1,7 +1,6 @@
 package com.raven.dao;
 
 import com.microsoft.sqlserver.jdbc.SQLServerXAResource;
-
 import com.raven.db.DBHelper;
 import com.raven.model.HoaDon;
 import com.raven.model.Sanpham;
@@ -29,8 +28,11 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
                 enity.setTongTien(rs.getDouble("TongTien"));
                 list.add(enity);
             }
+
             rs.getStatement().getConnection().close();
             return list;
+//                        System.out.println(List);
+
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -38,10 +40,13 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
     }
     
      String INSERT_SQL = "insert into hoadon values(?,?,?,?,?)";
+     
+     
     String UPDATE_SQL = "UPDATE sanpham SET MaLoai=?, TenSP=?,KichCo=?,MauSac=?,GiaBan=?,SoLuong=? WHERE BienTheSP=?";
+    
     String DELETE_SQL = "DELETE FROM sanpham WHERE BienTheSP=?";
     String SELECT_ALL_SQL = "SELECT * FROM HoaDon";
-    String SELECT_BY_ID_SQL = "SELECT * FROM sanpham WHERE BienTheSP=?";
+    String SELECT_BY_ID_SQL = "SELECT * FROM HoaDon WHERE MaHD=?";
     String sql = " select * from san "
             + "where HoTen like ? AND "
             + "MaNH NOT IN (select MaNH from HocVien where MaKH = ?)";
@@ -206,8 +211,4 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
 //        }
 //
 //    }
-
-    public List<HoaDon> getAllSelect() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
