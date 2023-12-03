@@ -45,7 +45,9 @@ public class NhanVienView extends javax.swing.JPanel {
 //        NhanVienDao nvDao = new NhanVienDao();
     int index = -1; // vị trí của nhân viên đang hiển thị trên form
     NhanVienDao nvDao = new NhanVienDao() {
+    
     };
+ 
 
     public NhanVienView() {
         initComponents();
@@ -794,4 +796,6 @@ public class NhanVienView extends javax.swing.JPanel {
         this.setStatus(true);
         this.index = -1;
     }
-}
+
+      
+    }

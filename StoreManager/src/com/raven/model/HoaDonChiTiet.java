@@ -20,6 +20,7 @@ public class HoaDonChiTiet {
     public HoaDonChiTiet(){
         
     }
+        String row[] = {"Mã HDCT", "MaHD", "MaSP", "soluong", "ghi chu", "ma gg", "Thành tiền"};
 
     public HoaDonChiTiet(String maHDCT, String maHDn, String MaBienTheSP, int soLuong, String ghiChu, String maGG, Double thanhTien) {
         this.maHDCT = maHDCT;

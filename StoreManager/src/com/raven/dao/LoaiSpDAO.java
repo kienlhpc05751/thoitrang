@@ -63,7 +63,8 @@ abstract public class LoaiSpDAO extends StoreDao<LoaiSanPham, String> {
     }
 
 //    @Override
-    public LoaiSanPham selectById1(String k) {
+    @Override
+    public   List<LoaiSanPham> selectById1(String k) {
 //        return  this.selectBySql(SELECT_ALL_ID_SQL, args)
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -83,5 +84,7 @@ abstract public class LoaiSpDAO extends StoreDao<LoaiSanPham, String> {
     public LoaiSanPham selectByName(String k) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    
 
 }

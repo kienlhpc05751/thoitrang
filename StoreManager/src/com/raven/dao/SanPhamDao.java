@@ -6,9 +6,10 @@ package com.raven.dao;
 
 import com.raven.db.DBHelper;
 import com.raven.model.Sanpham;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.PreparedStatement;
 import java.util.List;
 
 /**
@@ -57,6 +58,14 @@ abstract public class SanPhamDao extends StoreDao<Sanpham, String> {
         return list.get(0);
 
     }
+    
+    
+   
+    @Override
+   public List<Sanpham> selectById1(String ma){
+       List<Sanpham> list = this.selectBySql(SELECT_BY_ID_SQL,ma );
+               return list;
+   }
 
     @Override
     protected List<Sanpham> selectBySql(String sql, Object... args) {
@@ -81,13 +90,43 @@ abstract public class SanPhamDao extends StoreDao<Sanpham, String> {
             throw new RuntimeException(e);
         }
     }
+    
+     public Sanpham selectByid( String ma) {
+        List<Sanpham> list = new ArrayList();
+                Connection con = DBHelper.getDBConnection();
+        try(PreparedStatement pstm = con.prepareStatement(SELECT_BY_ID_SQL)) {
+             pstm.setString(1, ma);
+            try(ResultSet rs = pstm.executeQuery()) {
+                 while (rs.next()) {
+                Sanpham enity = new Sanpham();
+                enity.setBienTheSP(rs.getString(1));
+                enity.setMaLoai(rs.getString(2));
+                enity.setTenSP(rs.getString(3));
+                enity.setKichCo(rs.getString(4));
+                enity.setMauSac(rs.getString(5));
+                enity.setGia(rs.getDouble(6));
+                enity.setSoLuong(rs.getInt(7));
+                list.add(enity);
+            }
+            return list.get(0);
+            } catch (Exception e) {
+            }
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+    
 
 //    @Override
 //    protected List<Sanpham> selectBySql1(String sql, Object... args) {
 //        List<Sanpham> list = new ArrayList<>();
 //        try {
 //            ResultSet rs = DBHelper.query(sql, args);
-//            while (rs.next()) {
+//            while (s.next()) {
 //                Sanpham enity = new Sanpham();
 //             
 //                enity.setMaLoai(rs.getString("ma"));

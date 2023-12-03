@@ -34,8 +34,12 @@ import javax.swing.JOptionPane;
 public class SanPhamView1 extends javax.swing.JPanel {
 
     String masp = null;
-    int row = 01;
+    int row = 0;
     SanPhamDao dao = new SanPhamDao() {
+        @Override
+        public List<Sanpham> selectById1(String k) {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
     };
     List<Sanpham> listSP = new ArrayList<>();
     LoaiSpDAO daosp = new LoaiSpDAO() {
@@ -126,7 +130,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
         kh.setMauSac(txtMauSac.getText());
         kh.setGia(Double.parseDouble(txtGiaBan.getText()));
         kh.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
-
+  
 
         return kh;
     }

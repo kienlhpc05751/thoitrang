@@ -61,6 +61,11 @@ public class KhachHangDao extends StoreDao<KhachHang, Integer> {
     public KhachHang selectById(Integer k) {
     return null;    
     }
+    
+      @Override
+    public List<KhachHang> selectById1(Integer k) {
+    return null;    
+    }
 
     @Override
     public KhachHang selectByName(Integer k) {
@@ -122,6 +127,7 @@ public class KhachHangDao extends StoreDao<KhachHang, Integer> {
         kh.setDiaChi(rs.getString("DiaChi"));
        return kh;    
     }
+    
     
 
 }

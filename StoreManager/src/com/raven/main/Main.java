@@ -26,7 +26,7 @@ import javax.swing.JComponent;
  * @author RAVEN
  */
 public class Main extends javax.swing.JFrame {
-     
+
     /**
      * Creates new form Main
      */
@@ -66,14 +66,14 @@ public class Main extends javax.swing.JFrame {
                 } else if (index == 4) {
                     setForm(form4);
 
-                } else if (index == 8){
+                } else if (index == 8) {
                     setForm(home);
-                }else if (index == 9){
+                } else if (index == 9) {
                     setForm(form4);
-                }else if (index == 15){
+                } else if (index == 15) {
                     dispose();
                 }
-                 
+
             }
         });
         //  set when system open start with home form
@@ -86,11 +86,10 @@ public class Main extends javax.swing.JFrame {
         mainPanel.repaint();
         mainPanel.revalidate();
     }
-    
+
 //    private void setform(JComponent com){
 //        
 //    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

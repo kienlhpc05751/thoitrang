@@ -173,4 +173,8 @@ abstract public class NhanVienDao extends StoreDao<NhanVien, String> {
 //    protected List<NhanVien> selectBySql(String sql, Object... args) {
 //        return null;
 //    }
+        @Override
+        public List<NhanVien> selectById1(String k) {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
 }

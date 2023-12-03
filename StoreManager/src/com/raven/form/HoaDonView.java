@@ -19,16 +19,20 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+import com.raven.model.HoaDonChiTiet;
+//import javax.swing.plaf.nimbus.NimbusStyle;
 
 /**
  *
  * @author RAVEN
  */
 public class HoaDonView extends javax.swing.JPanel {
-
+    String maHD = null;
+//    ChiTietHoaDon cthd = new ChiTietHoaDon(null, true);
 //    int index = -1; 
   int row = 01;//vị trí của nhân viên đang hiển thị trên form
     HoaDonDao dao = new HoaDonDao() {
+    
     };
     List<HoaDon> listHD = new ArrayList<>();
 
@@ -64,7 +68,7 @@ public class HoaDonView extends javax.swing.JPanel {
     }
   public void setForm(HoaDon model) {
 
-        txtMaHD.setText(model.getMaNV());
+        txtMaHD.setText(model.getMaHD());
         txtMaKH.setText(model.getMaKH());
         lblTenNV.setText(model.getMaNV());
         lblNgayTao.setText(XDate.toString(model.getNgayTao(), "dd-MM-yyyy"));
@@ -72,14 +76,14 @@ public class HoaDonView extends javax.swing.JPanel {
 
     }
   public HoaDon getFormHD() {
-//        Date date = new Date();
-//        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
-//        String textDate = formater.format(date);
+        Date date = new Date();
+        SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
+        String textDate = formater.format(date);
         HoaDon hd = new HoaDon();
         hd.setMaHD(txtMaHD.getText().trim());
         hd.setMaKH(txtMaKH.getText().trim());
         hd.setMaNV("NV001");
-        hd.setNgayTao(XDate.toDate(lblNgayTao.getText(), "dd-MM-yyyy"));
+        hd.setNgayTao(XDate.now());
         hd.setTongTien(Double.valueOf(lblTongTien.getText().trim()));
         
         return hd;
@@ -154,8 +158,6 @@ public class HoaDonView extends javax.swing.JPanel {
         jScrollPane10 = new javax.swing.JScrollPane();
         tblHoaDon9 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        table2 = new com.raven.swing.Table();
 
         panelBorder1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -436,19 +438,6 @@ public class HoaDonView extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        table2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(table2);
-
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
         panelBorder1Layout.setHorizontalGroup(
@@ -456,19 +445,13 @@ public class HoaDonView extends javax.swing.JPanel {
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(657, 657, 657))
+                .addContainerGap(376, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addGap(217, 217, 217)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -476,7 +459,7 @@ public class HoaDonView extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 1328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -509,9 +492,13 @@ public class HoaDonView extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-//        ChiTietHoaDon cthd = new ChiTietHoaDon(null, true);
-//        cthd.loadToTableHDCT(maHD);
-//        cthd.setVisible(true);
+        ChiTietHoaDonView cthd =  new ChiTietHoaDonView(null, true);
+        maHD = txtMaHD.getText();
+        
+        System.out.println(maHD);
+        
+        cthd.fillTableHDCT1(maHD);
+        cthd.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void tblHoaDon9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDon9MouseClicked
@@ -547,14 +534,12 @@ public class HoaDonView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane10;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblNgayTao;
     private javax.swing.JLabel lblTenKH;
     private javax.swing.JLabel lblTenNV;
     private javax.swing.JLabel lblTongSoLuong;
     private javax.swing.JLabel lblTongTien;
     private com.raven.swing.PanelBorder panelBorder1;
-    private com.raven.swing.Table table2;
     private javax.swing.JTable tblHoaDon9;
     private javax.swing.JTextField txtMaHD;
     private javax.swing.JTextField txtMaKH;

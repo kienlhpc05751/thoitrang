@@ -82,6 +82,11 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
 
     }
     
+        @Override
+        public List<HoaDon> selectById1(String k) {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+    
           @Override
         public List<HoaDon> selectAll() {
                     return this.selectBySql(SELECT_ALL_SQL);
