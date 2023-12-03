@@ -132,7 +132,7 @@ public class HoaDonView extends javax.swing.JPanel {
             totalAmount += TT;  // Update the total amount
             System.out.println(hd.getThanhTien());
         }
-        lblTongTien.setText(Double.toString(totalAmount));
+        lblTongTien.setText(Double.toString(totalAmount)+" Đ");
         // Print or use the total amount as needed
         System.out.println("Total Amount: " + totalAmount);
 //        tblbanHDCT.setModel(model);
@@ -580,7 +580,7 @@ public class HoaDonView extends javax.swing.JPanel {
         this.row = tblHoaDon9.getSelectedRow();
         System.out.println(row);
         this.edit(row);
-
+        totalAmount = 0.0;
         maHD = txtMaHD.getText();
         fillTableHDCT1(maHD);
 //        tabs.setSelectedIndex(0);

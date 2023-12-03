@@ -39,8 +39,8 @@ abstract public class SanPhamDao extends StoreDao<Sanpham, String> {
 
     @Override
     public void update(Sanpham enity) {
-        DBHelper.update(UPDATE_SQL, enity.getBienTheSP(), enity.getMaLoai(), enity.getTenSP(), enity.getKichCo(),
-                enity.getMauSac(), enity.getGia(), enity.getSoLuong());
+        DBHelper.update(UPDATE_SQL,  enity.getMaLoai(), enity.getTenSP(), enity.getKichCo(),
+                enity.getMauSac(), enity.getGia(), enity.getSoLuong(),enity.getBienTheSP());
     }
 
     @Override
