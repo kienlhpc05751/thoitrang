@@ -7,7 +7,7 @@ package com.raven.dao;
 import com.raven.db.DBHelper;
 import com.raven.model.GiamGia;
 import com.raven.model.Sanpham;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +54,42 @@ abstract public class GiamGiaDao extends StoreDao<GiamGia, String> {
             return null;
         }
         return list.get(0);
-
     }
+       @Override
+    public List<GiamGia> selectById1(String k) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
+    
+    
+    ///
+    
+    public GiamGia getAllByID(String ma) {
+        List<GiamGia> list = new ArrayList<>();
+        String sql = "SELECT * FROM maGiamgia WHERE maGG = ?";
+        Connection con = DBHelper.getDBConnection();
+        try (PreparedStatement stm = con.prepareStatement(sql)) {
+            stm.setString(1, ma);
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                     GiamGia enity = new GiamGia();
+                enity.setMaGG(rs.getString(1));
+                enity.setTienGG(rs.getString(2));
+
+                list.add(enity);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Lỗi SQL: " + ex.getMessage());
+            ex.printStackTrace();
+            // Hoặc ghi log lỗi
+        }
+        return list.get(0);
+    }
+    
+    
+    
 
     @Override
     protected List<GiamGia> selectBySql(String sql, Object... args) {
@@ -138,8 +172,5 @@ abstract public class GiamGiaDao extends StoreDao<GiamGia, String> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public List<GiamGia> selectById1(String k) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+ 
 }
