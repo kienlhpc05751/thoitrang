@@ -27,12 +27,13 @@ import com.raven.model.HoaDonChiTiet;
  * @author RAVEN
  */
 public class HoaDonView extends javax.swing.JPanel {
+
     String maHD = null;
 //    ChiTietHoaDon cthd = new ChiTietHoaDon(null, true);
 //    int index = -1; 
-  int row = 01;//vị trí của nhân viên đang hiển thị trên form
+    int row = 01;//vị trí của nhân viên đang hiển thị trên form
     HoaDonDao dao = new HoaDonDao() {
-    
+
     };
     List<HoaDon> listHD = new ArrayList<>();
 
@@ -66,7 +67,8 @@ public class HoaDonView extends javax.swing.JPanel {
         }
         tblHoaDon9.setModel(model);
     }
-  public void setForm(HoaDon model) {
+
+    public void setForm(HoaDon model) {
 
         txtMaHD.setText(model.getMaHD());
         txtMaKH.setText(model.getMaKH());
@@ -75,7 +77,8 @@ public class HoaDonView extends javax.swing.JPanel {
         lblTongTien.setText(Double.toString(model.getTongTien()));
 
     }
-  public HoaDon getFormHD() {
+
+    public HoaDon getFormHD() {
         Date date = new Date();
         SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
         String textDate = formater.format(date);
@@ -85,30 +88,26 @@ public class HoaDonView extends javax.swing.JPanel {
         hd.setMaNV("NV001");
         hd.setNgayTao(XDate.now());
         hd.setTongTien(Double.valueOf(lblTongTien.getText().trim()));
-        
+
         return hd;
     }
-  
+
     void edit(int index) {
-        
+
 //        if (!listHD.isEmpty()) {
         // Đảm bảo danh sách không rỗng trước khi truy cập phần tử
         // Tiếp tục xử lý obj
-          HoaDon kh = listHD.get(index);
+        HoaDon kh = listHD.get(index);
         setForm(kh);
 //    } else {
 //        // Xử lý trường hợp danh sách rỗng
 //        System.out.println("Danh sách rỗng, không thể truy cập phần tử.");
 //    }
-      
+
     }
 
-    
 //
-
-    
 //
-
     public void insertHD() {
         try {
             dao.insert(getFormHD());
@@ -117,6 +116,18 @@ public class HoaDonView extends javax.swing.JPanel {
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(null, "Thêm sản phẩm Thất Bại");
+        }
+    }
+
+    public void updateHD() {
+        try {
+            dao.update(getFormHD());
+            MsgBox.alert(null, "sửa sản phẩm  Thành Công");
+            fillTable(listHD);
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.alert(null, "sửa sản phẩm Thất Bại");
+
         }
     }
 
@@ -488,15 +499,15 @@ public class HoaDonView extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-//        updateHD();
+        updateHD();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        ChiTietHoaDonView cthd =  new ChiTietHoaDonView(null, true);
+        ChiTietHoaDonView cthd = new ChiTietHoaDonView(null, true);
         maHD = txtMaHD.getText();
-        
+
         System.out.println(maHD);
-        
+
         cthd.fillTableHDCT1(maHD);
         cthd.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
@@ -506,7 +517,7 @@ public class HoaDonView extends javax.swing.JPanel {
 //        maHD = list.get(tblHoaDon9.getSelectedRow()).getMaHD();
 //        setForm();
 //        txtMaHD.setText(maHD);
-   this.row = tblHoaDon9.getSelectedRow();
+        this.row = tblHoaDon9.getSelectedRow();
         System.out.println(row);
         this.edit(row);
 //        tabs.setSelectedIndex(0);

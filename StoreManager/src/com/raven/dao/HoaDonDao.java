@@ -42,7 +42,7 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
      String INSERT_SQL = "insert into hoadon values(?,?,?,?,?)";
      
      
-    String UPDATE_SQL = "UPDATE sanpham SET MaLoai=?, TenSP=?,KichCo=?,MauSac=?,GiaBan=?,SoLuong=? WHERE BienTheSP=?";
+    String UPDATE_SQL = "UPDATE hoadon SET MaKH=?, MaNV=?,NgayTao=?,TongTien=? WHERE MaHD=?";
     
     String DELETE_SQL = "DELETE FROM sanpham WHERE BienTheSP=?";
     String SELECT_ALL_SQL = "SELECT * FROM HoaDon";
@@ -63,8 +63,8 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
 
     @Override
     public void update(HoaDon enity) {
-       DBHelper.update(UPDATE_SQL, enity.getMaHD(), enity.getMaKH(), enity.getMaNV(), enity.getNgayTao(),
-                enity.getTongTien());
+       DBHelper.update(UPDATE_SQL,  enity.getMaKH(), enity.getMaNV(), enity.getNgayTao(),
+                enity.getTongTien(),enity.getMaHD());
     }
     @Override
     public void delete(String id) {

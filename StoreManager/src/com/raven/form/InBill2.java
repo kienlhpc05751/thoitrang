@@ -144,7 +144,7 @@ public class InBill2 extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        inHoaDon();
+//        inHoaDon();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -297,62 +297,67 @@ public class InBill2 extends javax.swing.JDialog {
         setLabel(lblGiamGia, "Thành Tiền: " + thanhTien + "đ", font, 770, ((tblModel.getRowCount()) * index) + 250, 500, 100);
     }
 
-    public void inHoaDon() {
-        list = dao.getAllByID(maHD);
-        try {
-            Document dcmt = new Document() {};
-            PdfWriter writer = PdfWriter.getInstance(dcmt, new FileOutputStream("hoadon.pdf"));
-            dcmt.open();
-            PdfPTable columnNames = new PdfPTable(10);
-            columnNames.addCell(setText("STT"));
-            columnNames.addCell(setText("Mã SP"));
-            columnNames.addCell(setText("Tên SP"));
-            columnNames.addCell(setText("Màu"));
-            columnNames.addCell(setText("Size"));
-            columnNames.addCell(setText("Giá"));
-            columnNames.addCell(setText("SL"));
-            columnNames.addCell(setText("Giam Gia"));
-            columnNames.addCell(setText("Thanh Tien"));
-            columnNames.addCell(setText("HTTT"));
-            columnNames.setWidths(new float[]{2, 8, 20, 8, 5, 10, 2, 5, 15, 25});
+//    public void inHoaDon() {
+//        list = dao.getAllByID(maHD);
+//        try {
+//            Document dcmt = new Document() {};
+//            PdfWriter writer = PdfWriter.getInstance(dcmt, new FileOutputStream("hoadon.pdf"));
+//            dcmt.open();
+//            PdfPTable columnNames = new PdfPTable(10);
+//            columnNames.addCell(setText("STT"));
+//            columnNames.addCell(setText("Mã SP"));
+//            columnNames.addCell(setText("Tên SP"));
+//            columnNames.addCell(setText("Màu"));
+//            columnNames.addCell(setText("Size"));
+//            columnNames.addCell(setText("Giá"));
+//            columnNames.addCell(setText("SL"));
+//            columnNames.addCell(setText("Giam Gia"));
+//            columnNames.addCell(setText("Thanh Tien"));
+//            columnNames.addCell(setText("HTTT"));
+//            columnNames.setWidths(new float[]{2, 8, 20, 8, 5, 10, 2, 5, 15, 25});
+////
+//            columnNames.setTotalWidth(dcmt.getPageSize().getWidth() - 40);
+//            columnNames.setLockedWidth(true);
+//            int stt = 0;
+//            for (HoaDonChiTiet itemp : list) {
+//                stt++;
+//                columnNames.addCell(setText(String.valueOf(stt)));
+//                columnNames.addCell(setText(itemp.getMaSP()));
+//                columnNames.addCell(setText(itemp.getTenSP()));
+//                columnNames.addCell(setText(itemp.getMau()));
+//                columnNames.addCell(setText(itemp.getSize()));
+//                columnNames.addCell(setText(String.valueOf(itemp.getGia())));
+//                columnNames.addCell(setText(String.valueOf(itemp.getSoLuong())));
+//                columnNames.addCell(setText(itemp.getGiamGia() + "%"));
+//                columnNames.addCell(setText(String.valueOf((itemp.getGia() * itemp.getSoLuong()) - ((itemp.getGiamGia() / 100) * itemp.getGia()))));
+//                columnNames.addCell(setText(itemp.getHinhThucTT()));
+//            }
+//            com.itextpdf.text.Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN, 24);
+//            font.setStyle(Font.BOLD);
+////            Phrase phrase = new Phrase("Black And White Fashion Shop", font);
+//            Paragraph paragraph = new Paragraph("Black And White Fashion Shop", font);
 //
-            columnNames.setTotalWidth(dcmt.getPageSize().getWidth() - 40);
-            columnNames.setLockedWidth(true);
-            int stt = 0;
-            for (HoaDonChiTiet itemp : list) {
-                stt++;
-                columnNames.addCell(setText(String.valueOf(stt)));
-                columnNames.addCell(setText(itemp.getMaSP()));
-                columnNames.addCell(setText(itemp.getTenSP()));
-                columnNames.addCell(setText(itemp.getMau()));
-                columnNames.addCell(setText(itemp.getSize()));
-                columnNames.addCell(setText(String.valueOf(itemp.getGia())));
-                columnNames.addCell(setText(String.valueOf(itemp.getSoLuong())));
-                columnNames.addCell(setText(itemp.getGiamGia() + "%"));
-                columnNames.addCell(setText(String.valueOf((itemp.getGia() * itemp.getSoLuong()) - ((itemp.getGiamGia() / 100) * itemp.getGia()))));
-                columnNames.addCell(setText(itemp.getHinhThucTT()));
-            }
-            com.itextpdf.text.Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN, 24);
-            font.setStyle(Font.BOLD);
-//            Phrase phrase = new Phrase("Black And White Fashion Shop", font);
-            Paragraph paragraph = new Paragraph("Black And White Fashion Shop", font);
-
-// Đặt vị trí của đoạn text
-            paragraph.setSpacingAfter(20); // Khoảng cách dòng giữa các đoạn text
-            paragraph.setIndentationLeft(50);
-            dcmt.add(paragraph);// Thụt vào bên trái
-//            dcmt.add(phrase);
-            dcmt.add(columnNames);
-            dcmt.close();
-        } catch (Exception e) {
-        }
-    }
-    public PdfPCell setText(String text) {
-        PdfPCell cell = new PdfPCell(new Phrase(text));
-        cell.getPhrase().getFont().setSize(10);
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        return cell;
-    }
+//// Đặt vị trí của đoạn text
+//            paragraph.setSpacingAfter(20); // Khoảng cách dòng giữa các đoạn text
+//            paragraph.setIndentationLeft(50);
+//            dcmt.add(paragraph);// Thụt vào bên trái
+////            dcmt.add(phrase);
+//            dcmt.add(columnNames);
+//            dcmt.close();
+//        } catch (Exception e) {
+//        }
+//    }
+//    public PdfPCell setText(String text) {
+//        PdfPCell cell = new PdfPCell(new Phrase(text));
+//        cell.getPhrase().getFont().setSize(10);
+//        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//        return cell;
+//    }
+    
+    
+    
+    
+    
 
 //    public Paragraph setFont(String text, int size, int spac, int inden) throws DocumentException, IOException {
 //                 BaseFont baseFont;

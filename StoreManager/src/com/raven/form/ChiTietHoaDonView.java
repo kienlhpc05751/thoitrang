@@ -38,6 +38,8 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
     //
     int row = 0;
     int index = 0;
+    double thanhtien = 0;
+    double giamgia = 0;
 
     public ChiTietHoaDonView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -46,7 +48,7 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
         fillCombobox();
 //        fillTableHDCT();
     }
-
+// lấy dữ liệu đưa lên form
     public void SetFromSP(Sanpham sp) {
 //        txtMaSP.setText(sp.getBienTheSP());
         lblTenSP.setText(sp.getTenSP());
@@ -56,7 +58,7 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 
     }
 
-    // lấy dữ liệu HDCT lên from
+// lấy dữ liệu HDCT lên from
     public void SetFromHDCT(HoaDonChiTiet hd) {
         txtMaHDCT.setText(hd.getMaHDCT());
         txtMaSP.setText(hd.getMaBienTheSP());
@@ -68,13 +70,13 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
         lblThanhTien.setText(String.valueOf(hd.getThanhTien()));
     }
 
-    //đưa lên from
+ //đưa lên from
     void edit(int index) {
         HoaDonChiTiet kh = listHDCT.get(index);
         SetFromHDCT(kh);
     }
 
-    // lấy dữ liệu về
+ // lấy dữ liệu về
     public HoaDonChiTiet getFormHDCT() {
         String maGG = "GG001";
         HoaDonChiTiet hd = new HoaDonChiTiet();
@@ -95,32 +97,29 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
         return hd;
     }
 
-    double thanhtien = 0;
-    double giamgia = 0;
-
-    // thêm HDCT
+ // thêm HDCT
     public void insert() {
         daoHDCT.insert(getFormHDCT());
         MsgBox.alert(null, "Thêm sản phẩm  Thành Công");
         String ma1 = lblMaHD.getText();
         fillTableHDCT1(ma1);
     }
-    // load và fill lên bản HDCT
 
+ // load và fill lên bản HDCT
     public void fillTableHDCT(String ma) {
         lblMaHD.setText(ma);
         listHDCT = daoHDCT.selectById1(ma);
 
     }
-    // chọn ComBoBox giảm giá
 
+// chọn ComBoBox giảm giá
     void chonComboBox(int index) {
         if (index >= 0) {
             GiamGia cd = listGG.get(index);
         }
     }
-    // Fill dữ liệu lên combobox giam giá
 
+// Fill dữ liệu lên combobox giam giá
     final void fillCombobox() {
         listGG = daoGG.selectAll();
         DefaultComboBoxModel cboModel = (DefaultComboBoxModel) cboMaGG.getModel();
@@ -129,7 +128,6 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
         for (GiamGia itempCD : listGG) {
             cboModel.addElement(itempCD.getMaGG());
         }
-
     }
 
 //    private List<String> getSearchResults(String searchTerm) {
@@ -140,6 +138,9 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 //        dummyData.add("Result 3");
 //        return dummyData;
 //    }
+    
+    
+// 
     public void timkiem1(String ma) {
         try {
             String rowSP[] = {"MaSP", "LoaiSP", "TenSP", "Kichco", "Mausac", "gia ban", "soLuong"};
@@ -147,9 +148,10 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 //            listSP = (List<Sanpham>) daoSP.selectById(ma);
             SetFromSP(sp);
         } catch (Exception e) {
-//            e.printStackTrace();
+//            e.printStackTrace();// mở lên là hiện lỗi khi chạy
         }
     }
+// fill bản hóa đơn chi tiết  = mahd bên bản hóa đơn
 
     public void fillTableHDCT1(String ma) {
         lblMaHD.setText(ma);
@@ -484,8 +486,7 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
     }//GEN-LAST:event_txtMaSPActionPerformed
 
     private void txtMaSPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaSPKeyReleased
-//        maSP = txtMaSP.getText().trim();
-//        setFormHDCT();
+//
         String ma1 = txtMaSP.getText();
         timkiem1(ma1);
     }//GEN-LAST:event_txtMaSPKeyReleased
@@ -500,9 +501,6 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
         } else {
             thanhtien();
         }
-
-//        index = (int) spnSL.getValue();
-
     }//GEN-LAST:event_spnSLStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -510,11 +508,11 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String maHD = txtMaHDCT.getText();
-        InBill2 bill = new InBill2(null, true);
-        
-        bill.loadToTable(maHD);
-        bill.setVisible(true);
+//        String maHD = txtMaHDCT.getText();
+//        InBill2 bill = new InBill2(null, true);
+//        
+//        bill.loadToTable(maHD);
+//        bill.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtMaHDCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaHDCTActionPerformed
