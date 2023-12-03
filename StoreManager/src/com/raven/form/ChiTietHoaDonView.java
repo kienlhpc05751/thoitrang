@@ -15,6 +15,7 @@ import com.raven.dao.HoaDonDao;
 import com.raven.dao.SanPhamDao;
 import com.raven.model.*;
 import com.raven.utils.MsgBox;
+import com.raven.form.InBill2;
 import com.raven.utils.XDate;
 import com.sun.jdi.ArrayReference;
 import java.text.SimpleDateFormat;
@@ -36,6 +37,7 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
     };
     //
     int row = 0;
+    int index = 0;
 
     public ChiTietHoaDonView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -166,6 +168,11 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
             });
         }
         tblbanHDCT.setModel(model);
+    }
+
+    public void thanhtien() {
+        thanhtien = Double.parseDouble(lblGia.getText()) * index * (1 - (giamgia / 100));
+        lblThanhTien.setText(String.valueOf(thanhtien));
     }
 
     @SuppressWarnings("unchecked")
@@ -368,8 +375,8 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
                             .addComponent(jLabel64, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblThanhTien, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cboMaGG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboMaGG, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel63, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
@@ -484,23 +491,30 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
     }//GEN-LAST:event_txtMaSPKeyReleased
 
     private void spnSLStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnSLStateChanged
-        int index = (int) spnSL.getValue();
+        index = (int) spnSL.getValue();
 
-        thanhtien = Double.parseDouble(lblGia.getText()) * index *(1-(giamgia/100));
-//            System.out.println(t);
-        lblThanhTien.setText(String.valueOf(thanhtien));
+        if (index <= 0) {
+            spnSL.setValue(1);
+//            System.out.println(spnSL.setValue(0));
+            JOptionPane.showMessageDialog(this, "Số lượng không được nhỏ hơn 0");
+        } else {
+            thanhtien();
+        }
+
+//        index = (int) spnSL.getValue();
 
     }//GEN-LAST:event_spnSLStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         insert();
-//        loadToTableHDCT(maHD);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-//        InBill2 bill = new InBill2(null, true);
-//        bill.loadToTable(maHD);
-//        bill.setVisible(true);
+        String maHD = txtMaHDCT.getText();
+        InBill2 bill = new InBill2(null, true);
+        
+        bill.loadToTable(maHD);
+        bill.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtMaHDCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaHDCTActionPerformed
@@ -511,17 +525,17 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             String magg = (String) cboMaGG.getSelectedItem();
-            
-            row = cboMaGG.getSelectedIndex() - 1;
-  
-            System.out.println("roo");
-            GiamGia gg = daoGG.getAllByID(magg);
-            
-            System.out.println(row);
             System.out.println(magg);
-            chonComboBox(row);
+            GiamGia gg = daoGG.getAllByID(magg);
             giamgia = Double.parseDouble(gg.getTienGG());
             System.out.println(giamgia);
+            thanhtien();
+
+            // com
+            row = cboMaGG.getSelectedIndex() - 1;
+            System.out.println("roo");
+            System.out.println(row);
+            chonComboBox(row);
 
         } catch (Exception e) {
         }
@@ -532,7 +546,6 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.row = tblbanHDCT.getSelectedRow();
         this.edit(row);
-//        tabs.setSelectedIndex(0);
     }//GEN-LAST:event_tblbanHDCTMouseClicked
 
     /**
@@ -611,89 +624,5 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
     private javax.swing.JTextField txtMaHDCT;
     private javax.swing.JTextField txtMaSP;
     // End of variables declaration//GEN-END:variables
-//    HoaDonDao dao = new HoaDonDao() ;
-//    List<HoaDon> list = dao.getAllSelect();
-//    SanPhamDao daoSP = new SanPhamDao();
-//    List<SanPham> listSP = new ArrayList<>();
-//    MauDao daoMau = new MauDao();
-//    List<Mau> listMau = new ArrayList<>();
-//    SizeDao daoSize = new SizeDao();
-//    List<Size> listSize = new ArrayList<>();
-//    String maHD = null;
-//    String maSP;
-//    SanPhamChiTietDao daoSPCT = new SanPhamChiTietDao();
-//    List<SanPhamChiTiet> listSPCT = daoSPCT.getAllSPById(maSP);
-//    int maMau;
-//    int maSize;
-//    float giamGia;
-//
-//    public void setFormHDCT() {
-//        DefaultComboBoxModel model = new DefaultComboBoxModel();
-//        DefaultComboBoxModel model1 = new DefaultComboBoxModel();
-//        listSPCT = daoSPCT.getAllSPById(maSP);
-//        for (SanPhamChiTiet sp : listSPCT) {
-//            listSP = daoSP.getAllExceptByID(sp.getMaSP());
-//            listMau = daoMau.getAllExceptByID(sp.getMaMau());
-//            listSize = daoSize.getAllExceptByID(sp.getMaSize());
-//            if (maSP.equals(sp.getMaSP())) {
-//                lblTenSP.setText(listSP.get(0).getTenSP());
-//                model.addElement(listMau.get(0).getTenMau());
-//                maMau = sp.getMaMau();
-//                maSize = sp.getMaSize();
-//                model1.addElement(listSize.get(0).getTenSize());
-//            }
-//            lblGia.setText(String.valueOf(sp.getDonGia()));
-//            cboMau.setModel(model);
-//            cboSize.setModel(model1);
-//            giamGia = sp.giamGia();
-//        }
-//    }
-//
-//    public HoaDon getFormHDCT() {
-//        HoaDon hd = new HoaDon();
-//        hd.setMaHD(lblMaHDCT.getText().trim());
-//        hd.setMaSP(txtMaSP.getText().trim());
-//        hd.setSoLuong((int) spnSL.getValue());
-//        hd.setGiamGia(Float.parseFloat(txtGiamGia.getText()));
-//        hd.setGia(Float.parseFloat(lblGia.getText()));
-//        hd.setMaMau(maMau);
-//        hd.setMaSize(maSize);
-//        System.out.println(maMau);
-//        System.out.println(maSize);
-//        return hd;
-//    }
-//    int soLuong;
-//
 
-//    public boolean checkSL() {
-//        if ((int) spnSL.getValue() <= 0) {
-//            JOptionPane.showMessageDialog(this, "Số lượng không được nhỏ hơn 0");
-//        }
-//        return true;
-//    }
-//
-//    public void loadToTableHDCT(String ma) {
-//        String row[] = {"Mã HD", "Tên SP", "Màu", "Size", "Giá", "Số lượng", "Giảm giá", "Thành tiền", "Hình thức thanh toán"};
-//        DefaultTableModel model = new DefaultTableModel(row, 0);
-//        list = dao.getAllSelectHDCT(ma);
-//        lblMaHDCT.setText(ma);
-//        maHD = ma;
-//        for (HoaDon hd : list) {
-//            listSP = daoSP.getAllExceptByID(hd.getMaSP());
-//            listMau = daoMau.getAllExceptByID(hd.getMaMau());
-//            listSize = daoSize.getAllExceptByID(hd.getMaSize());
-//            model.addRow(new Object[]{
-//                hd.getMaHD(),
-//                listSP.get(0).getTenSP(),
-//                listMau.get(0).getTenMau(),
-//                listSize.get(0).getTenSize(),
-//                listSP.get(0).getGia(),
-//                hd.getSoLuong(),
-//                hd.getGiamGia(),
-//                (hd.getSoLuong() * listSP.get(0).getGia()) * ((hd.getGiamGia()/100) + 1),
-//                hd.getHinhThucTT()
-//            });
-//        }
-//        tblCTHD.setModel(model);
-//    }
 }
