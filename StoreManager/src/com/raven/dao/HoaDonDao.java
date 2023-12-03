@@ -44,7 +44,20 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
      
     String UPDATE_SQL = "UPDATE hoadon SET MaKH=?, MaNV=?,NgayTao=?,TongTien=? WHERE MaHD=?";
     
-    String DELETE_SQL = "DELETE FROM sanpham WHERE BienTheSP=?";
+//    String DELETE_SQL = "DELETE FROM hoadon WHERE MaHD=?";
+        String DELETE_SQL = "DECLARE @HoaDonID NVARCHAR(10);\n" +
+"SET @HoaDonID = ?;\n" +
+"\n" +
+"BEGIN TRANSACTION;\n" +
+"\n" +
+"-- Step 1: Delete records from hoadonchitiet\n" +
+"DELETE FROM hoadonchitiet WHERE MaHD = @HoaDonID;\n" +
+"\n" +
+"-- Step 2: Delete the specific invoice record from hoadon\n" +
+"DELETE FROM hoadon WHERE MaHD = @HoaDonID;\n" +
+"\n" +
+"COMMIT;";
+
     String SELECT_ALL_SQL = "SELECT * FROM HoaDon";
     String SELECT_BY_ID_SQL = "SELECT * FROM HoaDon WHERE MaHD=?";
     String sql = " select * from san "

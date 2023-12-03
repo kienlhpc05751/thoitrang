@@ -5,6 +5,7 @@
  */
 package com.raven.form;
 
+import com.raven.dao.HoaDonChiTietDao;
 import com.raven.dao.HoaDonDao;
 import com.raven.model.HoaDon;
 import com.raven.model.NhanVien;
@@ -28,14 +29,19 @@ import com.raven.model.HoaDonChiTiet;
  */
 public class HoaDonView extends javax.swing.JPanel {
 
+    HoaDonDao dao = new HoaDonDao() {
+    };
+    List<HoaDon> listHD = new ArrayList<>();
+
+    List<HoaDonChiTiet> listHDCT = new ArrayList<>();
+    HoaDonChiTietDao daoHDCT = new HoaDonChiTietDao() {
+    };
+
+    double totalAmount = 0.0;  // Variable to keep track of the total amount
     String maHD = null;
 //    ChiTietHoaDon cthd = new ChiTietHoaDon(null, true);
 //    int index = -1; 
     int row = 01;//vị trí của nhân viên đang hiển thị trên form
-    HoaDonDao dao = new HoaDonDao() {
-
-    };
-    List<HoaDon> listHD = new ArrayList<>();
 
     /**
      * Creates new form Form_1
@@ -106,6 +112,32 @@ public class HoaDonView extends javax.swing.JPanel {
 
     }
 
+// tính tổng
+    public void fillTableHDCT1(String ma) {
+//        lblMaHD.setText(ma);
+        String row[] = {"Mã HDCT", "MaHD", "MaSP", "soluong", "ghi chu", "ma gg", "Thành tiền"};
+        DefaultTableModel model = new DefaultTableModel(row, 0);
+        listHDCT = daoHDCT.getAllByID(ma);
+        for (HoaDonChiTiet hd : listHDCT) {
+            model.addRow(new Object[]{
+                hd.getMaHDn(),
+                hd.getMaHDCT(),
+                hd.getMaBienTheSP(),
+                hd.getSoLuong(),
+                hd.getGhiChu(),
+                hd.getMaGG(),
+                hd.getThanhTien()
+            });
+            double TT = hd.getThanhTien();
+            totalAmount += TT;  // Update the total amount
+            System.out.println(hd.getThanhTien());
+        }
+        lblTongTien.setText(Double.toString(totalAmount));
+        // Print or use the total amount as needed
+        System.out.println("Total Amount: " + totalAmount);
+//        tblbanHDCT.setModel(model);
+    }
+
 //
 //
     public void insertHD() {
@@ -129,6 +161,29 @@ public class HoaDonView extends javax.swing.JPanel {
             MsgBox.alert(null, "sửa sản phẩm Thất Bại");
 
         }
+    }
+
+    public void deleteHD() {
+        try {
+            System.out.println(maHD);
+            dao.delete(maHD);
+            MsgBox.alert(null, "sửa sản phẩm  Thành Công");
+            fillTable(listHD);
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.alert(null, "sửa sản phẩm Thất Bại");
+
+        }
+    }
+    
+   public void  clearForm(){
+       
+        txtMaHD.setText("");
+        txtMaKH.setText("");
+        lblTenNV.setText("");
+        lblNgayTao.setText( "");
+        lblTongTien.setText("");
+        
     }
 
     /**
@@ -223,6 +278,11 @@ public class HoaDonView extends javax.swing.JPanel {
         cboHTTT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiền mặt", "Chuyển khoản" }));
 
         jButton6.setText("Xóa");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         lblTenNV.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lblTenNV.setText("NV001");
@@ -482,7 +542,7 @@ public class HoaDonView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-//        clearForm();
+        clearForm();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void txtMaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaKHActionPerformed
@@ -520,8 +580,16 @@ public class HoaDonView extends javax.swing.JPanel {
         this.row = tblHoaDon9.getSelectedRow();
         System.out.println(row);
         this.edit(row);
+
+        maHD = txtMaHD.getText();
+        fillTableHDCT1(maHD);
 //        tabs.setSelectedIndex(0);
     }//GEN-LAST:event_tblHoaDon9MouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        deleteHD();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
