@@ -42,7 +42,7 @@ public class HoaDonView extends javax.swing.JPanel {
 //    ChiTietHoaDon cthd = new ChiTietHoaDon(null, true);
 //    int index = -1; 
     int row = 01;//vị trí của nhân viên đang hiển thị trên form
-
+    String maNV = "NV001";
     /**
      * Creates new form Form_1
      */
@@ -132,7 +132,9 @@ public class HoaDonView extends javax.swing.JPanel {
             totalAmount += TT;  // Update the total amount
             System.out.println(hd.getThanhTien());
         }
-        lblTongTien.setText(Double.toString(totalAmount)+" Đ");
+        lblTongTien.setText(Double.toString(totalAmount));
+//                lblTongTien.setText(Double.toString(totalAmount)+" Đ");
+
         // Print or use the total amount as needed
         System.out.println("Total Amount: " + totalAmount);
 //        tblbanHDCT.setModel(model);
@@ -145,6 +147,7 @@ public class HoaDonView extends javax.swing.JPanel {
             dao.insert(getFormHD());
             MsgBox.alert(null, "Thêm sản phẩm  Thành Công");
             fillTable(listHD);
+            clearForm();
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(null, "Thêm sản phẩm Thất Bại");
@@ -156,6 +159,7 @@ public class HoaDonView extends javax.swing.JPanel {
             dao.update(getFormHD());
             MsgBox.alert(null, "sửa sản phẩm  Thành Công");
             fillTable(listHD);
+            clearForm();
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(null, "sửa sản phẩm Thất Bại");
@@ -169,20 +173,22 @@ public class HoaDonView extends javax.swing.JPanel {
             dao.delete(maHD);
             MsgBox.alert(null, "sửa sản phẩm  Thành Công");
             fillTable(listHD);
+            clearForm();
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(null, "sửa sản phẩm Thất Bại");
 
         }
     }
+    Date ngay = XDate.now();
     
    public void  clearForm(){
        
         txtMaHD.setText("");
-        txtMaKH.setText("");
-        lblTenNV.setText("");
-        lblNgayTao.setText( "");
-        lblTongTien.setText("");
+        txtMaKH.setText("1");
+        lblTenNV.setText(maNV);
+        lblNgayTao.setText( XDate.toString(ngay, "dd-MM-yyyy"));
+        lblTongTien.setText("0.0");
         
     }
 
@@ -225,7 +231,7 @@ public class HoaDonView extends javax.swing.JPanel {
         tblHoaDon9 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
 
-        panelBorder1.setBackground(new java.awt.Color(51, 51, 51));
+        panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setOpaque(false);
@@ -516,7 +522,7 @@ public class HoaDonView extends javax.swing.JPanel {
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(376, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
