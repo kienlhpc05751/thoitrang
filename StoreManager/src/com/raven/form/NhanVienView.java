@@ -115,7 +115,6 @@ public class NhanVienView extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         lblMaNV = new javax.swing.JLabel();
         txtMaNV = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
         lblMaNV1 = new javax.swing.JLabel();
         lblMaNV5 = new javax.swing.JLabel();
         lblMaNV6 = new javax.swing.JLabel();
@@ -415,7 +414,6 @@ public class NhanVienView extends javax.swing.JPanel {
                     .addComponent(jSeparator6)
                     .addComponent(txtTenNV)
                     .addComponent(lblMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator1)
                     .addComponent(txtMaNV)
                     .addComponent(jSeparator2)
                     .addComponent(txtMatKhau)
@@ -435,9 +433,7 @@ public class NhanVienView extends javax.swing.JPanel {
                         .addComponent(lblMaNV)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
+                        .addGap(24, 24, 24)
                         .addComponent(lblMaNV1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTenNV, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -621,7 +617,6 @@ public class NhanVienView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator5;

@@ -38,7 +38,33 @@ abstract public class HoaDonChiTietDao extends StoreDao<HoaDonChiTiet, String> {
         }
     }
 
-    String INSERT_SQL = "INSERT INTO HoadonChitiet Values(?,?,?,?,?,?,?)";
+//    String INSERT_SQL = "INSERT INTO HoadonChitiet Values(?,?,?,?,?,?,?)";
+    String INSERT_SQL1 = "DECLARE @MaHDCT NVARCHAR(10);\n"
+            + "DECLARE @MaHD NVARCHAR(10);\n"
+            + "DECLARE @BienTheSP NVARCHAR(10);\n"
+            + "DECLARE @SoLuong INT;\n"
+            + "DECLARE @GhiChu NVARCHAR(100);\n"
+            + "DECLARE @MaGG NVARCHAR(10);\n"
+            + "DECLARE @ThanhTien FLOAT;\n"
+            + "SET @MaHDCT = ?; \n"
+            + "SET @MaHD = ?; \n"
+            + "SET @BienTheSP = ?;\n"
+            + "SET @SoLuong = ?; \n"
+            + "SET @GhiChu = ?; \n"
+            + "SET @MaGG = ?;\n"
+            + "SET @ThanhTien = ?; \n"
+            + "BEGIN TRANSACTION;\n"
+            + "-- Step 1: Insert new record into hoadonchitiet\n"
+            + "INSERT INTO hoadonchitiet (MaHDCT, MaHD, BienTheSP, SoLuong, GhiChu, MaGG, ThanhTien)\n"
+            + "VALUES (@MaHDCT, @MaHD, @BienTheSP, @SoLuong, @GhiChu, @MaGG, @ThanhTien);\n"
+            + "-- Step 2: Update quantity in sanpham\n"
+            + "UPDATE sanpham\n"
+            + "SET SoLuong = SoLuong - @SoLuong\n"
+            + "WHERE BienTheSP = @BienTheSP;\n"
+            + "UPDATE hoadon--Step3: Update\n"
+            + "SET TongTien = TongTien + @ThanhTien\n"
+            + "WHERE MaHD = @MaHD;"
+            + "COMMIT;";
     String UPDATE_SQL = "UPDATE sanpham SET MaLoai=?, TenSP=?,KichCo=?,MauSac=?,GiaBan=?,SoLuong=? WHERE BienTheSP=?";
     String DELETE_SQL = "DELETE FROM sanpham WHERE BienTheSP=?";
     String SELECT_ALL_SQL = "SELECT * FROM HoaDonChiTiet";
@@ -53,8 +79,8 @@ abstract public class HoaDonChiTietDao extends StoreDao<HoaDonChiTiet, String> {
     @Override
     public void insert(HoaDonChiTiet enity) {
 
-        DBHelper.update(INSERT_SQL, enity.getMaHDCT(), enity.getMaHDn(), enity.getMaBienTheSP(),enity.getSoLuong(), 
-                enity.getGhiChu(),  enity.getMaGG(),enity.getThanhTien());
+        DBHelper.update(INSERT_SQL1, enity.getMaHDCT(), enity.getMaHDn(), enity.getMaBienTheSP(), enity.getSoLuong(),
+                enity.getGhiChu(), enity.getMaGG(), enity.getThanhTien());
     }
 
     @Override

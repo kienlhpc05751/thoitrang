@@ -22,8 +22,9 @@ import java.text.SimpleDateFormat;
 import java.util.AbstractList;
 import java.util.Date;
 
-public class ChiTietHoaDonView extends javax.swing.JDialog {
-
+public class ChiTietHoaDonView extends javax.swing.JDialog{
+ 
+    
     List<GiamGia> listGG = new ArrayList<>();
     GiamGiaDao daoGG = new GiamGiaDao() {
     };
@@ -47,6 +48,8 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         fillCombobox();
 //        fillTableHDCT();
+
+
     }
 // lấy dữ liệu đưa lên form
     public void SetFromSP(Sanpham sp) {
@@ -176,7 +179,10 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
         thanhtien = Double.parseDouble(lblGia.getText()) * index * (1 - (giamgia / 100));
         lblThanhTien.setText(String.valueOf(thanhtien));
     }
-
+   List<HoaDon> listHD = new ArrayList<>();
+   HoaDonDao dao = new HoaDonDao() {
+    };
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -505,6 +511,19 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         insert();
+//        fillTableHDCT(ma);
+          HoaDonView cthd = new HoaDonView();
+//        maHD = txtMaHD.getText();
+
+//        System.out.println(maHD);
+          if(listHD.isEmpty()){
+                        listHD = dao.selectAll();
+
+          }else{
+              System.out.println("lisst roongx");
+          }
+          
+        cthd.fillTable(listHD);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
