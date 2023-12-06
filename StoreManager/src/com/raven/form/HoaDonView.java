@@ -7,6 +7,7 @@ package com.raven.form;
 
 import com.raven.dao.HoaDonChiTietDao;
 import com.raven.dao.HoaDonDao;
+import com.raven.dao.KhachHangDao;
 import com.raven.model.HoaDon;
 import com.raven.model.NhanVien;
 import com.raven.model.Sanpham;
@@ -21,6 +22,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import com.raven.model.HoaDonChiTiet;
+import com.raven.model.KhachHang;
 //import javax.swing.plaf.nimbus.NimbusStyle;
 
 /**
@@ -37,12 +39,16 @@ public class HoaDonView extends javax.swing.JPanel {
     HoaDonChiTietDao daoHDCT = new HoaDonChiTietDao() {
     };
 
+    List<KhachHang> listKH = new ArrayList<>();
+    KhachHangDao daoKH = new KhachHangDao();
+
     double totalAmount = 0.0;  // Variable to keep track of the total amount
     String maHD = null;
 //    ChiTietHoaDon cthd = new ChiTietHoaDon(null, true);
 //    int index = -1; 
     int row = 01;//vị trí của nhân viên đang hiển thị trên form
     String maNV = "NV001";
+    int k = -1;
 
     /**
      * Creates new form Form_1
@@ -56,6 +62,22 @@ public class HoaDonView extends javax.swing.JPanel {
         fillTable(listHD);
     }
 
+    public void filltenKH(int k) {
+
+        listKH = daoKH.selectAll();
+
+        for (KhachHang kh : listKH) {
+            if (k == kh.getMaKH()) {
+
+                lblTenKH.setText(kh.getTenKH());
+
+                return;
+            }
+        }
+
+        lblTenKH.setText("");
+    }
+
     public void fillTable(List<HoaDon> list) {
         String row[] = {"Mã HD", "Mã KH", "Mã NV", " Ngày tạo", "Tổng tiền"};
         DefaultTableModel model = new DefaultTableModel(row, 0);
@@ -67,7 +89,8 @@ public class HoaDonView extends javax.swing.JPanel {
                 hd.getMaKH(),
                 hd.getMaNV(),
                 hd.getNgayTao(),
-                hd.getTongTien(), //                hd.getHinhThucTT(),
+                hd.getTongTien(), //    
+            //                hd.getHinhThucTT(),
             //                hd.isTrangThaiTT(),
             //                hd.getMaNV()
             });
@@ -384,7 +407,7 @@ public class HoaDonView extends javax.swing.JPanel {
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -559,6 +582,14 @@ public class HoaDonView extends javax.swing.JPanel {
     private void txtMaKHKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaKHKeyReleased
 //        maKH = txtMaKH.getText().trim();
 //        setFormKH();
+        try {
+            k = Integer.parseInt(txtMaKH.getText());
+            System.out.println("maKh: " + k);
+            filltenKH(k);
+        } catch (Exception e) {
+            lblTenKH.setText("");
+        }
+
     }//GEN-LAST:event_txtMaKHKeyReleased
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -603,6 +634,17 @@ public class HoaDonView extends javax.swing.JPanel {
         totalAmount = 0.0;
         maHD = txtMaHD.getText();
         fillTableHDCT1(maHD);
+        String ma = (String) tblHoaDon9.getValueAt(row, 1);
+        k = Integer.parseInt(ma);
+//System.out.println(row);
+        try {
+
+            System.out.println("ma" + k);
+            filltenKH(k);
+        } catch (Exception e) {
+//            e.printStackTrace();
+        }
+
 //        tabs.setSelectedIndex(0);
     }//GEN-LAST:event_tblHoaDon9MouseClicked
 

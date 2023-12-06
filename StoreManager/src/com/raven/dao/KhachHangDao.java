@@ -21,7 +21,7 @@ public class KhachHangDao extends StoreDao<KhachHang, Integer> {
         return new KhachHangDao();
     }
     final String SELECT_ALL_SQL = "select * from khachhang";
-    final String SELECT_BY_ID_SQL = "select * from khachhang where MaKH";
+    final String SELECT_BY_ID_SQL = "select * from khachhang where MaKH = ?";
 
     @Override
     public void insert(KhachHang e) {
@@ -59,12 +59,18 @@ public class KhachHangDao extends StoreDao<KhachHang, Integer> {
 
     @Override
     public KhachHang selectById(Integer k) {
-    return null;    
+        return  (KhachHang) selectBySql(SELECT_BY_ID_SQL, k);
+
     }
+    //
+//    public KhachHang getbyid(Integer k){
+//        return  (KhachHang) selectBySql(SELECT_BY_ID_SQL, k);
+//    }
     
       @Override
     public List<KhachHang> selectById1(Integer k) {
-    return null;    
+            return   selectBySql(SELECT_BY_ID_SQL, k);
+  
     }
 
     @Override
