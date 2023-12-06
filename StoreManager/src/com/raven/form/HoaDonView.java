@@ -42,17 +42,13 @@ public class HoaDonView extends javax.swing.JPanel {
     List<KhachHang> listKH = new ArrayList<>();
     KhachHangDao daoKH = new KhachHangDao();
 
+    Date ngay = XDate.now();
     double totalAmount = 0.0;  // Variable to keep track of the total amount
     String maHD = null;
-//    ChiTietHoaDon cthd = new ChiTietHoaDon(null, true);
-//    int index = -1; 
     int row = 01;//vị trí của nhân viên đang hiển thị trên form
     String maNV = "NV001";
     int k = -1;
 
-    /**
-     * Creates new form Form_1
-     */
     public HoaDonView() {
         initComponents();
         Int();
@@ -63,18 +59,13 @@ public class HoaDonView extends javax.swing.JPanel {
     }
 
     public void filltenKH(int k) {
-
         listKH = daoKH.selectAll();
-
         for (KhachHang kh : listKH) {
             if (k == kh.getMaKH()) {
-
                 lblTenKH.setText(kh.getTenKH());
-
                 return;
             }
         }
-
         lblTenKH.setText("");
     }
 
@@ -90,22 +81,16 @@ public class HoaDonView extends javax.swing.JPanel {
                 hd.getMaNV(),
                 hd.getNgayTao(),
                 hd.getTongTien(), //    
-            //                hd.getHinhThucTT(),
-            //                hd.isTrangThaiTT(),
-            //                hd.getMaNV()
             });
         }
         tblHoaDon9.setModel(model);
     }
-
     public void setForm(HoaDon model) {
-
         txtMaHD.setText(model.getMaHD());
         txtMaKH.setText(model.getMaKH());
         lblTenNV.setText(model.getMaNV());
         lblNgayTao.setText(XDate.toString(model.getNgayTao(), "dd-MM-yyyy"));
         lblTongTien.setText(Double.toString(model.getTongTien()));
-
     }
 
     public HoaDon getFormHD() {
@@ -118,7 +103,6 @@ public class HoaDonView extends javax.swing.JPanel {
         hd.setMaNV("NV001");
         hd.setNgayTao(XDate.now());
         hd.setTongTien(Double.valueOf(lblTongTien.getText().trim()));
-
         return hd;
     }
 
@@ -133,9 +117,8 @@ public class HoaDonView extends javax.swing.JPanel {
 //        // Xử lý trường hợp danh sách rỗng
 //        System.out.println("Danh sách rỗng, không thể truy cập phần tử.");
 //    }
-
     }
-
+    
 // tính tổng
     public void fillTableHDCT1(String ma) {
 //        lblMaHD.setText(ma);
@@ -158,10 +141,8 @@ public class HoaDonView extends javax.swing.JPanel {
         }
         lblTongTien.setText(Double.toString(totalAmount));
 //                lblTongTien.setText(Double.toString(totalAmount)+" Đ");
-
         // Print or use the total amount as needed
         System.out.println("Total Amount: " + totalAmount);
-//        tblbanHDCT.setModel(model);
     }
 
 //
@@ -187,7 +168,6 @@ public class HoaDonView extends javax.swing.JPanel {
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(null, "sửa sản phẩm Thất Bại");
-
         }
     }
 
@@ -201,19 +181,15 @@ public class HoaDonView extends javax.swing.JPanel {
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(null, "sửa sản phẩm Thất Bại");
-
         }
     }
-    Date ngay = XDate.now();
 
     public void clearForm() {
-
         txtMaHD.setText("");
         txtMaKH.setText("1");
         lblTenNV.setText(maNV);
         lblNgayTao.setText(XDate.toString(ngay, "dd-MM-yyyy"));
         lblTongTien.setText("0.0");
-
     }
 
     /**
@@ -580,8 +556,6 @@ public class HoaDonView extends javax.swing.JPanel {
     }//GEN-LAST:event_txtMaKHActionPerformed
 
     private void txtMaKHKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaKHKeyReleased
-//        maKH = txtMaKH.getText().trim();
-//        setFormKH();
         try {
             k = Integer.parseInt(txtMaKH.getText());
             System.out.println("maKh: " + k);
@@ -614,38 +588,19 @@ public class HoaDonView extends javax.swing.JPanel {
             }
         });
         cthd.setVisible(true);
-//        ChiTietHoaDonView cthd = new ChiTietHoaDonView(null, f);
-//        maHD = txtMaHD.getText();
-//
-//        System.out.println(maHD);
-//
-//        cthd.fillTableHDCT1(maHD);
-//        cthd.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void tblHoaDon9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDon9MouseClicked
-//        list = dao.getAllSelect();
-//        maHD = list.get(tblHoaDon9.getSelectedRow()).getMaHD();
-//        setForm();
-//        txtMaHD.setText(maHD);
         this.row = tblHoaDon9.getSelectedRow();
         System.out.println(row);
         this.edit(row);
         totalAmount = 0.0;
         maHD = txtMaHD.getText();
         fillTableHDCT1(maHD);
-        String ma = (String) tblHoaDon9.getValueAt(row, 1);
+        String ma = (String) tblHoaDon9.getValueAt(row, 1); // ép một lượt bị lỗi
         k = Integer.parseInt(ma);
-//System.out.println(row);
-        try {
-
-            System.out.println("ma" + k);
-            filltenKH(k);
-        } catch (Exception e) {
-//            e.printStackTrace();
-        }
-
-//        tabs.setSelectedIndex(0);
+        System.out.println("ma" + k);
+        filltenKH(k);
     }//GEN-LAST:event_tblHoaDon9MouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
