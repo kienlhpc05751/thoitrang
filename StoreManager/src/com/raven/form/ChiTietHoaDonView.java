@@ -47,8 +47,6 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         fillCombobox();
         HoaDonView k = new HoaDonView();
-//        k.oke = lblSize.getText();
-//        fillTableHDCT();
 
     }
 
@@ -94,19 +92,15 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 
         if (selectedLoai != null) {
             row = cboMaGG.getSelectedIndex() - 1;
-
 //            if(cboMaGG.getSelectedItem()){
-//                
 //            }
             // Chuyển đổi và đặt giá trị cho thuộc tính maLoai
             hd.setMaGG(selectedLoai.toString());
         } else {
             // Xử lý khi không có mục nào được chọn trong ComboBox
             hd.setMaGG(maGG); // hoặc giá trị mặc định khác tùy vào logic của bạn
-
 //             row = cboMaGG.getSelectedIndex() - 1;
         }
-
         hd.setThanhTien(Double.valueOf(lblThanhTien.getText()));
         return hd;
     }
@@ -187,7 +181,6 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
             });
         }
         tblbanHDCT.setModel(model);
-        
         cboMaGG.setSelectedIndex(3);
     }
 
@@ -551,10 +544,8 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 
     private void spnSLStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnSLStateChanged
         index = (int) spnSL.getValue();
-
         if (index <= 0 || index > soluong) {
             spnSL.setValue(1);
-//            System.out.println(spnSL.setValue(0));
             JOptionPane.showMessageDialog(this, "Số lượng không được nhỏ hơn 0 hoăc lớn hớn soluong đã có");
         } else {
             thanhtien();
@@ -563,18 +554,12 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         insert();
-//        fillTableHDCT(ma);
         HoaDonView cthd = new HoaDonView();
-//        maHD = txtMaHD.getText();
-
-//        System.out.println(maHD);
         if (listHD.isEmpty()) {
             listHD = dao.selectAll();
-
         } else {
             System.out.println("lisst roongx");
         }
-
         cthd.fillTable(listHD);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -592,12 +577,9 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 
     private void cboMaGGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboMaGGActionPerformed
         // TODO add your handling code here:
-
         try {
-
             String magg = (String) cboMaGG.getSelectedItem();
             System.out.println(magg);
-
             if (cboMaGG.getSelectedIndex() == 0) {
                 giamgia = 0;
             } else {
@@ -605,21 +587,17 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
                 giamgia = Double.parseDouble(gg.getTienGG());
                 System.out.println(giamgia);
             }
-            
             thanhtien();
-
             // com
             row = cboMaGG.getSelectedIndex() - 1;
             System.out.println(row);
             chonComboBox(row);
-
         } catch (Exception e) {
         }
 
     }//GEN-LAST:event_cboMaGGActionPerformed
 
     private void tblbanHDCTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblbanHDCTMouseClicked
-        // TODO add your handling code here:
         this.row = tblbanHDCT.getSelectedRow();
         this.edit(row);
     }//GEN-LAST:event_tblbanHDCTMouseClicked
