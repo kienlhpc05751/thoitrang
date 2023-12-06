@@ -43,6 +43,7 @@ public class HoaDonView extends javax.swing.JPanel {
 //    int index = -1; 
     int row = 01;//vị trí của nhân viên đang hiển thị trên form
     String maNV = "NV001";
+
     /**
      * Creates new form Form_1
      */
@@ -181,15 +182,15 @@ public class HoaDonView extends javax.swing.JPanel {
         }
     }
     Date ngay = XDate.now();
-    
-   public void  clearForm(){
-       
+
+    public void clearForm() {
+
         txtMaHD.setText("");
         txtMaKH.setText("1");
         lblTenNV.setText(maNV);
-        lblNgayTao.setText( XDate.toString(ngay, "dd-MM-yyyy"));
+        lblNgayTao.setText(XDate.toString(ngay, "dd-MM-yyyy"));
         lblTongTien.setText("0.0");
-        
+
     }
 
     /**
@@ -569,13 +570,26 @@ public class HoaDonView extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        ChiTietHoaDonView cthd = new ChiTietHoaDonView(null, true);
+        ChiTietHoaDonView cthd = new ChiTietHoaDonView(null, false);
         maHD = txtMaHD.getText();
-
-        System.out.println(maHD);
-
         cthd.fillTableHDCT1(maHD);
+        cthd.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                System.out.println("Window closed successfully");
+//                System.out.println(oke); // Make sure 'oke' is defined and has a value
+                listHD.clear();
+                fillTable(listHD);
+            }
+        });
         cthd.setVisible(true);
+//        ChiTietHoaDonView cthd = new ChiTietHoaDonView(null, f);
+//        maHD = txtMaHD.getText();
+//
+//        System.out.println(maHD);
+//
+//        cthd.fillTableHDCT1(maHD);
+//        cthd.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void tblHoaDon9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDon9MouseClicked

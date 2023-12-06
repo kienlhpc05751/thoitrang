@@ -175,6 +175,7 @@ abstract public class NhanVienDao extends StoreDao<NhanVien, String> {
 //    }
         @Override
         public List<NhanVien> selectById1(String k) {
+//            return  List
             throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         }
 }
