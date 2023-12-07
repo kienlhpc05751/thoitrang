@@ -49,9 +49,6 @@ public class KhachHangView extends javax.swing.JPanel {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         tabs = new javax.swing.JTabbedPane();
-        btnList = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblKhachHang = new javax.swing.JTable();
         pnUpdate = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lblMaNV = new javax.swing.JLabel();
@@ -79,62 +76,12 @@ public class KhachHangView extends javax.swing.JPanel {
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
+        btnList = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblKhachHang = new javax.swing.JTable();
         lblTitle = new javax.swing.JLabel();
 
         jPanel1.setLayout(new java.awt.BorderLayout());
-
-        tblKhachHang.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tblKhachHang.setFont(new java.awt.Font("UTM BryantLG", 1, 14)); // NOI18N
-        tblKhachHang.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Mã KH", "Tên KH", "Email", "SDT", "Địa chỉ"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblKhachHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tblKhachHang.setGridColor(new java.awt.Color(204, 204, 204));
-        tblKhachHang.setRowHeight(30);
-        tblKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblKhachHangMouseClicked(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblKhachHangMouseReleased(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblKhachHang);
-
-        javax.swing.GroupLayout btnListLayout = new javax.swing.GroupLayout(btnList);
-        btnList.setLayout(btnListLayout);
-        btnListLayout.setHorizontalGroup(
-            btnListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnListLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 863, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        btnListLayout.setVerticalGroup(
-            btnListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnListLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(120, Short.MAX_VALUE))
-        );
-
-        tabs.addTab("DANH SÁCH", btnList);
 
         pnUpdate.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -412,6 +359,59 @@ public class KhachHangView extends javax.swing.JPanel {
 
         tabs.addTab("CẬP NHẬT", pnUpdate);
 
+        tblKhachHang.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tblKhachHang.setFont(new java.awt.Font("UTM BryantLG", 1, 14)); // NOI18N
+        tblKhachHang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Mã KH", "Tên KH", "Email", "SDT", "Địa chỉ"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblKhachHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblKhachHang.setGridColor(new java.awt.Color(204, 204, 204));
+        tblKhachHang.setRowHeight(30);
+        tblKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblKhachHangMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblKhachHangMouseReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblKhachHang);
+
+        javax.swing.GroupLayout btnListLayout = new javax.swing.GroupLayout(btnList);
+        btnList.setLayout(btnListLayout);
+        btnListLayout.setHorizontalGroup(
+            btnListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnListLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 863, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btnListLayout.setVerticalGroup(
+            btnListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnListLayout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(120, Short.MAX_VALUE))
+        );
+
+        tabs.addTab("DANH SÁCH", btnList);
+
         jPanel1.add(tabs, java.awt.BorderLayout.CENTER);
 
         lblTitle.setFont(new java.awt.Font("Roboto", 1, 28)); // NOI18N
@@ -482,7 +482,7 @@ public class KhachHangView extends javax.swing.JPanel {
             this.index = tblKhachHang.rowAtPoint(evt.getPoint());
             if (this.index >= 0) {
                 this.edit();
-                tabs.setSelectedIndex(1);
+                tabs.setSelectedIndex(0);
                 
             }
         }

@@ -24,9 +24,14 @@ import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -45,9 +50,8 @@ public class NhanVienView extends javax.swing.JPanel {
 //        NhanVienDao nvDao = new NhanVienDao();
     int index = -1; // vị trí của nhân viên đang hiển thị trên form
     NhanVienDao nvDao = new NhanVienDao() {
-    
+
     };
- 
 
     public NhanVienView() {
         initComponents();
@@ -99,9 +103,6 @@ public class NhanVienView extends javax.swing.JPanel {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        btnList = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblNhanVien = new javax.swing.JTable();
         pnUpdate = new javax.swing.JPanel();
         pnButton = new javax.swing.JPanel();
         btnfirst = new javax.swing.JButton();
@@ -119,7 +120,7 @@ public class NhanVienView extends javax.swing.JPanel {
         lblMaNV5 = new javax.swing.JLabel();
         lblMaNV6 = new javax.swing.JLabel();
         lblMaNV7 = new javax.swing.JLabel();
-        lblMaNV9 = new javax.swing.JLabel();
+        lblngaysinh = new javax.swing.JLabel();
         lblMaNV8 = new javax.swing.JLabel();
         txtTenNV = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
@@ -133,62 +134,12 @@ public class NhanVienView extends javax.swing.JPanel {
         txtSDT = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        btnList = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblNhanVien = new javax.swing.JTable();
         lblTitle = new javax.swing.JLabel();
 
         jPanel1.setLayout(new java.awt.BorderLayout());
-
-        tblNhanVien.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tblNhanVien.setFont(new java.awt.Font("UTM BryantLG", 1, 14)); // NOI18N
-        tblNhanVien.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Mã nhân viên", "Tên nhân viên", "Email", "SDT", "Ngày Sinh", "Chức Vụ", "ảnh"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tblNhanVien.setGridColor(new java.awt.Color(204, 204, 204));
-        tblNhanVien.setRowHeight(30);
-        tblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblNhanVienMouseClicked(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblNhanVienMouseReleased(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblNhanVien);
-
-        javax.swing.GroupLayout btnListLayout = new javax.swing.GroupLayout(btnList);
-        btnList.setLayout(btnListLayout);
-        btnListLayout.setHorizontalGroup(
-            btnListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnListLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 928, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        btnListLayout.setVerticalGroup(
-            btnListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnListLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(95, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("DANH SÁCH", btnList);
 
         pnUpdate.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -337,10 +288,10 @@ public class NhanVienView extends javax.swing.JPanel {
         lblMaNV7.setForeground(new java.awt.Color(27, 51, 61));
         lblMaNV7.setText("Số điện thoại");
 
-        lblMaNV9.setBackground(new java.awt.Color(102, 0, 204));
-        lblMaNV9.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        lblMaNV9.setForeground(new java.awt.Color(27, 51, 61));
-        lblMaNV9.setText("Ngày sinh");
+        lblngaysinh.setBackground(new java.awt.Color(102, 0, 204));
+        lblngaysinh.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblngaysinh.setForeground(new java.awt.Color(27, 51, 61));
+        lblngaysinh.setText("Ngày sinh");
 
         lblMaNV8.setBackground(new java.awt.Color(102, 0, 204));
         lblMaNV8.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -401,7 +352,7 @@ public class NhanVienView extends javax.swing.JPanel {
                             .addComponent(lblHinhAnh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblMaNV9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblngaysinh, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(70, 70, 70)))
@@ -455,7 +406,7 @@ public class NhanVienView extends javax.swing.JPanel {
                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
-                                .addComponent(lblMaNV9)))
+                                .addComponent(lblngaysinh)))
                         .addGap(0, 0, 0)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -496,6 +447,59 @@ public class NhanVienView extends javax.swing.JPanel {
         );
 
         jTabbedPane1.addTab("CẬP NHẬT", pnUpdate);
+
+        tblNhanVien.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tblNhanVien.setFont(new java.awt.Font("UTM BryantLG", 1, 14)); // NOI18N
+        tblNhanVien.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Mã nhân viên", "Tên nhân viên", "Email", "SDT", "Ngày Sinh", "Chức Vụ", "ảnh"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblNhanVien.setGridColor(new java.awt.Color(204, 204, 204));
+        tblNhanVien.setRowHeight(30);
+        tblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblNhanVienMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblNhanVienMouseReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblNhanVien);
+
+        javax.swing.GroupLayout btnListLayout = new javax.swing.GroupLayout(btnList);
+        btnList.setLayout(btnListLayout);
+        btnListLayout.setHorizontalGroup(
+            btnListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnListLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 928, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btnListLayout.setVerticalGroup(
+            btnListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnListLayout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(95, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("DANH SÁCH", btnList);
 
         jPanel1.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
@@ -584,7 +588,13 @@ public class NhanVienView extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSDTActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        clear();
+//        clear();
+
+//        boolean a = cboQuanLy.isFontSet();
+//        if (checkFrom()) {
+//            
+//        }
+
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
@@ -592,7 +602,7 @@ public class NhanVienView extends javax.swing.JPanel {
             this.index = tblNhanVien.rowAtPoint(evt.getPoint());
             if (this.index >= 0) {
                 this.edit();
-                jTabbedPane1.setSelectedIndex(1);
+                jTabbedPane1.setSelectedIndex(0);
 
             }
         }
@@ -629,8 +639,8 @@ public class NhanVienView extends javax.swing.JPanel {
     private javax.swing.JLabel lblMaNV6;
     private javax.swing.JLabel lblMaNV7;
     private javax.swing.JLabel lblMaNV8;
-    private javax.swing.JLabel lblMaNV9;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblngaysinh;
     private javax.swing.JPanel pnButton;
     private javax.swing.JPanel pnUpdate;
     private javax.swing.JTable tblNhanVien;
@@ -688,7 +698,7 @@ public class NhanVienView extends javax.swing.JPanel {
         txtSDT.setText(model.getSDT());
         cboQuanLy.setSelected(model.getVaiTro());
         cboNhanVien.setSelected(!model.getVaiTro());
-        if (model.getHinhAnh()!= null) {
+        if (model.getHinhAnh() != null) {
             lblHinhAnh.setToolTipText(model.getHinhAnh());
             ImageIcon icon = XImage.read(model.getHinhAnh());  // Tạo ImageIcon từ hình
             lblHinhAnh.setIcon(icon);
@@ -701,16 +711,7 @@ public class NhanVienView extends javax.swing.JPanel {
             }
         } else {
             lblHinhAnh.setIcon(null);
-//            lblHinh.
         }
-//        
-//        
-//        if (model.getHinhAnh() != null) {
-//            lblHinhAnh.setToolTipText(model.getHinhAnh());
-//            lblHinhAnh.setIcon(XShareHelper.scaledImage(model.getHinhAnh(), lblHinhAnh));
-//        } else {
-//            lblHinhAnh.setIcon(null);
-//        }
     }
 
     NhanVien getModel() {
@@ -723,7 +724,6 @@ public class NhanVienView extends javax.swing.JPanel {
         model.setSDT(txtSDT.getText());
         model.setVaiTro(cboQuanLy.isSelected());
         model.setHinhAnh(lblHinhAnh.getToolTipText());
-        
         System.out.println(lblHinhAnh.getToolTipText() + " getform");
         return model;
     }
@@ -743,45 +743,46 @@ public class NhanVienView extends javax.swing.JPanel {
     }
 
     void insert() {
-        NhanVien nv = getModel();
-
-        try {
-            nvDao.insert(nv);
-            this.load();
+        if (Auth.isManager()) {
+            NhanVien nv = getModel();
+            try {
+                nvDao.insert(nv);
+                this.load();
 //            this.clear();
-            MsgBox.alert(this, "Them moi thanh cong!");
-        } catch (Exception e) {
-            MsgBox.alert(this, "Them that bai!");
+                MsgBox.alert(this, "Them moi thanh cong!");
+            } catch (Exception e) {
+                MsgBox.alert(this, "Them that bai!");
+            }
         }
-
     }
 
     void update() {
-        NhanVien nv = getModel();
-
-        try {
-            nvDao.update(nv);
-            this.load();
-//            this.clear();
-            MsgBox.alert(this, "Cap nhat thanh cong!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            MsgBox.alert(this, "Cap nhat that bai!");
+        if (!Auth.isManager()) {
+            NhanVien nv = getModel();
+            try {
+                nvDao.update(nv);
+                this.load();
+                MsgBox.alert(this, "Cap nhat thanh cong!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                MsgBox.alert(this, "Cap nhat that bai!");
+            }
         }
-
     }
 
     void delete() {
-        if (MsgBox.confirm(this, "Ban that su muon xoa nhan vien nay khong?")) {
-            String manv = txtMaNV.getText();
-            try {
-                nvDao.delete(manv);
-                this.load();
-                this.clear();
-                MsgBox.alert(this, "Xoa thanh cong!");
-            } catch (Exception e) {
-                e.printStackTrace();
-                MsgBox.alert(this, "Xoa that bai!");
+        if (!Auth.isManager()) {
+            if (MsgBox.confirm(this, "Ban that su muon xoa nhan vien nay khong?")) {
+                String manv = txtMaNV.getText();
+                try {
+                    nvDao.delete(manv);
+                    this.load();
+                    this.clear();
+                    MsgBox.alert(this, "Xoa thanh cong!");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    MsgBox.alert(this, "Xoa that bai!");
+                }
             }
         }
     }
@@ -792,5 +793,144 @@ public class NhanVienView extends javax.swing.JPanel {
         this.index = -1;
     }
 
-      
+    public boolean CheckMa() {
+        List<String> list = new ArrayList<>();
+        List<NhanVien> listNV = new ArrayList<>();
+        for (NhanVien nv : listNV) {
+            if (txtMaNV.getText() == nv.getMaNV()) {
+//                errorMessages.add(" chùng mà")
+                list.add("Mã Sp đã có");
+                txtMaNV.setBackground(Color.blue);
+            } else {
+                txtMaNV.setBackground(null);
+            }
+        }
+        if (!list.isEmpty()) {
+            // Display error messages
+            StringBuilder errorMessage = new StringBuilder("Lỗi:\n");
+            for (String error : list) {
+                errorMessage.append("- ").append(error).append("\n");
+            }
+            MsgBox.alert(this, errorMessage.toString());
+
+            // Return false indicating errors
+            return false;
+        }
+        return true;
     }
+
+    public boolean checkFrom() {
+//          String ma = txtMaNV
+        // List to store error messages
+        List<String> errorMessages = new ArrayList<>();
+
+        // có thể thay đổi
+        if (txtMatKhau.getText().isEmpty()) {
+            errorMessages.add("Vui lòng mật khẩu");
+            txtMatKhau.setBackground(Color.red);
+            txtMatKhau.requestFocus();
+        } else {
+            txtMatKhau.setBackground(null);  // Reset background to white if not empty
+        }
+
+        if (txtMaNV.getText().isEmpty()) {
+            errorMessages.add("Vui lòng nhập mã nhân viên");
+            txtMaNV.setBackground(Color.red);
+            txtMaNV.requestFocus();
+        } else if (txtMaNV.getText().length() > 5) {
+            errorMessages.add("Vui lòng nhập dưới 5 kí tự ");
+            txtMaNV.setBackground(Color.red);
+            txtMaNV.requestFocus();
+        } else {
+            txtMaNV.setBackground(null);  // Reset background to white if not empty
+        }
+
+        if (txtTenNV.getText().isEmpty()) {
+            errorMessages.add("Vui lòng nhập họ tên nhân viên");
+            txtTenNV.setBackground(Color.red);
+            txtTenNV.requestFocus();
+        } else {
+            txtTenNV.setBackground(null);  // Reset background to white if not empty
+        }
+
+        try {
+
+            int SDT = Integer.parseInt(txtSDT.getText());
+            txtSDT.setBackground(null);  // Reset background to white if not empty
+            if (txtSDT.getText().isEmpty()) {
+                errorMessages.add("Vui lòng nhập tên san phẩm");
+                txtSDT.setBackground(Color.red);
+                txtSDT.requestFocus();
+            } else if (SDT > 11) {
+                errorMessages.add("Vui lòng nhập số điện thoại đúng");
+                txtSDT.setBackground(Color.red);
+                txtSDT.requestFocus();
+            } else {
+                txtSDT.setBackground(null);  // Reset background to white if not empty
+            }
+
+        } catch (NumberFormatException e) {
+            // Handle the exception (e.g., display an error message or log it)
+            errorMessages.add("vui long nhập số Điện thoại đúng định dạng");
+            txtSDT.setBackground(Color.red);
+            txtSDT.requestFocus();
+        }
+        if (txtEmail.getText().equalsIgnoreCase("")) {
+            errorMessages.add("vui lòng nhập Email !");
+            txtEmail.requestFocus();
+            txtEmail.setBackground(Color.red);
+        } else {
+            txtEmail.setBackground(Color.white);
+        }
+
+        String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z0-9.-]{2,}$";
+
+        if (!txtEmail.getText().matches(EMAIL_REGEX)) {
+            errorMessages.add("vui long nhập số Điện thoại đúng định dạng");
+            txtEmail.setBackground(Color.red);
+            txtEmail.requestFocus();
+        } else {
+            txtEmail.setBackground(null);
+
+        }
+//          Date date = new Date();
+//        jDateChooser1.setDate(date);
+
+        LocalDate selectedDate = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate currentDate = LocalDate.now();
+        // Tính toán tuổi bằng cách lấy hiệu của năm hiện tại và năm được chọn
+        int age = Period.between(selectedDate, currentDate).getYears();
+        if (!(age >= 18)) {
+            lblngaysinh.setBackground(Color.red);
+            errorMessages.add(" Tuổi không được nhỏ hơn 18");
+            System.out.println("The person is not younger than 18.");
+        } else {
+            lblngaysinh.setBackground(null);
+            System.out.println("The person is younger than 18.");
+        }
+
+        // chest combobox 
+        ButtonModel selectedIndex = buttonGroup1.getSelection();
+        if (selectedIndex == null) {
+            System.out.println("Chưa chọn mục nào trong ComboBox.");
+        } else {
+            System.out.println("Đã chọn mục có index: " + selectedIndex);
+        }
+
+        if (!errorMessages.isEmpty()) {
+            // Display error messages
+            StringBuilder errorMessage = new StringBuilder("Lỗi:\n");
+            for (String error : errorMessages) {
+                errorMessage.append("- ").append(error).append("\n");
+            }
+            MsgBox.alert(this, errorMessage.toString());
+
+            // Return false indicating errors
+            return false;
+        }
+
+        // Return true if no errors
+        return true;
+    }
+
+}
