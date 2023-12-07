@@ -134,6 +134,7 @@ public class NhanVienView extends javax.swing.JPanel {
         txtSDT = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jSeparator7 = new javax.swing.JSeparator();
         btnList = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNhanVien = new javax.swing.JTable();
@@ -299,6 +300,11 @@ public class NhanVienView extends javax.swing.JPanel {
         lblMaNV8.setText("Chức vụ");
 
         txtTenNV.setBorder(null);
+        txtTenNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTenNVActionPerformed(evt);
+            }
+        });
 
         txtMatKhau.setBorder(null);
 
@@ -372,7 +378,8 @@ public class NhanVienView extends javax.swing.JPanel {
                         .addComponent(lblMaNV5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(275, 275, 275))
                     .addComponent(lblMaNV7, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSDT))
+                    .addComponent(txtSDT)
+                    .addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(36, 36, 36))
         );
         jPanel2Layout.setVerticalGroup(
@@ -384,7 +391,9 @@ public class NhanVienView extends javax.swing.JPanel {
                         .addComponent(lblMaNV)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
+                        .addGap(1, 1, 1)
+                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblMaNV1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTenNV, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -545,7 +554,11 @@ public class NhanVienView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        insert();
+//        if (CheckMa()) {
+            insert();
+//        }else{
+//            System.out.println("kiên nè");
+//        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
@@ -609,6 +622,10 @@ public class NhanVienView extends javax.swing.JPanel {
 
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
+    private void txtTenNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenNVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTenNVActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLamMoi;
@@ -631,6 +648,7 @@ public class NhanVienView extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblHinhAnh;
     private javax.swing.JLabel lblMaNV;
@@ -753,11 +771,14 @@ public class NhanVienView extends javax.swing.JPanel {
             } catch (Exception e) {
                 MsgBox.alert(this, "Them that bai!");
             }
+        } else {
+            MsgBox.alert(this, "Bạn không có quyền thêm nhân viên");
         }
+
     }
 
     void update() {
-        if (!Auth.isManager()) {
+        if (Auth.isManager()) {
             NhanVien nv = getModel();
             try {
                 nvDao.update(nv);
@@ -767,11 +788,13 @@ public class NhanVienView extends javax.swing.JPanel {
                 e.printStackTrace();
                 MsgBox.alert(this, "Cap nhat that bai!");
             }
+        } else {
+            MsgBox.alert(this, "Bạn không có quyền thay đổi nhân viên");
         }
     }
 
     void delete() {
-        if (!Auth.isManager()) {
+        if (Auth.isManager()) {
             if (MsgBox.confirm(this, "Ban that su muon xoa nhan vien nay khong?")) {
                 String manv = txtMaNV.getText();
                 try {
@@ -784,6 +807,8 @@ public class NhanVienView extends javax.swing.JPanel {
                     MsgBox.alert(this, "Xoa that bai!");
                 }
             }
+        } else {
+            MsgBox.alert(this, "Bạn không có quyền xóa nhân viên");
         }
     }
 
@@ -795,10 +820,9 @@ public class NhanVienView extends javax.swing.JPanel {
 
     public boolean CheckMa() {
         List<String> list = new ArrayList<>();
-        List<NhanVien> listNV = new ArrayList<>();
+        List<NhanVien> listNV = nvDao.selectAll();
         for (NhanVien nv : listNV) {
             if (txtMaNV.getText() == nv.getMaNV()) {
-//                errorMessages.add(" chùng mà")
                 list.add("Mã Sp đã có");
                 txtMaNV.setBackground(Color.blue);
             } else {
@@ -806,14 +830,11 @@ public class NhanVienView extends javax.swing.JPanel {
             }
         }
         if (!list.isEmpty()) {
-            // Display error messages
             StringBuilder errorMessage = new StringBuilder("Lỗi:\n");
             for (String error : list) {
                 errorMessage.append("- ").append(error).append("\n");
             }
             MsgBox.alert(this, errorMessage.toString());
-
-            // Return false indicating errors
             return false;
         }
         return true;
@@ -883,7 +904,7 @@ public class NhanVienView extends javax.swing.JPanel {
             txtEmail.setBackground(Color.white);
         }
 
-        String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z0-9.-]{2,}$";
+        String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z0-9.-]{1,3}$";
 
         if (!txtEmail.getText().matches(EMAIL_REGEX)) {
             errorMessages.add("vui long nhập số Điện thoại đúng định dạng");

@@ -135,6 +135,7 @@ abstract public class NhanVienDao extends StoreDao<NhanVien, String> {
     }
 
 //    @Override
+    @Override
     public List<NhanVien> selectAll() {
         List<NhanVien> list = new ArrayList<>();
         return list = selectBySql(SELECT_ALL_SQL);

@@ -1,9 +1,11 @@
 package com.raven.form;
 
+import com.raven.dao.ThongKeDao;
 import com.raven.model.Model_Card;
 import com.raven.model.StatusType;
 import com.raven.swing.ScrollBar;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -12,7 +14,24 @@ public class Form_Home extends javax.swing.JPanel {
 
     public Form_Home() {
         initComponents();
-        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "Stock Total", "$200000", "Increased by 60%"));
+        ThongKeDao dao = new ThongKeDao();
+        String soLuong = "";
+        String tongtienString = "";
+
+        List<Object[]> list = dao.daban();
+//
+        for (Object[] db : list) {
+            // Giả sử vị trí 0 là soLuong và vị trí 1 là tongtienString
+            soLuong = String.valueOf(db[0]);
+            tongtienString = String.valueOf(db[1]);
+          
+
+            // Sử dụng soLuong và tongtienString theo nhu cầu
+//            System.out.println("So Luong: " + soLuong);
+//            System.out.println("Tong Tien String: " + tongtienString);
+        }
+
+        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "Stock Total", tongtienString, "Increased by %"));
         card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
         card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
         //  add row table
@@ -21,7 +40,7 @@ public class Form_Home extends javax.swing.JPanel {
         spTable.getViewport().setBackground(Color.WHITE);
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
-        
+
         // table
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
         table.addRow(new Object[]{"kkkkkkk", "mikebhand@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});

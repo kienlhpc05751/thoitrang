@@ -5,29 +5,18 @@
  */
 package com.raven.form;
 
-//import com.raven.dao.NhanVienDao;
-import com.raven.dao.KhachHangDao;
+
 import com.raven.dao.LoaiSpDAO;
 import com.raven.dao.SanPhamDao;
-import com.raven.utils.XDialogHelper;
-import com.raven.utils.XShareHelper;
-import com.raven.utils.Validator;
-import com.raven.main.Main;
-import com.raven.model.KhachHang;
 import com.raven.model.LoaiSanPham;
 import com.raven.model.Sanpham;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import com.raven.utils.MsgBox;
-import com.raven.utils.XDate;
-import com.raven.utils.XImage;
 import java.awt.Color;
-import java.lang.constant.DirectMethodHandleDesc;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-//import com.raven.dao.
-//import com.raven.dao.
+
 
 /**
  *
