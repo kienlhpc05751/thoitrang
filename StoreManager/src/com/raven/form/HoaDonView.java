@@ -85,6 +85,7 @@ public class HoaDonView extends javax.swing.JPanel {
         }
         tblHoaDon9.setModel(model);
     }
+
     public void setForm(HoaDon model) {
         txtMaHD.setText(model.getMaHD());
         txtMaKH.setText(model.getMaKH());
@@ -118,7 +119,7 @@ public class HoaDonView extends javax.swing.JPanel {
 //        System.out.println("Danh sách rỗng, không thể truy cập phần tử.");
 //    }
     }
-    
+
 // tính tổng
     public void fillTableHDCT1(String ma) {
 //        lblMaHD.setText(ma);
@@ -583,6 +584,7 @@ public class HoaDonView extends javax.swing.JPanel {
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                 System.out.println("Window closed successfully");
 //                System.out.println(oke); // Make sure 'oke' is defined and has a value
+                clearForm();
                 listHD.clear();
                 fillTable(listHD);
             }
