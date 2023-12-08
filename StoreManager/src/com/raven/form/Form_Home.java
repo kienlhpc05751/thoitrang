@@ -17,9 +17,8 @@ public class Form_Home extends javax.swing.JPanel {
         ThongKeDao dao = new ThongKeDao();
         String soLuong = "";
         String tongtienString = "";
-
+        
         List<Object[]> list = dao.daban();
-//
         for (Object[] db : list) {
             // Giả sử vị trí 0 là soLuong và vị trí 1 là tongtienString
             soLuong = String.valueOf(db[0]);
@@ -31,7 +30,7 @@ public class Form_Home extends javax.swing.JPanel {
 //            System.out.println("Tong Tien String: " + tongtienString);
         }
 
-        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "Stock Total", tongtienString, "Increased by %"));
+        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "Số lượng sản phẩm", tongtienString, "Increased by %"));
         card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
         card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
         //  add row table
