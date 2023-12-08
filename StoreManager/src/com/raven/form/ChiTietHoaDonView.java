@@ -47,6 +47,7 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         fillCombobox();
         HoaDonView k = new HoaDonView();
+//        spnSL.setValue(1);
 
     }
 
@@ -148,7 +149,7 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 //        return dummyData;
 //    }
 // 
-    int soluong;
+    int soluong = 1;
 
     public void timkiem1(String ma) {
         try {
@@ -544,11 +545,13 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 
     private void spnSLStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnSLStateChanged
         index = (int) spnSL.getValue();
-        if (index <= 0 || index > soluong) {
+//        || index > soluong
+        if (index < 0) {
             spnSL.setValue(1);
             JOptionPane.showMessageDialog(this, "Số lượng không được nhỏ hơn 0 hoăc lớn hớn soluong đã có");
         } else {
             thanhtien();
+            System.out.println(" index: "+index);
         }
     }//GEN-LAST:event_spnSLStateChanged
 

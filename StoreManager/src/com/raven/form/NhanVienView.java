@@ -604,9 +604,9 @@ public class NhanVienView extends javax.swing.JPanel {
 //        clear();
 
 //        boolean a = cboQuanLy.isFontSet();
-//        if (checkFrom()) {
-//            
-//        }
+        if (!checkFrom()) {
+            insert();
+        }
 
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
