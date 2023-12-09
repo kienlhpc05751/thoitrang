@@ -139,17 +139,17 @@ public class ForgotPassword extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-//    private void resetPass(){
-//        try{
-//            FogotPasswordDAO fgpass=new FogotPasswordDAO();
-//            fgpass.update(txtEmail.getText());
-//            fgpass.sendmail(txtEmail.getText());
-//            System.out.println("The E-mail há been sent successfully!");
-//            MsgBox.alert(this,"Email has been sent, Please check!");
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
-//    }
+    private void resetPass(){
+        try{
+            FogotPasswordDAO fgpass=new FogotPasswordDAO();
+            fgpass.update(txtEmail.getText());
+            fgpass.sendMail(txtEmail.getText());
+            System.out.println("The E-mail há been sent successfully!");
+            MsgBox.alert(this,"Email has been sent, Please check!");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
                 Login LoginFrame = new Login();
                 LoginFrame.setVisible(true);
@@ -159,7 +159,7 @@ public class ForgotPassword extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        resetPass();
+        resetPass();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 //    /**
