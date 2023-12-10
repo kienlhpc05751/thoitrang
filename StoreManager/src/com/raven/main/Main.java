@@ -51,7 +51,7 @@ public class Main extends javax.swing.JFrame {
 //            // Tắt chế độ fullscreen
 //            gd.setFullScreenWindow(null);
 //        });
-        
+
         setIconImage(XImage.getAppicon());
         setBackground(new Color(0, 0, 0, 0));
         home = new Form_Home();
