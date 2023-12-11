@@ -24,18 +24,53 @@ public class ThongKeDao {
             throw new RuntimeException(e);
         }
     }
-    
-    
-    
-    public List<Object[]> daban(){
-           String sql = "SELECT SUM(hct.SoLuong) AS SoLuongDaBan, SUM(hct.thanhTien) as tong FROM hoadonchitiet hct";
-           String[] cols ={"SoLuongDaBan","tong"};
-           return  this.getListOfArray(sql, cols);
+
+    public List<Object[]> theoNgay() {
+        String sql = "SELECT h.NgayTao AS NgayBan,SUM(hdt.SoLuong) AS TongSoLuongBan,SUM(h.TongTien) AS TongTienBanHang\n"
+                + "FROM hoadon h JOIN hoadonchitiet hdt ON h.MaHD = hdt.MaHD\n"
+                + "WHERE CONVERT(date, h.NgayTao) = CONVERT(date, GETDATE())\n"
+                + "GROUP BY h.NgayTao;";
+        String[] cols = {"NgayBan", "TongSoLuongBan", "TongTienBanHang"};
+        return this.getListOfArray(sql, cols);
+    }
+
+    public List<Object[]> theoThang() {
+//        String sql = "SELECT h.NgayTao AS NgayBan,SUM(hdt.SoLuong) AS TongSoLuongBan,SUM(h.TongTien) AS TongTienBanHang\n"
+//                + "FROM hoadon h JOIN hoadonchitiet hdt ON h.MaHD = hdt.MaHD\n"
+//                + "WHERE CONVERT(date, h.NgayTao) = CONVERT(date, GETDATE())\n"
+//                + "GROUP BY h.NgayTao;";
+
+        String sql = "SELECT MONTH(h.NgayTao) AS ThangBan, SUM(hdt.SoLuong) AS TongSoLuongBan, SUM(h.TongTien) AS TongTienBanHang\n"
+                + "FROM hoadon h JOIN hoadonchitiet hdt ON h.MaHD = hdt.MaHD\n"
+                + "WHERE YEAR(h.NgayTao) = YEAR(GETDATE()) AND MONTH(h.NgayTao) = MONTH(GETDATE())\n"
+                + "GROUP BY MONTH(h.NgayTao);";
+        String[] cols = {"ThangBan", "TongSoLuongBan", "TongTienBanHang"};
+        return this.getListOfArray(sql, cols);
+    }
+
+    public List<Object[]> theoNam() {
+//        String sql = "SELECT h.NgayTao AS NgayBan,SUM(hdt.SoLuong) AS TongSoLuongBan,SUM(h.TongTien) AS TongTienBanHang\n"
+//                + "FROM hoadon h JOIN hoadonchitiet hdt ON h.MaHD = hdt.MaHD\n"
+//                + "WHERE CONVERT(date, h.NgayTao) = CONVERT(date, GETDATE())\n"
+//                + "GROUP BY h.NgayTao;";
+
+        String sql = "SELECT YEAR(h.NgayTao) AS NamBan, SUM(hdt.SoLuong) AS TongSoLuongBan, SUM(h.TongTien) AS TongTienBanHang\n"
+                + "FROM hoadon h JOIN hoadonchitiet hdt ON h.MaHD = hdt.MaHD\n"
+                + "WHERE YEAR(h.NgayTao) = YEAR(GETDATE())\n"
+                + "GROUP BY YEAR(h.NgayTao);";
+        String[] cols = {"NamBan", "TongSoLuongBan", "TongTienBanHang"};
+        return this.getListOfArray(sql, cols);
+    }
+
+    public List<Object[]> daban() {
+        String sql = "SELECT SUM(hct.SoLuong) AS SoLuongDaBan, SUM(hct.thanhTien) as tong FROM hoadonchitiet hct";
+        String[] cols = {"SoLuongDaBan", "tong"};
+        return this.getListOfArray(sql, cols);
     }
 
     public List<Object[]> gettopsp(Integer top) {
         String sql = "EXEC TopSellingProducts @TopN = ?;";
-        String[] cols = {"bienthesp","tenSP", "TotalQuantitySold"};
+        String[] cols = {"bienthesp", "tenSP", "TotalQuantitySold"};
         return this.getListOfArray(sql, cols, top);
     }
 

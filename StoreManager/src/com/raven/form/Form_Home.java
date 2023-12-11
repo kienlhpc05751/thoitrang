@@ -4,7 +4,9 @@ import com.raven.dao.ThongKeDao;
 import com.raven.model.Model_Card;
 import com.raven.model.StatusType;
 import com.raven.swing.ScrollBar;
+import com.raven.utils.XDate;
 import java.awt.Color;
+import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -15,24 +17,43 @@ public class Form_Home extends javax.swing.JPanel {
     public Form_Home() {
         initComponents();
         ThongKeDao dao = new ThongKeDao();
+        // đã bán
+        Date ngay;
         String soLuong = "";
         String tongtienString = "";
-        
-        List<Object[]> list = dao.daban();
-        for (Object[] db : list) {
-            // Giả sử vị trí 0 là soLuong và vị trí 1 là tongtienString
-            soLuong = String.valueOf(db[0]);
-            tongtienString = String.valueOf(db[1]);
-          
+//        List<Object[]> list = dao.daban();
+//        for (Object[] db : list) {
+//            // Giả sử vị trí 0 là soLuong và vị trí 1 là tongtienString
+//            soLuong = String.valueOf(db[0]);
+//            tongtienString = String.valueOf(db[1]);
+//        }
 
-            // Sử dụng soLuong và tongtienString theo nhu cầu
-//            System.out.println("So Luong: " + soLuong);
-//            System.out.println("Tong Tien String: " + tongtienString);
+        List<Object[]> list1 = dao.theoNgay();
+        for (Object[] db : list1) {
+            Date n = XDate.now();
+            String nn = XDate.toString(n, "dd-MM-yyyy");
+
+            soLuong = String.valueOf(db[1]);
+            tongtienString = String.valueOf(db[2]);
+            card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "Số lượng sản "+nn, tongtienString, "Số lượng SP" + soLuong + " d/c"));
         }
 
-        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "Số lượng sản phẩm", tongtienString, "Increased by %"));
-        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
-        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
+        List<Object[]> list2 = dao.theoThang();
+        for (Object[] db : list2) {
+            soLuong = String.valueOf(db[1]);
+            tongtienString = String.valueOf(db[2]);
+            card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "Số lượng sản phẩm", tongtienString, "Số lượng SP" + soLuong + " d/c"));
+        }
+
+        List<Object[]> list3 = dao.theoNam();
+        for (Object[] db : list3) {
+            soLuong = String.valueOf(db[1]);
+            tongtienString = String.valueOf(db[2]);
+            card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "Số lượng sản phẩm", tongtienString, "Số lượng SP" + soLuong + " d/c"));
+        }
+
+//        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
+//        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
         //  add row table
         spTable.setVerticalScrollBar(new ScrollBar());
         spTable.getVerticalScrollBar().setBackground(Color.WHITE);
@@ -70,6 +91,7 @@ public class Form_Home extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         spTable = new javax.swing.JScrollPane();
         table = new com.raven.swing.Table();
+        card4 = new com.raven.component.Card();
 
         setBackground(new java.awt.Color(250, 234, 221));
 
@@ -113,6 +135,8 @@ public class Form_Home extends javax.swing.JPanel {
         });
         spTable.setViewportView(table);
 
+        card4.setColor2(new java.awt.Color(211, 184, 61));
+
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
         panelBorder1Layout.setHorizontalGroup(
@@ -121,7 +145,10 @@ public class Form_Home extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
+                        .addComponent(card4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
@@ -129,9 +156,15 @@ public class Form_Home extends javax.swing.JPanel {
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                        .addGap(20, 20, 20))
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(card4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -161,6 +194,7 @@ public class Form_Home extends javax.swing.JPanel {
     private com.raven.component.Card card1;
     private com.raven.component.Card card2;
     private com.raven.component.Card card3;
+    private com.raven.component.Card card4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane panel;
     private com.raven.swing.PanelBorder panelBorder1;

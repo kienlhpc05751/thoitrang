@@ -58,6 +58,31 @@ public class HoaDonView extends javax.swing.JPanel {
         fillTable(listHD);
     }
 
+    // hàm tự tăng mã hóa đơn
+    public void TuTang() {
+        String lastInvoiceNumber = null;
+        String nextInvoice = null;
+        // Lấy mã hóa đơn cuối cùng từ cơ sở dữ liệu
+        List<HoaDon> list = dao.selectById1();
+        for (HoaDon hoaDon : list) {
+            lastInvoiceNumber = hoaDon.getMaHD();
+        }
+        if (lastInvoiceNumber != null && lastInvoiceNumber.matches("HD\\d+")) {
+            // Lấy số từ chuỗi mã hóa đơn hiện tại
+            int currentNumber = Integer.parseInt(lastInvoiceNumber.substring(2));
+            // Tăng giá trị mã hóa đơn
+            int newNumber = currentNumber + 1;
+            // Tạo chuỗi mã hóa đơn mới
+            nextInvoice = "HD" + newNumber;
+            maHD = nextInvoice;
+//            MsgBox.alert(jPanel1, "đây là mã hóa đơn mới" + maHD);
+//            MsgBox.alert(jPanel1, "Đã tạo mã hóa đơn mới: " + nextInvoice);
+            txtMaHD.setText(maHD);
+        } else {
+            MsgBox.alert(jPanel1, "Mã hóa đơn không hợp lệ");
+        }
+    }
+
     public void filltenKH(int k) {
         listKH = daoKH.selectAll();
         for (KhachHang kh : listKH) {
@@ -233,9 +258,11 @@ public class HoaDonView extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
+        panelBorder1.setPreferredSize(new java.awt.Dimension(950, 580));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setOpaque(false);
+        jPanel1.setPreferredSize(new java.awt.Dimension(950, 580));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -362,7 +389,7 @@ public class HoaDonView extends javax.swing.JPanel {
                                 .addComponent(jLabel13)
                                 .addGap(31, 31, 31)
                                 .addComponent(lblTenKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(42, 42, 42)
+                        .addGap(39, 39, 39)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -433,6 +460,17 @@ public class HoaDonView extends javax.swing.JPanel {
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
 
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 921, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 360, Short.MAX_VALUE)
+        );
+
         tblHoaDon9.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -451,22 +489,6 @@ public class HoaDonView extends javax.swing.JPanel {
         });
         jScrollPane10.setViewportView(tblHoaDon9);
 
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 915, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(153, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
@@ -475,11 +497,15 @@ public class HoaDonView extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
                 .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -501,7 +527,7 @@ public class HoaDonView extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 918, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -521,24 +547,22 @@ public class HoaDonView extends javax.swing.JPanel {
         panelBorder1Layout.setHorizontalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 27, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 950, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -568,7 +592,11 @@ public class HoaDonView extends javax.swing.JPanel {
     }//GEN-LAST:event_txtMaKHKeyReleased
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        insertHD();
+        clearForm();
+        TuTang();
+        if (MsgBox.confirm(null, "bạn thêm muốn thêm Hóa đơn " + maHD)) {
+            insertHD();
+        }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed

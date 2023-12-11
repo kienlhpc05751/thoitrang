@@ -140,6 +140,8 @@ public class NhanVienView extends javax.swing.JPanel {
         tblNhanVien = new javax.swing.JTable();
         lblTitle = new javax.swing.JLabel();
 
+        setPreferredSize(new java.awt.Dimension(950, 580));
+
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         pnUpdate.setBackground(new java.awt.Color(255, 255, 255));

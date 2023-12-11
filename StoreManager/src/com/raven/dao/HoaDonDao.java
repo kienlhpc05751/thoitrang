@@ -3,6 +3,7 @@ package com.raven.dao;
 import com.microsoft.sqlserver.jdbc.SQLServerXAResource;
 import com.raven.db.DBHelper;
 import com.raven.model.HoaDon;
+import com.raven.model.KhachHang;
 import com.raven.model.Sanpham;
 import com.raven.utils.XDate;
 //import com.raven.model.Sanpham;
@@ -13,6 +14,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
+
+    String sql1 = "SELECT top 1 maHD FROM hoadon ORDER BY maHD DESC";
+
+    protected List<HoaDon> selectBySql1(String sqll) {
+        List<HoaDon> list;
+        list = new ArrayList<>();
+
+        try {
+            ResultSet rs = DBHelper.query(sqll);
+            while (rs.next()) {
+                HoaDon model = new HoaDon();
+                model.setMaHD(rs.getString("maHD"));
+                list.add(model);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+       
+    }
 
     @Override
     protected List<HoaDon> selectBySql(String sql, Object... args) {
@@ -106,6 +127,11 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
     @Override
     public HoaDon selectByName(String k) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public List<HoaDon> selectById1() {
+       return this.selectBySql1(sql1);
+        
     }
 
 }
