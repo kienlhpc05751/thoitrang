@@ -50,8 +50,7 @@ public class NhanVienView extends javax.swing.JPanel {
 //        NhanVienDao nvDao = new NhanVienDao();
     int index = -1; // vị trí của nhân viên đang hiển thị trên form
     NhanVienDao nvDao = new NhanVienDao() {
-
-    };
+    } ;
 
     public NhanVienView() {
         initComponents();
@@ -738,7 +737,8 @@ public class NhanVienView extends javax.swing.JPanel {
         NhanVien model = new NhanVien();
         model.setMaNV(txtMaNV.getText());
         model.setTenNV(txtTenNV.getText());
-        model.setMatKhau(new String(txtMatKhau.getPassword()));
+//        model.setMatKhau(new String(txtMatKhau.getPassword()));
+        model.setMatKhau(nvDao.hashPassword(txtMatKhau.getText()));
         model.setNgaySinh(jDateChooser1.getDate());
         model.setEmail(txtEmail.getText());
         model.setSDT(txtSDT.getText());

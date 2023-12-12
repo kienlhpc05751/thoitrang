@@ -3,17 +3,35 @@ package com.raven.dao;
 import com.raven.db.DBHelper;
 import com.raven.model.NhanVien;
 import java.awt.Font;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 abstract public class NhanVienDao extends StoreDao<NhanVien, String> {
+    
+    
+     public  String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = md.digest(password.getBytes());
+            return Base64.getEncoder().encodeToString(hashBytes);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
+    
+    
+    
     String SELECT_ALL_SQL = "SELECT * FROM Nhanvien";
     public static String SELECT_BY_ID_SQL = "SELECT * FROM nhanvien WHERE MaNV=?";
 

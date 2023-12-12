@@ -58,19 +58,15 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
             if (!list.isEmpty()) {
                 Object[] maxValues = list.get(0);
                 int maxValue = (int) maxValues[0];
-
                 // Kiểm tra giá trị tối đa để quyết định liệu có thể tăng thêm hay không
                 if (maxValue < 9999999) {
                     // Tăng giá trị và tạo mã hóa đơn mới
                     int newNumber = maxValue + 1;
                     String nextInvoice = "HDC" + newNumber;
-
                     // In ra để kiểm tra giá trị mới
                     MsgBox.alert(null, "Next Invoice: " + nextInvoice);
-
                     // Gán giá trị mới vào trường hiển thị hoặc bảng điều khiển của bạn
                     txtMaHDCT.setText(nextInvoice);
-
                     // Nếu muốn lưu giá trị mới vào cơ sở dữ liệu, thêm logic ở đây
                     // Ví dụ: dao.insertNewInvoice(nextInvoice);
                 } else {
