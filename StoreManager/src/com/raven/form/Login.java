@@ -38,7 +38,6 @@ public class Login extends javax.swing.JFrame {
             String manv = txtUserName.getText();
 //            String matKhau = new String(txtPassword.getPassword());
             String matKhau = new String(nvdao.hashPassword(txtPassword.getText()));
-
             NhanVien nhanVien = nvdao.selectById(manv);
             if (nhanVien == null) {
                 txtUserName.requestFocus();

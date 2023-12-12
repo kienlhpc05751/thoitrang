@@ -5,7 +5,19 @@
 package com.raven.form;
 
 import com.raven.dao.FogotPasswordDAO;
+import static com.raven.model.ForgotPassword.generateOTP;
+import static com.raven.model.ForgotPassword.sendOTPEmail;
 import com.raven.utils.MsgBox;
+import java.util.Properties;
+import java.util.Random;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -19,7 +31,69 @@ public class ForgotPassword extends javax.swing.JFrame {
     public ForgotPassword() {
         initComponents();
         setLocationRelativeTo(this);
+//        String userEmail = "kienlhpc05751@fpt.edu.vn";
+//        String generatedOTP = generateOTP();
+
+        // Gửi mã OTP qua email
+//        sendOTPEmail(userEmail, generatedOTP);
     }
+
+    private static final String SENDER_EMAIL = "strklighting@gmail.com";
+//          private static final String SENDER_EMAIL = "";
+
+    private static final String SENDER_PASSWORD = "hphq tkbz atwm ffxj";
+
+
+    public static void sendOTPEmail(String toEmail, String otp) {
+        String subject = "Password Reset OTP";
+        String message = "Your OTP for password reset is: " + otp;
+
+        Properties properties = System.getProperties();
+        properties.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+        properties.put("mail.smtp.ssl.trust", "*");
+        properties.setProperty("mail.smtp.host", "smtp.gmail.com");
+        properties.setProperty("mail.smtp.port", "587");
+        properties.setProperty("mail.smtp.auth", "true");
+//                properties.setProperty("mail.smtp.Oauth", "true");
+
+        properties.setProperty("mail.smtp.starttls.enable", "true");
+
+        Session session = Session.getDefaultInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(SENDER_EMAIL, SENDER_PASSWORD);
+            }
+        });
+
+        try {
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.setFrom(new InternetAddress(SENDER_EMAIL));
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+            mimeMessage.setSubject(subject);
+            mimeMessage.setText(message);
+
+            Transport.send(mimeMessage);
+            System.out.println("OTP sent successfully to " + toEmail);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+        public static String OTP = "";
+    public static String generateOTP() {
+        int otpLength = 6;
+        Random random = new Random();
+        StringBuilder otp = new StringBuilder(otpLength);
+        for (int i = 0; i < otpLength; i++) {
+            otp.append(random.nextInt(10));
+        }
+        System.out.println(otp);
+        OTP = otp.toString();
+        System.out.println(" OTP: "+OTP);
+        return otp.toString();
+    }
+    
+//    otp.
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -151,15 +225,21 @@ public class ForgotPassword extends javax.swing.JFrame {
 //        }
 //    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-                Login LoginFrame = new Login();
-                LoginFrame.setVisible(true);
-                LoginFrame.pack();
-                LoginFrame.setLocationRelativeTo(null);
-                this.dispose();
+        Login LoginFrame = new Login();
+        LoginFrame.setVisible(true);
+        LoginFrame.pack();
+        LoginFrame.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 //        resetPass();
+//        String userEmail = "kienlhpc05751@fpt.edu.vn";
+        String userEmail = txtEmail.getText();
+        String generatedOTP = generateOTP();
+        // Gửi mã OTP qua email
+        sendOTPEmail(userEmail, generatedOTP);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
 //    /**
