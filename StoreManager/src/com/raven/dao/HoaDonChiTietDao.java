@@ -22,6 +22,30 @@ import java.util.concurrent.locks.StampedLock;
  */
 abstract public class HoaDonChiTietDao extends StoreDao<HoaDonChiTiet, String> {
 
+    public List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
+        try {
+            List<Object[]> list = new ArrayList<>();
+            ResultSet rs = DBHelper.query(sql, args);
+            while (rs.next()) {
+                Object[] vals = new Object[cols.length];
+                for (int i = 0; i < cols.length; i++) {
+                    vals[i] = rs.getObject(cols[i]);
+                }
+                list.add(vals);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Object[]> max() {
+        String sql2 = "SELECT MAX(CAST(SUBSTRING(MaHDCT, 4, LEN(MaHDCT) - 2) AS INT)) AS MaxValue FROM hoadonchitiet;";
+        String[] cols = {"MaxValue"};
+        return this.getListOfArray(sql2, cols);
+    }
+
     @Override
     protected List<HoaDonChiTiet> selectBySql(String sql, Object... args) {
         List<HoaDonChiTiet> list = new ArrayList<>();

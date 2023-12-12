@@ -51,6 +51,39 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 
     }
 
+    // hàm tự tăng mã hóa đơn
+    public void TuTang() {
+        try {
+            List<Object[]> list = daoHDCT.max();
+            if (!list.isEmpty()) {
+                Object[] maxValues = list.get(0);
+                int maxValue = (int) maxValues[0];
+
+                // Kiểm tra giá trị tối đa để quyết định liệu có thể tăng thêm hay không
+                if (maxValue < 9999999) {
+                    // Tăng giá trị và tạo mã hóa đơn mới
+                    int newNumber = maxValue + 1;
+                    String nextInvoice = "HDC" + newNumber;
+
+                    // In ra để kiểm tra giá trị mới
+                    MsgBox.alert(null, "Next Invoice: " + nextInvoice);
+
+                    // Gán giá trị mới vào trường hiển thị hoặc bảng điều khiển của bạn
+                    txtMaHDCT.setText(nextInvoice);
+
+                    // Nếu muốn lưu giá trị mới vào cơ sở dữ liệu, thêm logic ở đây
+                    // Ví dụ: dao.insertNewInvoice(nextInvoice);
+                } else {
+                    System.out.println("Đã đạt đến giá trị tối đa, không thể tăng thêm.");
+                }
+            } else {
+                System.out.println("Không có giá trị max nào được trả về từ cơ sở dữ liệu.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 // lấy dữ liệu đưa lên form
     public void SetFromSP(Sanpham sp) {
 //        txtMaSP.setText(sp.getBienTheSP());
@@ -547,11 +580,13 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Số lượng không được nhỏ hơn 0 hoăc lớn hớn soluong đã có");
         } else {
             thanhtien();
-            System.out.println(" index: "+index);
+            System.out.println(" index: " + index);
         }
     }//GEN-LAST:event_spnSLStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        TuTang();
+
         insert();
         HoaDonView cthd = new HoaDonView();
         if (listHD.isEmpty()) {
