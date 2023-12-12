@@ -17,17 +17,31 @@ public class HoaDon {
     private String maNV;
     private Date ngayTao;
     private Double tongTien;
+    private String trangThai;
+    
+    
 
     public HoaDon() {
 
     }
 
-    public HoaDon(String maHD, String Makh,String maNV, Date ngaytao, Double Tongtien) {
+    public HoaDon(String maHD, String Makh,String maNV, Date ngaytao, Double Tongtien,String Trangthai) {
         this.maHD = maHD;
         this.maKH = Makh;
         this.maNV = maNV;
         this.ngayTao = ngaytao;
         this.tongTien = Tongtien;
+        this.trangThai = Trangthai;
+        
+    }
+    
+    public String getTrangThai(){
+        return trangThai;
+                
+    }
+    
+    public void setTrangThai(String trangthai){
+        this.trangThai = trangthai;
     }
 
     public String getMaHD() {

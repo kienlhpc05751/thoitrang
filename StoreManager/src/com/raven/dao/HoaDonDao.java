@@ -1,21 +1,54 @@
 package com.raven.dao;
 
-import com.microsoft.sqlserver.jdbc.SQLServerXAResource;
 import com.raven.db.DBHelper;
 import com.raven.model.HoaDon;
-import com.raven.model.KhachHang;
-import com.raven.model.Sanpham;
-import com.raven.utils.XDate;
-//import com.raven.model.Sanpham;
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
-
+   
+        public List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
+        try {
+            List<Object[]> list = new ArrayList<>();
+            ResultSet rs = DBHelper.query(sql, args);
+            while (rs.next()) {
+                Object[] vals = new Object[cols.length];
+                for (int i = 0; i < cols.length; i++) {
+                    vals[i] = rs.getObject(cols[i]);
+                }
+                list.add(vals);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public List<Object[]> max() {
+          String sql2 = "SELECT MAX(CAST(SUBSTRING(maHD, 3, LEN(maHD) - 2) AS INT)) AS MaxValue FROM hoadon;";
+        String[] cols = {"MaxValue"};
+        return this.getListOfArray(sql2,cols);
+    }
+    
+    
     String sql1 = "SELECT top 1 maHD FROM hoadon ORDER BY maHD DESC";
+      String sql2 = "SELECT MAX(CAST(SUBSTRING(maHD, 3, LEN(maHD) - 2) AS INT)) AS MaxValue FROM hoadon;";
+     
+//      public List<HoaDon> selectBySql2(String sql){
+//          List<Object[]> list;
+//          try {
+//              ResultSet rs = DBHelper.query(sql);
+//              while (rs.next()) {                  
+//                  HoaDon model = new HoaDon();
+//                  model.setMaHD(sql);
+//                  list.add();
+//              }
+//          } catch (Exception e) {
+//          }
+//      }
+    
 
     protected List<HoaDon> selectBySql1(String sqll) {
         List<HoaDon> list;
@@ -47,6 +80,8 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
                 enity.setMaNV(rs.getString("maNV"));
                 enity.setNgayTao(rs.getDate("NgayTao"));
                 enity.setTongTien(rs.getDouble("TongTien"));
+                enity.setTrangThai(rs.getString("TrangThai"));
+                        
                 list.add(enity);
             }
 
@@ -60,9 +95,9 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
         }
     }
 
-    String INSERT_SQL = "insert into hoadon values(?,?,?,?,?)";
+    String INSERT_SQL = "insert into hoadon values(?,?,?,?,?,?)";
 
-    String UPDATE_SQL = "UPDATE hoadon SET MaKH=?, MaNV=?,NgayTao=?,TongTien=? WHERE MaHD=?";
+    String UPDATE_SQL = "UPDATE hoadon SET MaKH=?, MaNV=?,NgayTao=?,TongTien=?,TrangThai=? WHERE MaHD=?";
 
 //    String DELETE_SQL = "DELETE FROM hoadon WHERE MaHD=?";
     String DELETE_SQL = "DECLARE @HoaDonID NVARCHAR(10);\n"
@@ -87,13 +122,13 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
     public void insert(HoaDon enity) {
 
         DBHelper.update(INSERT_SQL, enity.getMaHD(), enity.getMaKH(), enity.getMaNV(), enity.getNgayTao(),
-                enity.getTongTien());
+                enity.getTongTien(), enity.getTrangThai());
     }
 
     @Override
     public void update(HoaDon enity) {
         DBHelper.update(UPDATE_SQL, enity.getMaKH(), enity.getMaNV(), enity.getNgayTao(),
-                enity.getTongTien(), enity.getMaHD());
+                enity.getTongTien(),enity.getTrangThai(), enity.getMaHD());
     }
 
     @Override

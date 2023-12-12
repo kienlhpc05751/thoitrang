@@ -23,6 +23,8 @@ import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import com.raven.model.HoaDonChiTiet;
 import com.raven.model.KhachHang;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 //import javax.swing.plaf.nimbus.NimbusStyle;
 
 /**
@@ -60,26 +62,33 @@ public class HoaDonView extends javax.swing.JPanel {
 
     // hàm tự tăng mã hóa đơn
     public void TuTang() {
-        String lastInvoiceNumber = null;
-        String nextInvoice = null;
-        // Lấy mã hóa đơn cuối cùng từ cơ sở dữ liệu
-        List<HoaDon> list = dao.selectById1();
-        for (HoaDon hoaDon : list) {
-            lastInvoiceNumber = hoaDon.getMaHD();
-        }
-        if (lastInvoiceNumber != null && lastInvoiceNumber.matches("HD\\d+")) {
-            // Lấy số từ chuỗi mã hóa đơn hiện tại
-            int currentNumber = Integer.parseInt(lastInvoiceNumber.substring(2));
-            // Tăng giá trị mã hóa đơn
-            int newNumber = currentNumber + 1;
-            // Tạo chuỗi mã hóa đơn mới
-            nextInvoice = "HD" + newNumber;
-            maHD = nextInvoice;
-//            MsgBox.alert(jPanel1, "đây là mã hóa đơn mới" + maHD);
-//            MsgBox.alert(jPanel1, "Đã tạo mã hóa đơn mới: " + nextInvoice);
-            txtMaHD.setText(maHD);
-        } else {
-            MsgBox.alert(jPanel1, "Mã hóa đơn không hợp lệ");
+        try {
+            List<Object[]> list = dao.max();
+            if (!list.isEmpty()) {
+                Object[] maxValues = list.get(0);
+                int maxValue = (int) maxValues[0];
+
+                // Kiểm tra giá trị tối đa để quyết định liệfu có thể tăng thêm hay không
+                if (maxValue < 99999999) {
+                    // Tăng giá trị và tạo mã hóa đơn mới
+                    int newNumber = maxValue + 1;
+                    String nextInvoice = "HD" + newNumber;
+
+                    // Sử dụng nextInvoice theo nhu cầu của bạn (có thể làm gì đó với nó)
+                    System.out.println("Next Invoice: " + nextInvoice);
+                    maHD  = nextInvoice;
+                    txtMaHD.setText(nextInvoice);
+
+                    // Nếu bạn muốn lưu giá trị mới vào cơ sở dữ liệu, thêm logic ở đây
+                    // Ví dụ: dao.insertNewInvoice(nextInvoice);
+                } else {
+                    System.out.println("Đã đạt đến giá trị tối đa, không thể tăng thêm.");
+                }
+            } else {
+                System.out.println("Không có giá trị max nào được trả về từ cơ sở dữ liệu.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -95,7 +104,7 @@ public class HoaDonView extends javax.swing.JPanel {
     }
 
     public void fillTable(List<HoaDon> list) {
-        String row[] = {"Mã HD", "Mã KH", "Mã NV", " Ngày tạo", "Tổng tiền"};
+        String row[] = {"Mã HD", "Mã KH", "Mã NV", " Ngày tạo", "Tổng tiền", "Trang Thai"};
         DefaultTableModel model = new DefaultTableModel(row, 0);
 
         listHD = dao.selectAll();
@@ -106,6 +115,7 @@ public class HoaDonView extends javax.swing.JPanel {
                 hd.getMaNV(),
                 hd.getNgayTao(),
                 hd.getTongTien(), //    
+                hd.getTrangThai()
             });
         }
         tblHoaDon9.setModel(model);
@@ -129,6 +139,19 @@ public class HoaDonView extends javax.swing.JPanel {
         hd.setMaNV("NV001");
         hd.setNgayTao(XDate.now());
         hd.setTongTien(Double.valueOf(lblTongTien.getText().trim()));
+        String matt = "CHƯA THANH TOÁN";    
+        Object selectedLoai = cboHTTT.getSelectedItem();
+          if (selectedLoai != null) {
+//            row = cboHTTT.getSelectedIndex() - 1;
+//            if(cboMaGG.getSelectedItem()){
+//            }
+            // Chuyển đổi và đặt giá trị cho thuộc tính maLoai
+            hd.setTrangThai(selectedLoai.toString());
+        } else {
+            // Xử lý khi không có mục nào được chọn trong ComboBox
+            hd.setTrangThai(matt); // hoặc giá trị mặc định khác tùy vào logic của bạn
+//             row = cboMaGG.getSelectedIndex() - 1;
+        }
         return hd;
     }
 
@@ -309,7 +332,7 @@ public class HoaDonView extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel8.setText("Hình thức TT");
 
-        cboHTTT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiền mặt", "Chuyển khoản" }));
+        cboHTTT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chưa thanh toán", "Tiền mặt", "Chuyển khoản" }));
 
         jButton6.setText("Xóa");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -562,7 +585,7 @@ public class HoaDonView extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 950, Short.MAX_VALUE)
+            .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
