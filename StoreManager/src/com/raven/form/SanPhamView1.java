@@ -52,6 +52,8 @@ public class SanPhamView1 extends javax.swing.JPanel {
             LoaiSanPham cd = listLSP.get(index);
         }
     }
+    
+    
 
     //fill dữ liệu lên cobombox cboMaloai
     void fillCombobox() {

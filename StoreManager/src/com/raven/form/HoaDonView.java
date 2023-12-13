@@ -224,12 +224,12 @@ public class HoaDonView extends javax.swing.JPanel {
         try {
             System.out.println(maHD);
             dao.delete(maHD);
-            MsgBox.alert(null, "sửa sản phẩm  Thành Công");
+            MsgBox.alert(null, "xóa sản phẩm  Thành Công");
             fillTable(listHD);
             clearForm();
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(null, "sửa sản phẩm Thất Bại");
+            MsgBox.alert(null, "xóa sản phẩm Thất Bại");
         }
     }
 

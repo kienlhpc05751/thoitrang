@@ -10,6 +10,7 @@ import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -39,8 +40,8 @@ abstract public class SanPhamDao extends StoreDao<Sanpham, String> {
 
     @Override
     public void update(Sanpham enity) {
-        DBHelper.update(UPDATE_SQL,  enity.getMaLoai(), enity.getTenSP(), enity.getKichCo(),
-                enity.getMauSac(), enity.getGia(), enity.getSoLuong(),enity.getBienTheSP());
+        DBHelper.update(UPDATE_SQL, enity.getMaLoai(), enity.getTenSP(), enity.getKichCo(),
+                enity.getMauSac(), enity.getGia(), enity.getSoLuong(), enity.getBienTheSP());
     }
 
     @Override
@@ -58,14 +59,12 @@ abstract public class SanPhamDao extends StoreDao<Sanpham, String> {
         return list.get(0);
 
     }
-    
-    
-   
+
     @Override
-   public List<Sanpham> selectById1(String ma){
-       List<Sanpham> list = this.selectBySql(SELECT_BY_ID_SQL,ma );
-               return list;
-   }
+    public List<Sanpham> selectById1(String ma) {
+        List<Sanpham> list = this.selectBySql(SELECT_BY_ID_SQL, ma);
+        return list;
+    }
 
     @Override
     protected List<Sanpham> selectBySql(String sql, Object... args) {
@@ -79,6 +78,12 @@ abstract public class SanPhamDao extends StoreDao<Sanpham, String> {
                 enity.setTenSP(rs.getString(3));
                 enity.setKichCo(rs.getString(4));
                 enity.setMauSac(rs.getString(5));
+//                 DecimalFormat decimalFormat = new DecimalFormat("#,##");
+//                 DecimalFormat df = new DecimalFormat("#.######");
+//                DecimalFormat df = new DecimalFormat("#,###,###");
+//                String gia = df.format(rs.getDouble(6));
+//                enity.setGia(Double.parseDouble(gia));
+
                 enity.setGia(rs.getDouble(6));
                 enity.setSoLuong(rs.getInt(7));
                 list.add(enity);
@@ -90,36 +95,34 @@ abstract public class SanPhamDao extends StoreDao<Sanpham, String> {
             throw new RuntimeException(e);
         }
     }
-    
-     public Sanpham selectByid( String ma) {
+
+    public Sanpham selectByid(String ma) {
         List<Sanpham> list = new ArrayList();
-                Connection con = DBHelper.getDBConnection();
-        try(PreparedStatement pstm = con.prepareStatement(SELECT_BY_ID_SQL)) {
-             pstm.setString(1, ma);
-            try(ResultSet rs = pstm.executeQuery()) {
-                 while (rs.next()) {
-                Sanpham enity = new Sanpham();
-                enity.setBienTheSP(rs.getString(1));
-                enity.setMaLoai(rs.getString(2));
-                enity.setTenSP(rs.getString(3));
-                enity.setKichCo(rs.getString(4));
-                enity.setMauSac(rs.getString(5));
-                enity.setGia(rs.getDouble(6));
-                enity.setSoLuong(rs.getInt(7));
-                list.add(enity);
-            }
-            return list.get(0);
+        Connection con = DBHelper.getDBConnection();
+        try (PreparedStatement pstm = con.prepareStatement(SELECT_BY_ID_SQL)) {
+            pstm.setString(1, ma);
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    Sanpham enity = new Sanpham();
+                    enity.setBienTheSP(rs.getString(1));
+                    enity.setMaLoai(rs.getString(2));
+                    enity.setTenSP(rs.getString(3));
+                    enity.setKichCo(rs.getString(4));
+                    enity.setMauSac(rs.getString(5));
+                    enity.setGia(rs.getDouble(6));
+                    enity.setSoLuong(rs.getInt(7));
+                    list.add(enity);
+                }
+                return list.get(0);
             } catch (Exception e) {
             }
-            
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
         return null;
     }
-    
 
 //    @Override
 //    protected List<Sanpham> selectBySql1(String sql, Object... args) {

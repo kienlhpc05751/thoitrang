@@ -4,11 +4,36 @@ import com.raven.db.DBHelper;
 import com.raven.model.HoaDon;
 import java.util.List;
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
-   
-        public List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
+
+    public List<HoaDon> getAllByID(String ma) {
+        List<HoaDon> list = new ArrayList<>();
+        String sql = "SELECT * FROM HoaDon WHERE maHD = ?";
+        Connection con = DBHelper.getDBConnection();
+        try (PreparedStatement stm = con.prepareStatement(sql)) {
+            stm.setString(1, ma);
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    HoaDon enity = new HoaDon();
+
+                    enity.setMaKH(rs.getString("maKH"));
+                    enity.setTongTien(rs.getDouble("TongTien"));
+
+                    list.add(enity);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Lỗi SQL: " + ex.getMessage());
+            ex.printStackTrace();
+            // Hoặc ghi log lỗi
+        }
+        return list;
+    }
+
+    public List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
         try {
             List<Object[]> list = new ArrayList<>();
             ResultSet rs = DBHelper.query(sql, args);
@@ -25,17 +50,16 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
             throw new RuntimeException(e);
         }
     }
-    
+
     public List<Object[]> max() {
-          String sql2 = "SELECT MAX(CAST(SUBSTRING(maHD, 3, LEN(maHD) - 2) AS INT)) AS MaxValue FROM hoadon;";
+        String sql2 = "SELECT MAX(CAST(SUBSTRING(maHD, 3, LEN(maHD) - 2) AS INT)) AS MaxValue FROM hoadon;";
         String[] cols = {"MaxValue"};
-        return this.getListOfArray(sql2,cols);
+        return this.getListOfArray(sql2, cols);
     }
-    
-    
+
     String sql1 = "SELECT top 1 maHD FROM hoadon ORDER BY maHD DESC";
-      String sql2 = "SELECT MAX(CAST(SUBSTRING(maHD, 3, LEN(maHD) - 2) AS INT)) AS MaxValue FROM hoadon;";
-     
+    String sql2 = "SELECT MAX(CAST(SUBSTRING(maHD, 3, LEN(maHD) - 2) AS INT)) AS MaxValue FROM hoadon;";
+
 //      public List<HoaDon> selectBySql2(String sql){
 //          List<Object[]> list;
 //          try {
@@ -48,8 +72,6 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
 //          } catch (Exception e) {
 //          }
 //      }
-    
-
     protected List<HoaDon> selectBySql1(String sqll) {
         List<HoaDon> list;
         list = new ArrayList<>();
@@ -65,7 +87,7 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-       
+
     }
 
     @Override
@@ -79,9 +101,12 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
                 enity.setMaKH(rs.getString("maKH"));
                 enity.setMaNV(rs.getString("maNV"));
                 enity.setNgayTao(rs.getDate("NgayTao"));
+//                DecimalFormat formatter = new DecimalFormat("###,###,###");// định dạng
+//                String tien = formatter.format(rs.getDouble("TongTien
                 enity.setTongTien(rs.getDouble("TongTien"));
+//                enity.setTongTien(Double.parseDouble(tien));
                 enity.setTrangThai(rs.getString("TrangThai"));
-                        
+
                 list.add(enity);
             }
 
@@ -128,7 +153,7 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
     @Override
     public void update(HoaDon enity) {
         DBHelper.update(UPDATE_SQL, enity.getMaKH(), enity.getMaNV(), enity.getNgayTao(),
-                enity.getTongTien(),enity.getTrangThai(), enity.getMaHD());
+                enity.getTongTien(), enity.getTrangThai(), enity.getMaHD());
     }
 
     @Override
@@ -165,8 +190,8 @@ abstract public class HoaDonDao extends StoreDao<HoaDon, String> {
     }
 
     public List<HoaDon> selectById1() {
-       return this.selectBySql1(sql1);
-        
+        return this.selectBySql1(sql1);
+
     }
 
 }
