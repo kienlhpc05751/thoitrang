@@ -16,10 +16,11 @@ import java.util.List;
  * @author MSI PC
  */
 public class DoiMatKhauJDialog extends javax.swing.JDialog {
+
     NhanVienDao nvdao = new NhanVienDao() {
     };
-    List<NhanVien>  list = new ArrayList<>();
-    
+    List<NhanVien> list = new ArrayList<>();
+
     /**
      * Creates new form DoiMatKhauJDialog
      */
@@ -28,7 +29,6 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         initComponents();
         init();
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,9 +181,10 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     private void init() {
 //        this.setLocationRelativeTo(null);
-        
+
     }
-    private void DoiMatKhau(){
+
+    private void DoiMatKhau() {
 //        String maNV = txtTenDangNhap.getText();
         String mkMoi = new String(txtMatKhauMoi.getPassword());
         String xacNhanMkMoi = new String(txtXacNhanMatKhau.getPassword());
@@ -191,45 +192,43 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
 //        {
 //            MsgBox.alert(this, "Sai tên đăng nhập");
 //        }
-        if(!mkMoi.equals(xacNhanMkMoi))
-        {
+        if (!mkMoi.equals(xacNhanMkMoi)) {
             MsgBox.alert(this, "Xác nhận mật khẩu mới không đúng");
-        }
-        else
-        {
+        } else {
 
-          update();
-  
-            MsgBox.alert(this, "Đổi mật khẩu thành công");
+            update();
+
         }
     }
 
     private void Huy() {
         this.dispose();
     }
-    String ma = "";
+    String ma = "NV001";
+
     NhanVien getModel() {
         NhanVien model = new NhanVien();
-        model.setMatKhau(txtMatKhauMoi.getText());
         model.setMaNV(ma);
-       
+
+        model.setMatKhau(nvdao.hashPassword(txtMatKhauMoi.getText()));
+
         return model;
     }
-    
-     void update() {
-        if (Auth.isManager()) {
-            NhanVien nv = getModel();
-            try {
-                nvdao.updatedp(nv);
-                
-            } catch (Exception e) {
-                e.printStackTrace();
-                MsgBox.alert(this, "Cap nhat that bai!");
-            }
-        } else {
-            MsgBox.alert(this, "Bạn không có quyền thay đổi nhân viên");
+
+    void update() {
+//        if (Auth.isManager()) {
+        NhanVien nv = getModel();
+        try {
+            nvdao.updatedp(nv);
+            MsgBox.alert(this, "Đổi mật khẩu thành công");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.alert(this, "Cap nhat that bai!");
         }
+//        } else {
+//            MsgBox.alert(this, "Bạn không có quyền thay đổi nhân viên");
+//        }
     }
 
 }
-
