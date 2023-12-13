@@ -12,7 +12,12 @@ import com.raven.form.Form_Home;
 import com.raven.form.HoaDonView;
 import com.raven.form.NhanVienView;
 import com.raven.form.KhachHangView;
+import com.raven.form.Login;
+import com.raven.form.Load;
+
+import com.raven.form.LoginJDialog;
 import com.raven.form.SanPhamView1;
+import com.raven.form.loadJDialog;
 import com.raven.utils.XImage;
 import java.awt.Color;
 import javax.swing.JComponent;
@@ -36,6 +41,8 @@ public class Main extends javax.swing.JFrame {
 //    private NewJFrame fa;
 
     public Main() {
+//          this.openWellcom();
+//        this.openlogin();
         initComponents();
 //                setBackground(new Color(0, 0, 0, 0));
 //                SwingUtilities.invokeLater(() -> {
@@ -87,6 +94,17 @@ public class Main extends javax.swing.JFrame {
         mainPanel.add(com);
         mainPanel.repaint();
         mainPanel.revalidate();
+    }
+       void openlogin() {
+//        new LoginJDialog(this, true).setVisible(true);
+         new Login().setVisible(true);
+    }
+
+    void openWellcom() {
+        new loadJDialog(this, true).setVisible(true);
+//          new Load().setVisible(true);
+           
+
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

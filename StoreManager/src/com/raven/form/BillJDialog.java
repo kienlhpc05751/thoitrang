@@ -1,42 +1,41 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package com.raven.form;
 
 import com.raven.dao.HoaDonChiTietDao;
-import com.raven.dao.HoaDonDao;
 import com.raven.db.DBHelper;
 import com.raven.model.HoaDonChiTiet;
-import com.raven.model.HoaDon;
-
 import com.raven.utils.XDate;
-import com.sun.jdi.connect.spi.Connection;
 import java.awt.BorderLayout;
 import java.awt.FontMetrics;
+import static java.awt.Frame.ICONIFIED;
+import static java.awt.Frame.NORMAL;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
+import static java.awt.print.Printable.NO_SUCH_PAGE;
+import static java.awt.print.Printable.PAGE_EXISTS;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
-import java.sql.*;
 
 /**
  *
  * @author Asus
  */
-public class BillPrintingApp extends javax.swing.JFrame implements Printable {
+public class BillJDialog extends javax.swing.JDialog implements Printable {
 
     private JTextArea billTextArea;
     private JTable billTable;
@@ -49,13 +48,11 @@ public class BillPrintingApp extends javax.swing.JFrame implements Printable {
         this.madh = ma;
     }
     String madh = "";
-    
-    
 
-    public BillPrintingApp() {
+    public BillJDialog(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-//        ma();
-        setLocationRelativeTo(null);
+         setLocationRelativeTo(null);
         setTitle("Bill Printing App");
         setSize(500, 500);
         
@@ -79,8 +76,7 @@ public class BillPrintingApp extends javax.swing.JFrame implements Printable {
         getContentPane().add(printButton, BorderLayout.SOUTH);
 
     }
-
-    public class BillDetail {
+     public class BillDetail {
 
         private String maHDCT;
         private String productName;
@@ -236,7 +232,6 @@ public class BillPrintingApp extends javax.swing.JFrame implements Printable {
 
         return PAGE_EXISTS;
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -246,7 +241,7 @@ public class BillPrintingApp extends javax.swing.JFrame implements Printable {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -276,35 +271,33 @@ public class BillPrintingApp extends javax.swing.JFrame implements Printable {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BillPrintingApp.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(BillJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BillPrintingApp.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(BillJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BillPrintingApp.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(BillJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BillPrintingApp.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BillJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BillPrintingApp().setVisible(true);
+                BillJDialog dialog = new BillJDialog(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

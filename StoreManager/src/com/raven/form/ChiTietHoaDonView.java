@@ -21,6 +21,7 @@ import com.sun.jdi.ArrayReference;
 import java.text.SimpleDateFormat;
 import java.util.AbstractList;
 import java.util.Date;
+import java.util.function.BiConsumer;
 
 public class ChiTietHoaDonView extends javax.swing.JDialog {
 
@@ -594,11 +595,13 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-//        String maHD = txtMaHDCT.getText();
-//        InBill2 bill = new InBill2(null, true);
-//        
-//        bill.loadToTable(maHD);
+//        BillPrintingApp bill = new BillPrintingApp();
+//        bill.ma(lblMaHD.getText());
+////        this.dispose();
 //        bill.setVisible(true);
+              BillJDialog bill = new BillJDialog(null, true);
+             bill.madh = lblMaHD.getText();
+             bill.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtMaHDCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaHDCTActionPerformed
