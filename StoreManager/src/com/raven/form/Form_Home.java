@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Form_Home extends javax.swing.JPanel {
 
@@ -27,56 +28,68 @@ public class Form_Home extends javax.swing.JPanel {
 //            soLuong = String.valueOf(db[0]);
 //            tongtienString = String.valueOf(db[1]);
 //        }
-
+        Date n = XDate.now();
+        String nn = XDate.toString(n, "dd-MM-yyyy");
         List<Object[]> list1 = dao.theoNgay();
         for (Object[] db : list1) {
-            Date n = XDate.now();
-            String nn = XDate.toString(n, "dd-MM-yyyy");
 
             soLuong = String.valueOf(db[1]);
             tongtienString = String.valueOf(db[2]);
-            card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "Số lượng sản "+nn, tongtienString, "Số lượng SP" + soLuong + " d/c"));
+            card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "ngày " + nn, tongtienString + " VN", "Số lượng SP " + soLuong + " d/c"));
         }
 
         List<Object[]> list2 = dao.theoThang();
         for (Object[] db : list2) {
             soLuong = String.valueOf(db[1]);
             tongtienString = String.valueOf(db[2]);
-            card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "Số lượng sản phẩm", tongtienString, "Số lượng SP" + soLuong + " d/c"));
+            card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "ngày " + nn, tongtienString + " VN", "Số lượng SP " + soLuong + " d/c"));
+
         }
 
         List<Object[]> list3 = dao.theoNam();
         for (Object[] db : list3) {
             soLuong = String.valueOf(db[1]);
             tongtienString = String.valueOf(db[2]);
-            card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "Số lượng sản phẩm", tongtienString, "Số lượng SP" + soLuong + " d/c"));
+            card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "ngày " + nn, tongtienString + " VN", "Số lượng SP " + soLuong + " d/c"));
+
         }
+
+        JPanel p = new JPanel();
+        p.setBackground(Color.WHITE);
+//            bản lịch sử        
+        String row[] = {"Mã HD", " Ngay Mua", "Tên KH", "Ten SP", "Số lượng", " Thành tiền"};
+        DefaultTableModel model1 = new DefaultTableModel(row, 0);
+        model1.setRowCount(0);
+        List<Object[]> listLichsu = dao.lichsu();
+        for (Object[] objects : listLichsu) {
+            model1.addRow(objects);
+//            String maHD = String.valueOf(objects[0]);
+//            String NgayMua = String.valueOf(objects[1]);
+//            String tenkhachhang = String.valueOf(objects[2]);
+//            String tensanpham = String.valueOf(objects[3]);
+//            String soluong = String.valueOf(objects[4]);
+//            String thanhtien = String.valueOf(objects[5]);     
+        }
+        tblLichSu.setModel(model1);
 
 //        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
 //        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
-        //  add row table
-        spTable.setVerticalScrollBar(new ScrollBar());
-        spTable.getVerticalScrollBar().setBackground(Color.WHITE);
-        spTable.getViewport().setBackground(Color.WHITE);
-        JPanel p = new JPanel();
-        p.setBackground(Color.WHITE);
-
         // table
-        spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-        table.addRow(new Object[]{"kkkkkkk", "mikebhand@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
+//        spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
+//        table.addRow(new Object[]{"kkkkkkk", "mikebhand@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
+//        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
+//        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
+//        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
+//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
+//        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
+//        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
+//        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
+//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
+//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
+//        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
+//        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
+//        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
+//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
     }
 
     @SuppressWarnings("unchecked")
@@ -89,9 +102,9 @@ public class Form_Home extends javax.swing.JPanel {
         card3 = new com.raven.component.Card();
         panelBorder1 = new com.raven.swing.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
-        spTable = new javax.swing.JScrollPane();
-        table = new com.raven.swing.Table();
         card4 = new com.raven.component.Card();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblLichSu = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(250, 234, 221));
 
@@ -115,57 +128,50 @@ public class Form_Home extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(127, 127, 127));
         jLabel1.setText("Standard Table Design");
 
-        spTable.setBorder(null);
+        card4.setColor2(new java.awt.Color(211, 184, 61));
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        tblLichSu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Name", "Email", "User Type", "Joined", "Status"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        spTable.setViewportView(table);
-
-        card4.setColor2(new java.awt.Color(211, 184, 61));
+        ));
+        jScrollPane1.setViewportView(tblLichSu);
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
         panelBorder1Layout.setHorizontalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(panelBorder1Layout.createSequentialGroup()
-                        .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(card4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(39, 39, 39)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99)
+                        .addComponent(card4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelBorder1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-                        .addGap(20, 20, 20))
-                    .addGroup(panelBorder1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(card4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(card4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jLabel1.getAccessibleContext().setAccessibleName("Lịch sử mau hàng");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -196,9 +202,9 @@ public class Form_Home extends javax.swing.JPanel {
     private com.raven.component.Card card3;
     private com.raven.component.Card card4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLayeredPane panel;
     private com.raven.swing.PanelBorder panelBorder1;
-    private javax.swing.JScrollPane spTable;
-    private com.raven.swing.Table table;
+    private javax.swing.JTable tblLichSu;
     // End of variables declaration//GEN-END:variables
 }

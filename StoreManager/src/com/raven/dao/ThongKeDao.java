@@ -25,6 +25,22 @@ public class ThongKeDao {
         }
     }
 
+    public List<Object[]> lichsu() {
+        String sql = "	SELECT h.MaHD AS MaHoaDon, h.NgayTao AS NgayMua, kh.TenKH AS TenKhachHang, sp.TenSP AS TenSanPham, hdt.SoLuong AS SoLuong, hdt.thanhTien AS ThanhTien\n"
+                + "FROM\n"
+                + "    hoadon h\n"
+                + "JOIN\n"
+                + "    hoadonchitiet hdt ON h.MaHD = hdt.MaHD\n"
+                + "JOIN\n"
+                + "    sanpham sp ON hdt.BienTheSP = sp.BienTheSP\n"
+                + "JOIN\n"
+                + "    khachhang kh ON h.MaKH = kh.MaKH\n"
+                + "ORDER BY\n"
+                + "    h.NgayTao DESC;";
+        String[] cols = {"MahoaDon", "NgayMua", "TenKhachHang","TenSanPham","SoLuong","ThanhTien"};
+        return this.getListOfArray(sql, cols);
+    }
+
     public List<Object[]> theoNgay() {
         String sql = "SELECT h.NgayTao AS NgayBan,SUM(hdt.SoLuong) AS TongSoLuongBan,SUM(h.TongTien) AS TongTienBanHang\n"
                 + "FROM hoadon h JOIN hoadonchitiet hdt ON h.MaHD = hdt.MaHD\n"
