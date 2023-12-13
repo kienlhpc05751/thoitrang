@@ -21,12 +21,6 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
     };
     List<NhanVien> list = new ArrayList<>();
 
-<<<<<<< HEAD
-    /**
-     * Creates new form DoiMatKhauJDialog
-     */
-=======
->>>>>>> 7f041f2bbfbe6dbd394533c63e92fefebe375371
     public DoiMatKhauJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -181,82 +175,40 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
     private javax.swing.JPasswordField txtMatKhauMoi;
     private javax.swing.JPasswordField txtXacNhanMatKhau;
     // End of variables declaration//GEN-END:variables
-<<<<<<< HEAD
-    private void init() {
-//        this.setLocationRelativeTo(null);
-
-    }
-
-    private void DoiMatKhau() {
-//        String maNV = txtTenDangNhap.getText();
-        String mkMoi = new String(txtMatKhauMoi.getPassword());
-        String xacNhanMkMoi = new String(txtXacNhanMatKhau.getPassword());
-//        if(!maNV.equalsIgnoreCase(Auth.user.getMaNV()))
-//        {
-//            MsgBox.alert(this, "Sai tên đăng nhập");
-//        }
-=======
 
     private void DoiMatKhau() {
         String mkMoi = new String(txtMatKhauMoi.getPassword());
         String xacNhanMkMoi = new String(txtXacNhanMatKhau.getPassword());
->>>>>>> 7f041f2bbfbe6dbd394533c63e92fefebe375371
         if (!mkMoi.equals(xacNhanMkMoi)) {
             MsgBox.alert(this, "Xác nhận mật khẩu mới không đúng");
         } else {
 
             update();
 
-<<<<<<< HEAD
-=======
             MsgBox.alert(this, "Đổi mật khẩu thành công");
->>>>>>> 7f041f2bbfbe6dbd394533c63e92fefebe375371
         }
     }
 
     private void Huy() {
         this.dispose();
     }
-<<<<<<< HEAD
-    String ma = "NV001";
-
-    NhanVien getModel() {
-        NhanVien model = new NhanVien();
-        model.setMaNV(ma);
-
-        model.setMatKhau(nvdao.hashPassword(txtMatKhauMoi.getText()));
-
-=======
     String ma = "NV005";
 
     NhanVien getModel() {
         NhanVien model = new NhanVien();
         model.setMatKhau(nvdao.hashPassword(txtMatKhauMoi.getText()));
         model.setMaNV(ma);
->>>>>>> 7f041f2bbfbe6dbd394533c63e92fefebe375371
         return model;
     }
 
     void update() {
-<<<<<<< HEAD
-//        if (Auth.isManager()) {
         NhanVien nv = getModel();
         try {
             nvdao.updatedp(nv);
-            MsgBox.alert(this, "Đổi mật khẩu thành công");
-
-=======
-        NhanVien nv = getModel();
-        try {
-            nvdao.updatedp(nv);
->>>>>>> 7f041f2bbfbe6dbd394533c63e92fefebe375371
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(this, "Cap nhat that bai!");
         }
-//        } else {
-//            MsgBox.alert(this, "Bạn không có quyền thay đổi nhân viên");
-//        }
     }
 
 }
