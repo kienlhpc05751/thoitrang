@@ -63,6 +63,8 @@ abstract public class NhanVienDao extends StoreDao<NhanVien, String> {
         }
         return list;
     }
+ 
+
 
     @Override
     public void insert(NhanVien model) {
@@ -76,6 +78,19 @@ abstract public class NhanVienDao extends StoreDao<NhanVien, String> {
                 model.getSDT(),
                 model.getVaiTro(),
                 model.getHinhAnh());
+    }
+    
+    
+        public void updatedp(NhanVien model) {
+        String sql = "update nhanvien set Matkhau = ? where MaNV = ?";
+        DBHelper.update(sql,
+//                model.getMaNV(),
+           
+                model.getMatKhau(),
+                
+                model.getMaNV());
+
+
     }
 
     @Override
