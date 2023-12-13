@@ -5,11 +5,11 @@
  */
 package com.raven.form;
 
-
 import com.raven.dao.LoaiSpDAO;
 import com.raven.dao.SanPhamDao;
 import com.raven.model.LoaiSanPham;
 import com.raven.model.Sanpham;
+import com.raven.utils.Auth;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import com.raven.utils.MsgBox;
@@ -17,13 +17,12 @@ import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 
-
 /**
  *
  * @author RAVEN
  */
 public class SanPhamView1 extends javax.swing.JPanel {
-    
+
     String masp = null;
     int row = 0;
     SanPhamDao dao = new SanPhamDao() {
@@ -36,34 +35,32 @@ public class SanPhamView1 extends javax.swing.JPanel {
     LoaiSpDAO daosp = new LoaiSpDAO() {
     };
     List<LoaiSanPham> listLSP = new ArrayList<>();
-    
+
     public SanPhamView1() {
         initComponents();
         Int();
         fillTable(listSP);
     }
-    
+
     public void Int() {
         fillCombobox();
     }
-    
+
     void chonComboBox(int index) {
         if (index >= 0) {
             LoaiSanPham cd = listLSP.get(index);
         }
     }
-    
-    
 
     //fill dữ liệu lên cobombox cboMaloai
     void fillCombobox() {
-        
+
         listLSP = daosp.selectAll();
         DefaultComboBoxModel cboModel = (DefaultComboBoxModel) CboMaloai.getModel();
         cboModel.removeAllElements();
         cboModel.addElement("vui lòng chọn !");
         for (LoaiSanPham itempCD : listLSP) {
-            
+
             cboModel.addElement(itempCD.getMaloaiSP());
         }
     }
@@ -82,7 +79,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
 // fill lên from dữ liệu trong l
 
     void setForm(Sanpham kh) {
-        
+
         txtMaSP.setText(kh.getBienTheSP());
         // Giả sử ComboBox có kiểu dữ liệu là String
         String selectedLoai = kh.getMaLoai();
@@ -93,10 +90,10 @@ public class SanPhamView1 extends javax.swing.JPanel {
         txtGiaBan.setText(String.valueOf(kh.getGia()));
         txtSoLuong.setText(String.valueOf(kh.getSoLuong()));
     }
-    
+
     Sanpham getForm() {
         Sanpham kh = new Sanpham();
-        
+
         kh.setBienTheSP(txtMaSP.getText());
         // Lấy giá trị từ ComboBox
         Object selectedLoai = CboMaloai.getSelectedItem();
@@ -112,20 +109,20 @@ public class SanPhamView1 extends javax.swing.JPanel {
         kh.setMauSac(txtMauSac.getText());
         kh.setGia(Double.parseDouble(txtGiaBan.getText()));
         kh.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
-        
+
         return kh;
     }
-    
+
     void edit(int index) {
         Sanpham kh = listSP.get(index);
         setForm(kh);
     }
-    
+
     void first() {
         this.row = 0;
         this.edit(row);
     }
-    
+
     void prev() {
         if (this.row < 1) {
             return;
@@ -134,7 +131,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
             this.edit(row);
         }
     }
-    
+
     void next() {
         if (this.row > tblSanPham.getRowCount() - 2) {
             return;
@@ -144,21 +141,21 @@ public class SanPhamView1 extends javax.swing.JPanel {
 //            System.out.println(row);
         }
     }
-    
+
     void last() {
         this.row = tblSanPham.getRowCount() - 1;
         this.edit(row);
     }
-    
+
     void insert() {
-        
+
         try {
             dao.insert(getForm());
-            MsgBox.alert(null, "Thêm sản phẩm  Thành Công");
+            MsgBox.alert(null, "Thêm sản phẩm  Thành Công !");
             fillTable(listSP);
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(null, "Thêm sản phẩm Thất Bại");
+            MsgBox.alert(null, "Thêm sản phẩm Thất Bại !");
         }
 //        if (checkFrom()) {
 //            try {
@@ -173,24 +170,24 @@ public class SanPhamView1 extends javax.swing.JPanel {
 //            }
 //        }
     }
-    
+
     void update() {
         try {
             dao.update(getForm());
-            MsgBox.alert(null, "Cập nhật sản phẩm Thành Công");
+            MsgBox.alert(null, "Cập nhật sản phẩm Thành Công !");
             fillTable(listSP);
         } catch (Exception e) {
-            MsgBox.alert(null, "Cập nhật sản phẩm Thất Bại");
+            MsgBox.alert(null, "Cập nhật sản phẩm Thất Bại !");
         }
     }
-    
+
     void delete() {
         try {
             dao.delete(String.valueOf(masp));
-            MsgBox.alert(null, "Delete sản phẩm Thành Công");
+            MsgBox.alert(null, "Xóa sản phẩm Thành Công !");
             fillTable(listSP);
         } catch (Exception e) {
-            MsgBox.alert(null, "Delete sản phẩm Thất Bại");
+            MsgBox.alert(null, "Xóa sản phẩm Thất Bại !");
         }
 //        try {
 //            if (!Auth.isManager()) {
@@ -204,7 +201,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
 //            MsgBox.alert(null, "Delete Khóa Học Thất Bại");
 //        }
     }
-    
+
     void clearForm() {
         Sanpham kh = new Sanpham();
         this.setForm(kh);
@@ -216,9 +213,9 @@ public class SanPhamView1 extends javax.swing.JPanel {
         txtMauSac.setBackground(null);
         txtSoLuong.setBackground(null);
         txtGiaBan.setBackground(null);
-        
+
     }
-    
+
     void updateStatus() {
         boolean edit = (this.row >= 0);
         boolean first = (this.row == 0);
@@ -232,7 +229,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
 //        btnNext.setEnabled(edit && !last);
 //        btnLast.setEnabled(edit && !last);
     }
-    
+
     public boolean checkFrom() {
 //          String ma = txtMaNV
         // List to store error messages
@@ -240,83 +237,83 @@ public class SanPhamView1 extends javax.swing.JPanel {
 
         // có thể thay đổi
         if (txtKichCo.getText().isEmpty()) {
-            errorMessages.add("Vui lòng nhập màu");
+            errorMessages.add("Vui lòng nhập kích cở Sản phẩm !");
             txtKichCo.setBackground(Color.red);
             txtKichCo.requestFocus();
         } else {
             txtKichCo.setBackground(null);  // Reset background to white if not empty
         }
-        
+
         if (txtMaSP.getText().isEmpty()) {
-            errorMessages.add("Vui lòng nhập mã đăng nhập SP");
+            errorMessages.add("Vui lòng nhập mã đăng nhập SP !");
             txtMaSP.setBackground(Color.red);
             txtMaSP.requestFocus();
         } else if (txtMaSP.getText().length() > 10) {
-            errorMessages.add("Vui lòng nhập dưới 10 kí tự ");
+            errorMessages.add("Vui lòng nhập dưới 10 kí tự !");
             txtMaSP.setBackground(Color.red);
             txtMaSP.requestFocus();
         } else {
             txtMaSP.setBackground(null);  // Reset background to white if not empty
         }
-        
+
         if (txtMauSac.getText().isEmpty()) {
-            errorMessages.add("Vui lòng nhập màu");
+            errorMessages.add("Vui lòng nhập màu !");
             txtMauSac.setBackground(Color.red);
             txtMauSac.requestFocus();
         } else {
             txtMauSac.setBackground(null);  // Reset background to white if not empty
         }
-        
+
         if (txtTenSP.getText().isEmpty()) {
-            errorMessages.add("Vui lòng nhập tên san phẩm");
+            errorMessages.add("Vui lòng nhập tên san phẩm !");
             txtTenSP.setBackground(Color.red);
             txtTenSP.requestFocus();
         } else {
             txtTenSP.setBackground(null);  // Reset background to white if not empty
         }
-        
+
         try {
-            
+
             int soluong = Integer.parseInt(txtSoLuong.getText());
             txtTenSP.setBackground(null);  // Reset background to white if not empty
 
             if (soluong <= 0) {
                 txtSoLuong.setBackground(Color.BLUE);
-                errorMessages.add("vui lòng nhập số lượng lớn hơn 0");
-                
+                errorMessages.add("vui lòng nhập số lượng lớn hơn 0 !");
+
             } else {
                 txtSoLuong.setBackground(null);
             }
-            
+
         } catch (NumberFormatException e) {
             // Handle the exception (e.g., display an error message or log it)
-            errorMessages.add("vui long nhập số lượng ");
+            errorMessages.add("vui long nhập số lượng !");
             txtSoLuong.setBackground(Color.red);
             txtSoLuong.requestFocus();
         }
-        
+
         try {
             double gia = Double.parseDouble(txtGiaBan.getText());
             if (gia <= 0) {
                 txtGiaBan.setBackground(Color.red);
-                errorMessages.add("vui lòng nhập giá lớn hơn 0");
+                errorMessages.add("vui lòng nhập giá lớn hơn 0 !");
             } else {
                 txtGiaBan.setBackground(null);
             }
         } catch (NumberFormatException e) {
-            errorMessages.add("vui long nhập giá");
+            errorMessages.add("vui long nhập giá !");
             txtGiaBan.setBackground(Color.red);
             txtGiaBan.requestFocus();
         }
-        
+
         int d = CboMaloai.getSelectedIndex();
         System.out.println("chọn:" + d);
         if (d != 0) {
 //            row = CboMaloai.getSelectedIndex() - 1;
 
         } else {
-            errorMessages.add("vui lòng chọn loại sản phẩm");
-            
+            errorMessages.add("vui lòng chọn loại sản phẩm !");
+
         }
 
         // Check if there were any errors
@@ -335,7 +332,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
         // Return true if no errors
         return true;
     }
-    
+
     public boolean CheckMa() {
         List<String> list = new ArrayList<>();
         for (Sanpham sanpham : listSP) {
@@ -801,18 +798,29 @@ public class SanPhamView1 extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        if (checkFrom()) {
-            update();
+
+        if (Auth.isManager()) {
+            if (checkFrom()) {
+                update();
+            }
+        } else {
+            MsgBox.alert(null, "Bạn không có quyền cập nhật !");
         }
 
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (CheckMa()) {
-            if (checkFrom()) {
-                insert();
+        if (Auth.isLogin()){
+              if (CheckMa()) {
+                if (checkFrom()) {
+                    insert();
+                }
             }
+        } else {
+            MsgBox.alert(null, "Bạn không có quyền  thêm sp !");
+                    
         }
+          
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
@@ -844,7 +852,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
     }//GEN-LAST:event_txtMauSacActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        
+
         CboMaloai.setSelectedItem(2);
         clearForm();
     }//GEN-LAST:event_btnLamMoiActionPerformed
@@ -871,7 +879,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
         // TODO add your handling code here:
         row = CboMaloai.getSelectedIndex() - 1;
         System.out.println("roo");
-        
+
         System.out.println(row);
         chonComboBox(row);
     }//GEN-LAST:event_CboMaloaiActionPerformed

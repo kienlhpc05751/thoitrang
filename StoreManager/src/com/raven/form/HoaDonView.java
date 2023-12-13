@@ -9,23 +9,17 @@ import com.raven.dao.HoaDonChiTietDao;
 import com.raven.dao.HoaDonDao;
 import com.raven.dao.KhachHangDao;
 import com.raven.model.HoaDon;
-import com.raven.model.NhanVien;
-import com.raven.model.Sanpham;
 import com.raven.utils.MsgBox;
 import com.raven.utils.XDate;
-import com.raven.utils.XImage;
-import java.awt.Image;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import com.raven.model.HoaDonChiTiet;
 import com.raven.model.KhachHang;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-//import javax.swing.plaf.nimbus.NimbusStyle;
+import com.raven.utils.Auth;
+
 
 /**
  *
@@ -48,6 +42,9 @@ public class HoaDonView extends javax.swing.JPanel {
     double totalAmount = 0.0;  // Variable to keep track of the total amount
     String maHD = null;
     int row = 01;//vị trí của nhân viên đang hiển thị trên form
+    
+   
+    
     String maNV = "NV001";
     int k = -1;
 
@@ -58,6 +55,11 @@ public class HoaDonView extends javax.swing.JPanel {
 
     public void Int() {
         fillTable(listHD);
+         if(Auth.isLogin()){
+             maNV = Auth.user.getMaNV();
+         }else{
+             maNV = "NV001";
+         }
     }
 
     // hàm tự tăng mã hóa đơn
@@ -104,7 +106,7 @@ public class HoaDonView extends javax.swing.JPanel {
     }
 
     public void fillTable(List<HoaDon> list) {
-        String row[] = {"Mã HD", "Mã KH", "Mã NV", " Ngày tạo", "Tổng tiền", "Trang Thai"};
+        String row[] = {"Mã HD", "Mã KH", "Mã NV", " Ngày tạo", "Tổng tiền", "Trạng Thái"};
         DefaultTableModel model = new DefaultTableModel(row, 0);
 
         listHD = dao.selectAll();
@@ -171,7 +173,7 @@ public class HoaDonView extends javax.swing.JPanel {
 // tính tổng
     public void fillTableHDCT1(String ma) {
 //        lblMaHD.setText(ma);
-        String row[] = {"Mã HDCT", "MaHD", "MaSP", "soluong", "ghi chu", "ma gg", "Thành tiền"};
+        String row[] = {"Mã HDCT", "Mã HD", "Mã SP", "Số lượng", "Ghi chú", "ma gg", "Thành tiền"};
         DefaultTableModel model = new DefaultTableModel(row, 0);
         listHDCT = daoHDCT.getAllByID(ma);
         for (HoaDonChiTiet hd : listHDCT) {
@@ -199,24 +201,24 @@ public class HoaDonView extends javax.swing.JPanel {
     public void insertHD() {
         try {
             dao.insert(getFormHD());
-            MsgBox.alert(null, "Thêm sản phẩm  Thành Công");
+            MsgBox.alert(null, "Thêm sản phẩm  Thành Công !");
             fillTable(listHD);
             clearForm();
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(null, "Thêm sản phẩm Thất Bại");
+            MsgBox.alert(null, "Thêm sản phẩm Thất Bại !");
         }
     }
 
     public void updateHD() {
         try {
             dao.update(getFormHD());
-            MsgBox.alert(null, "sửa sản phẩm  Thành Công");
+            MsgBox.alert(null, "sửa sản phẩm  Thành Công !");
             fillTable(listHD);
             clearForm();
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(null, "sửa sản phẩm Thất Bại");
+            MsgBox.alert(null, "sửa sản phẩm Thất Bại !");
         }
     }
 
@@ -224,12 +226,12 @@ public class HoaDonView extends javax.swing.JPanel {
         try {
             System.out.println(maHD);
             dao.delete(maHD);
-            MsgBox.alert(null, "xóa sản phẩm  Thành Công");
+            MsgBox.alert(null, "xóa sản phẩm  Thành Công !");
             fillTable(listHD);
             clearForm();
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(null, "xóa sản phẩm Thất Bại");
+            MsgBox.alert(null, "xóa sản phẩm Thất Bại !");
         }
     }
 

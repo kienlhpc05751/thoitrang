@@ -628,7 +628,7 @@ public class KhachHangView extends javax.swing.JPanel {
         }
 
         KhachHangDao.getInstant().update(kh);
-        MsgBox.alert(this, "Sửa thành công " + " " + kh.getTenKH());
+        MsgBox.alert(this, "Sửa thành công nhân viên " + " " + kh.getTenKH());
         clear();
 
 //        this.dispose();
@@ -637,15 +637,15 @@ public class KhachHangView extends javax.swing.JPanel {
     }
 
     void delete() {
-        if (MsgBox.confirm(this, "Ban that su muon xoa nhan vien nay khong?")) {
+        if (MsgBox.confirm(this, "bạn thật sự muốn xóa nhân viên này ?")) {
            Integer maKh = Integer.valueOf(txtMaKH.getText());
             try {
                 khDao.delete(maKh);
                 this.load();
                 this.clear();
-                MsgBox.alert(this, "Xoa thanh cong!");
+                MsgBox.alert(this, "Xóa thành công!");
             } catch (Exception e) {
-                MsgBox.alert(this, "Xoa that bai!");
+                MsgBox.alert(this, "Xoá thất bại!");
             }
         }
 //

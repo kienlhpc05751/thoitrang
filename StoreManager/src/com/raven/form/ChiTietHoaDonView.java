@@ -15,13 +15,7 @@ import com.raven.dao.HoaDonDao;
 import com.raven.dao.SanPhamDao;
 import com.raven.model.*;
 import com.raven.utils.MsgBox;
-import com.raven.form.InBill2;
-import com.raven.utils.XDate;
-import com.sun.jdi.ArrayReference;
-import java.text.SimpleDateFormat;
-import java.util.AbstractList;
-import java.util.Date;
-import java.util.function.BiConsumer;
+
 
 public class ChiTietHoaDonView extends javax.swing.JDialog {
 
@@ -139,7 +133,7 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
     // thêm HDCT
     public void insert() {
         daoHDCT.insert(getFormHDCT());
-        MsgBox.alert(null, "Thêm sản phẩm  Thành Công");
+        MsgBox.alert(null, "Thêm sản phẩm  Thành Công !");
         String ma1 = lblMaHD.getText();
         fillTableHDCT1(ma1);
     }
@@ -197,7 +191,7 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 
     public void fillTableHDCT1(String ma) {
         lblMaHD.setText(ma);
-        String row[] = {"Mã HDCT", "MaHD", "MaSP", "soluong", "ghi chu", "ma gg", "Thành tiền"};
+        String row[] = {"Mã HDCT", "Mã HD", "Mã SP", "Số lượng", "ghi chú", "Mã gg", "Thành tiền"};
         DefaultTableModel model = new DefaultTableModel(row, 0);
         listHDCT = daoHDCT.getAllByID(ma);
         for (HoaDonChiTiet hd : listHDCT) {
@@ -574,7 +568,7 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 //        || index > soluong
         if (index < 0) {
             spnSL.setValue(1);
-            JOptionPane.showMessageDialog(this, "Số lượng không được nhỏ hơn 0 hoăc lớn hớn soluong đã có");
+            JOptionPane.showMessageDialog(this, "Số lượng không được nhỏ hơn 0 hoăc lớn hớn soluong đã có !");
         } else {
             thanhtien();
             System.out.println(" index: " + index);
