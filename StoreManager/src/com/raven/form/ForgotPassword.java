@@ -45,8 +45,8 @@ public class ForgotPassword extends javax.swing.JFrame {
 
 
     public static void sendOTPEmail(String toEmail, String otp) {
-        String subject = "Password Reset OTP";
-        String message = "Your OTP for password reset is: " + otp;
+        String subject = "Đặt lại mật khẩu OTP";
+        String message = "Mã OTP của bạn để đặt lại mật khẩu là: " + otp;
 
         Properties properties = System.getProperties();
         properties.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
@@ -73,7 +73,7 @@ public class ForgotPassword extends javax.swing.JFrame {
             mimeMessage.setText(message);
 
             Transport.send(mimeMessage);
-            System.out.println("OTP sent successfully to " + toEmail);
+            System.out.println("Mã OTP của bạn đã được gửi thành công đến email " + toEmail);
         } catch (MessagingException e) {
             e.printStackTrace();
         }

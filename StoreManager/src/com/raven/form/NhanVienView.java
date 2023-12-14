@@ -769,12 +769,12 @@ public class NhanVienView extends javax.swing.JPanel {
                 nvDao.insert(nv);
                 this.load();
 //            this.clear();
-                MsgBox.alert(this, "Them moi thanh cong!");
+                MsgBox.alert(this, "Thêm nhân viên thành công!");
             } catch (Exception e) {
-                MsgBox.alert(this, "Them that bai!");
+                MsgBox.alert(this, "Thêm nhân viên thất bại!");
             }
         } else {
-            MsgBox.alert(this, "Bạn không có quyền thêm nhân viên");
+            MsgBox.alert(this, "Bạn không có quyền thêm nhân viên!");
         }
 
     }
@@ -785,32 +785,32 @@ public class NhanVienView extends javax.swing.JPanel {
             try {
                 nvDao.update(nv);
                 this.load();
-                MsgBox.alert(this, "Cap nhat thanh cong!");
+                MsgBox.alert(this, "Sửa nhân viên thành công!");
             } catch (Exception e) {
                 e.printStackTrace();
-                MsgBox.alert(this, "Cap nhat that bai!");
+                MsgBox.alert(this, "Sửa nhân viên thất bại!");
             }
         } else {
-            MsgBox.alert(this, "Bạn không có quyền thay đổi nhân viên");
+            MsgBox.alert(this, "Bạn không có quyền sửa thông tin nhân viên!");
         }
     }
 
     void delete() {
         if (Auth.isManager()) {
-            if (MsgBox.confirm(this, "Ban that su muon xoa nhan vien nay khong?")) {
+            if (MsgBox.confirm(this, "Bạn có thật sự muốn xóa nhân viên này?")) {
                 String manv = txtMaNV.getText();
                 try {
                     nvDao.delete(manv);
                     this.load();
                     this.clear();
-                    MsgBox.alert(this, "Xoa thanh cong!");
+                    MsgBox.alert(this, "Xóa nhân viên thành công!");
                 } catch (Exception e) {
                     e.printStackTrace();
-                    MsgBox.alert(this, "Xoa that bai!");
+                    MsgBox.alert(this, "Xóa nhân viên thất bại!");
                 }
             }
         } else {
-            MsgBox.alert(this, "Bạn không có quyền xóa nhân viên");
+            MsgBox.alert(this, "Bạn không có quyền xóa nhân viên?");
         }
     }
 
@@ -825,7 +825,7 @@ public class NhanVienView extends javax.swing.JPanel {
         List<NhanVien> listNV = nvDao.selectAll();
         for (NhanVien nv : listNV) {
             if (txtMaNV.getText() == nv.getMaNV()) {
-                list.add("Mã Sp đã có");
+                list.add("Mã nhân viên đã tồn tại!");
                 txtMaNV.setBackground(Color.blue);
             } else {
                 txtMaNV.setBackground(null);
@@ -849,7 +849,7 @@ public class NhanVienView extends javax.swing.JPanel {
 
         // có thể thay đổi
         if (txtMatKhau.getText().isEmpty()) {
-            errorMessages.add("Vui lòng mật khẩu");
+            errorMessages.add("Vui lòng mật khẩu!");
             txtMatKhau.setBackground(Color.red);
             txtMatKhau.requestFocus();
         } else {
@@ -857,11 +857,11 @@ public class NhanVienView extends javax.swing.JPanel {
         }
 
         if (txtMaNV.getText().isEmpty()) {
-            errorMessages.add("Vui lòng nhập mã nhân viên");
+            errorMessages.add("Vui lòng nhập mã nhân viên!");
             txtMaNV.setBackground(Color.red);
             txtMaNV.requestFocus();
         } else if (txtMaNV.getText().length() > 5) {
-            errorMessages.add("Vui lòng nhập dưới 5 kí tự ");
+            errorMessages.add("Vui lòng nhập dưới 5 kí tự!");
             txtMaNV.setBackground(Color.red);
             txtMaNV.requestFocus();
         } else {
@@ -869,7 +869,7 @@ public class NhanVienView extends javax.swing.JPanel {
         }
 
         if (txtTenNV.getText().isEmpty()) {
-            errorMessages.add("Vui lòng nhập họ tên nhân viên");
+            errorMessages.add("Vui lòng nhập họ tên nhân viên!");
             txtTenNV.setBackground(Color.red);
             txtTenNV.requestFocus();
         } else {
@@ -881,11 +881,11 @@ public class NhanVienView extends javax.swing.JPanel {
             int SDT = Integer.parseInt(txtSDT.getText());
             txtSDT.setBackground(null);  // Reset background to white if not empty
             if (txtSDT.getText().isEmpty()) {
-                errorMessages.add("Vui lòng nhập tên san phẩm");
+                errorMessages.add("Vui lòng nhập số điện thoại nhân viên!");
                 txtSDT.setBackground(Color.red);
                 txtSDT.requestFocus();
             } else if (SDT > 11) {
-                errorMessages.add("Vui lòng nhập số điện thoại đúng");
+                errorMessages.add("Vui lòng nhập số điện thoại đúng!");
                 txtSDT.setBackground(Color.red);
                 txtSDT.requestFocus();
             } else {
@@ -894,12 +894,12 @@ public class NhanVienView extends javax.swing.JPanel {
 
         } catch (NumberFormatException e) {
             // Handle the exception (e.g., display an error message or log it)
-            errorMessages.add("vui long nhập số Điện thoại đúng định dạng");
+            errorMessages.add("Vui lòng nhập số điện thoại đúng định dạng!");
             txtSDT.setBackground(Color.red);
             txtSDT.requestFocus();
         }
         if (txtEmail.getText().equalsIgnoreCase("")) {
-            errorMessages.add("vui lòng nhập Email !");
+            errorMessages.add("Vui lòng nhập Email !");
             txtEmail.requestFocus();
             txtEmail.setBackground(Color.red);
         } else {
@@ -909,7 +909,7 @@ public class NhanVienView extends javax.swing.JPanel {
         String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z0-9.-]{1,3}$";
 
         if (!txtEmail.getText().matches(EMAIL_REGEX)) {
-            errorMessages.add("vui long nhập số Điện thoại đúng định dạng");
+            errorMessages.add("Vui lòng nhập số điện thoại đúng định dạng!");
             txtEmail.setBackground(Color.red);
             txtEmail.requestFocus();
         } else {
@@ -925,17 +925,17 @@ public class NhanVienView extends javax.swing.JPanel {
         int age = Period.between(selectedDate, currentDate).getYears();
         if (!(age >= 18)) {
             lblngaysinh.setBackground(Color.red);
-            errorMessages.add(" Tuổi không được nhỏ hơn 18");
-            System.out.println("The person is not younger than 18.");
+            errorMessages.add(" Tuổi không được nhỏ hơn 18!");
+            System.out.println("Tuổi không được nhỏ hơn 18!");
         } else {
             lblngaysinh.setBackground(null);
-            System.out.println("The person is younger than 18.");
+            System.out.println("Tuổi không được nhỏ hơn 18!");
         }
 
         // chest combobox 
         ButtonModel selectedIndex = buttonGroup1.getSelection();
         if (selectedIndex == null) {
-            System.out.println("Chưa chọn mục nào trong ComboBox.");
+            System.out.println("Chưa chọn mục nào trong ComboBox!");
         } else {
             System.out.println("Đã chọn mục có index: " + selectedIndex);
         }

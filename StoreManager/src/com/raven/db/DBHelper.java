@@ -13,7 +13,7 @@ public class DBHelper {
         String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=Tore1;user=sa;password=123;encrypt=true;trustServerCertificate=true;";
         try {
             con = DriverManager.getConnection(connectionUrl);
-            System.out.println("Connection success...");
+            System.out.println("Kết nối thành công...");
         } catch (Exception e) {
             e.printStackTrace();
         }

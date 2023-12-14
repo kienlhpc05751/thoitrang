@@ -75,17 +75,17 @@ public class HoaDonView extends javax.swing.JPanel {
                     String nextInvoice = "HD" + newNumber;
 
                     // Sử dụng nextInvoice theo nhu cầu của bạn (có thể làm gì đó với nó)
-                    System.out.println("Next Invoice: " + nextInvoice);
+                    System.out.println("Hóa đơn tiếp theo: " + nextInvoice);
                     maHD  = nextInvoice;
                     txtMaHD.setText(nextInvoice);
 
                     // Nếu bạn muốn lưu giá trị mới vào cơ sở dữ liệu, thêm logic ở đây
                     // Ví dụ: dao.insertNewInvoice(nextInvoice);
                 } else {
-                    System.out.println("Đã đạt đến giá trị tối đa, không thể tăng thêm.");
+                    System.out.println("Đã đạt đến giá trị tối đa, không thể tăng thêm!");
                 }
             } else {
-                System.out.println("Không có giá trị max nào được trả về từ cơ sở dữ liệu.");
+                System.out.println("Không có giá trị max nào được trả về từ cơ sở dữ liệu!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,7 +104,7 @@ public class HoaDonView extends javax.swing.JPanel {
     }
 
     public void fillTable(List<HoaDon> list) {
-        String row[] = {"Mã HD", "Mã KH", "Mã NV", " Ngày tạo", "Tổng tiền", "Trang Thai"};
+        String row[] = {"Mã HD", "Mã KH", "Mã NV", " Ngày tạo", "Tổng tiền", "Trạng thái"};
         DefaultTableModel model = new DefaultTableModel(row, 0);
 
         listHD = dao.selectAll();
@@ -171,7 +171,7 @@ public class HoaDonView extends javax.swing.JPanel {
 // tính tổng
     public void fillTableHDCT1(String ma) {
 //        lblMaHD.setText(ma);
-        String row[] = {"Mã HDCT", "MaHD", "MaSP", "soluong", "ghi chu", "ma gg", "Thành tiền"};
+        String row[] = {"Mã HDCT", "Mã HD", "Mã SP", "Số lượng", "Ghi chú", "Ma GG", "Thành tiền"};
         DefaultTableModel model = new DefaultTableModel(row, 0);
         listHDCT = daoHDCT.getAllByID(ma);
         for (HoaDonChiTiet hd : listHDCT) {
@@ -191,7 +191,7 @@ public class HoaDonView extends javax.swing.JPanel {
         lblTongTien.setText(Double.toString(totalAmount));
 //                lblTongTien.setText(Double.toString(totalAmount)+" Đ");
         // Print or use the total amount as needed
-        System.out.println("Total Amount: " + totalAmount);
+        System.out.println("Tổng cộng: " + totalAmount);
     }
 
 //
@@ -199,24 +199,24 @@ public class HoaDonView extends javax.swing.JPanel {
     public void insertHD() {
         try {
             dao.insert(getFormHD());
-            MsgBox.alert(null, "Thêm sản phẩm  Thành Công");
+            MsgBox.alert(null, "Thêm hóa đơn thành công!");
             fillTable(listHD);
             clearForm();
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(null, "Thêm sản phẩm Thất Bại");
+            MsgBox.alert(null, "Thêm hóa đơn thất bại!");
         }
     }
 
     public void updateHD() {
         try {
             dao.update(getFormHD());
-            MsgBox.alert(null, "sửa sản phẩm  Thành Công");
+            MsgBox.alert(null, "Sửa hóa đơn thành công!");
             fillTable(listHD);
             clearForm();
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(null, "sửa sản phẩm Thất Bại");
+            MsgBox.alert(null, "Sửa hóa đơn thất bại!");
         }
     }
 
@@ -224,12 +224,12 @@ public class HoaDonView extends javax.swing.JPanel {
         try {
             System.out.println(maHD);
             dao.delete(maHD);
-            MsgBox.alert(null, "sửa sản phẩm  Thành Công");
+            MsgBox.alert(null, "Xóa hóa đơn thành công!");
             fillTable(listHD);
             clearForm();
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(null, "sửa sản phẩm Thất Bại");
+            MsgBox.alert(null, "Xóa hóa đơn thất bại!");
         }
     }
 
@@ -250,7 +250,7 @@ public class HoaDonView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBorder1 = new com.raven.swing.PanelBorder();
+        panelBorder1 = new org.netbeans.modules.form.InvalidComponent();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
@@ -279,9 +279,6 @@ public class HoaDonView extends javax.swing.JPanel {
         jScrollPane10 = new javax.swing.JScrollPane();
         tblHoaDon9 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-
-        panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
-        panelBorder1.setPreferredSize(new java.awt.Dimension(950, 580));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setOpaque(false);
@@ -547,7 +544,7 @@ public class HoaDonView extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(362, 362, 362)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 11, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 918, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -585,7 +582,7 @@ public class HoaDonView extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE)
+            .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -594,54 +591,6 @@ public class HoaDonView extends javax.swing.JPanel {
                 .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        clearForm();
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void txtMaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaKHActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaKHActionPerformed
-
-    private void txtMaKHKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaKHKeyReleased
-        try {
-            k = Integer.parseInt(txtMaKH.getText());
-            System.out.println("maKh: " + k);
-            filltenKH(k);
-        } catch (Exception e) {
-            lblTenKH.setText("");
-        }
-
-    }//GEN-LAST:event_txtMaKHKeyReleased
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        clearForm();
-        TuTang();
-        if (MsgBox.confirm(null, "bạn thêm muốn thêm Hóa đơn " + maHD)) {
-            insertHD();
-        }
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        updateHD();
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        ChiTietHoaDonView cthd = new ChiTietHoaDonView(null, false);
-        maHD = txtMaHD.getText();
-        cthd.fillTableHDCT1(maHD);
-        cthd.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                System.out.println("Window closed successfully");
-//                System.out.println(oke); // Make sure 'oke' is defined and has a value
-                clearForm();
-                listHD.clear();
-                fillTable(listHD);
-            }
-        });
-        cthd.setVisible(true);
-    }//GEN-LAST:event_jButton9ActionPerformed
 
     private void tblHoaDon9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDon9MouseClicked
         this.row = tblHoaDon9.getSelectedRow();
@@ -656,10 +605,57 @@ public class HoaDonView extends javax.swing.JPanel {
         filltenKH(k);
     }//GEN-LAST:event_tblHoaDon9MouseClicked
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        ChiTietHoaDonView cthd = new ChiTietHoaDonView(null, false);
+        maHD = txtMaHD.getText();
+        cthd.fillTableHDCT1(maHD);
+        cthd.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                System.out.println("Window closed successfully");
+                //                System.out.println(oke); // Make sure 'oke' is defined and has a value
+                clearForm();
+                listHD.clear();
+                fillTable(listHD);
+            }
+        });
+        cthd.setVisible(true);
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        updateHD();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        clearForm();
+        TuTang();
+        if (MsgBox.confirm(null, "bạn thêm muốn thêm Hóa đơn " + maHD)) {
+            insertHD();
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         deleteHD();
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void txtMaKHKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaKHKeyReleased
+        try {
+            k = Integer.parseInt(txtMaKH.getText());
+            System.out.println("maKh: " + k);
+            filltenKH(k);
+        } catch (Exception e) {
+            lblTenKH.setText("");
+        }
+    }//GEN-LAST:event_txtMaKHKeyReleased
+
+    private void txtMaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaKHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMaKHActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        clearForm();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -688,7 +684,7 @@ public class HoaDonView extends javax.swing.JPanel {
     private javax.swing.JLabel lblTenNV;
     private javax.swing.JLabel lblTongSoLuong;
     private javax.swing.JLabel lblTongTien;
-    private com.raven.swing.PanelBorder panelBorder1;
+    private org.netbeans.modules.form.InvalidComponent panelBorder1;
     private javax.swing.JTable tblHoaDon9;
     private javax.swing.JTextField txtMaHD;
     private javax.swing.JTextField txtMaKH;

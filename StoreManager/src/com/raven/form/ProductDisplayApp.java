@@ -23,7 +23,7 @@ public class ProductDisplayApp extends JFrame {
     private JScrollPane scrollPane;
 
     public ProductDisplayApp() {
-        setTitle("Product Display App");
+        setTitle("Phần mềm quản lý cửa hàng thời trang");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

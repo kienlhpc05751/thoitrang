@@ -236,7 +236,7 @@ public class InBill2 extends javax.swing.JDialog {
         double tongTien = 0;
         float giamGia = 0;
         double thanhTien;
-        System.out.println("mã hd " + maHD);
+        System.out.println("Mã HD " + maHD);
         for (HoaDonChiTiet itemp : list) {
             stt++;
             Vector<Object> row = new Vector<>();

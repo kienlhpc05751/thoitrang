@@ -119,7 +119,7 @@ public class Login extends javax.swing.JFrame {
         } else if (mk.equals(nv.getMatKhau())) {
             MsgBox.alert(this, "Sai mật khẩu!");
         } else {
-            System.out.println("Logged in successfully...");
+            System.out.println("Đăng nhập thành công...");
             MsgBox.alert(this, "Đăng nhập thành công!");
             Auth.user = nv;
             System.out.println(Auth.user);

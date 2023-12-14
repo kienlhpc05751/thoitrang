@@ -610,7 +610,7 @@ public class KhachHangView extends javax.swing.JPanel {
         }
 
         KhachHangDao.getInstant().insert(nv);
-        MsgBox.alert(this, "Thêm thành công " + " " + nv.getTenKH());
+        MsgBox.alert(this, "Thêm khách hàng thành công " + " " + nv.getTenKH());
         clear();
         load();
 
@@ -628,7 +628,7 @@ public class KhachHangView extends javax.swing.JPanel {
         }
 
         KhachHangDao.getInstant().update(kh);
-        MsgBox.alert(this, "Sửa thành công " + " " + kh.getTenKH());
+        MsgBox.alert(this, "Sửa khách hàng thành công " + " " + kh.getTenKH());
         clear();
 
 //        this.dispose();
@@ -637,15 +637,15 @@ public class KhachHangView extends javax.swing.JPanel {
     }
 
     void delete() {
-        if (MsgBox.confirm(this, "Ban that su muon xoa nhan vien nay khong?")) {
+        if (MsgBox.confirm(this, "Bạn có thật sự muốn xóa khách hàng này?")) {
            Integer maKh = Integer.valueOf(txtMaKH.getText());
             try {
                 khDao.delete(maKh);
                 this.load();
                 this.clear();
-                MsgBox.alert(this, "Xoa thanh cong!");
+                MsgBox.alert(this, "Xóa khách hàng thành công!");
             } catch (Exception e) {
-                MsgBox.alert(this, "Xoa that bai!");
+                MsgBox.alert(this, "Xóa khách hàng thất bại!");
             }
         }
 //
@@ -686,7 +686,7 @@ public class KhachHangView extends javax.swing.JPanel {
         String mess = "";
 
         if (Validator.isEmpty(txtTenKH)) {
-            mess += "Bạn chưa nhập tên cho khách hàng \n";
+            mess += "Bạn chưa nhập tên khách hàng \n";
             flag = false;
         } else {
             if (!Validator.isValidName(txtTenKH.getText())) {
@@ -696,7 +696,7 @@ public class KhachHangView extends javax.swing.JPanel {
         }
 
         if (Validator.isEmpty(txtSDT)) {
-            mess += "Bạn chưa nhập số điện thoại cho khách hàng \n";
+            mess += "Bạn chưa nhập số điện thoại khách hàng \n";
             flag = false;
         } else {
             if (!Validator.isTel(txtSDT.getText())) {
@@ -705,7 +705,7 @@ public class KhachHangView extends javax.swing.JPanel {
             }
         }
         if (Validator.isEmpty(txtEmail)) {
-            mess += "Bạn chưa nhập email cho khách hàng \n";
+            mess += "Bạn chưa nhập email khách hàng \n";
             flag = false;
         } else {
             if (!Validator.isEmail(txtEmail.getText())) {

@@ -51,7 +51,7 @@ public class FogotPasswordDAO {
                 + "Vui lòng truy cập vào tài khoản và tiến hành thay đổi mật khẩu ngay!"
                 + "<br/><br/>"
                 + "Nếu bạn gặp sự cố, vui lòng liên hệ với bộ phận hỗ trợ thông qua email: "
-                + "<a href='mailto:lamkimuyen2015@gmail.com'>lamkimuyen2015@gmail.com</a><br/>"
+                + "<a href='mailto:strklighting@gmail.com'>strklighting@gmail.com</a><br/>"
                 + "Vui lòng không trả lời email này bằng mật khẩu của bạn. "
                 + "Chúng tôi sẽ không bao giờ hỏi mật khẩu của bạn và "
                 + "chúng tôi đặc biệt không khuyến khích bạn chia sẻ mật khẩu đó với bất kỳ ai.</div>";

@@ -64,16 +64,16 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
                     int newNumber = maxValue + 1;
                     String nextInvoice = "HDC" + newNumber;
                     // In ra để kiểm tra giá trị mới
-                    MsgBox.alert(null, "Next Invoice: " + nextInvoice);
+                    MsgBox.alert(null, "Hóa đơn tiếp theo: " + nextInvoice);
                     // Gán giá trị mới vào trường hiển thị hoặc bảng điều khiển của bạn
                     txtMaHDCT.setText(nextInvoice);
                     // Nếu muốn lưu giá trị mới vào cơ sở dữ liệu, thêm logic ở đây
                     // Ví dụ: dao.insertNewInvoice(nextInvoice);
                 } else {
-                    System.out.println("Đã đạt đến giá trị tối đa, không thể tăng thêm.");
+                    System.out.println("Đã đạt đến giá trị tối đa, không thể tăng thêm!");
                 }
             } else {
-                System.out.println("Không có giá trị max nào được trả về từ cơ sở dữ liệu.");
+                System.out.println("Không có giá trị max nào được trả về từ cơ sở dữ liệu!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,7 +138,7 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
     // thêm HDCT
     public void insert() {
         daoHDCT.insert(getFormHDCT());
-        MsgBox.alert(null, "Thêm sản phẩm  Thành Công");
+        MsgBox.alert(null, "Thêm hóa đơn thành công!");
         String ma1 = lblMaHD.getText();
         fillTableHDCT1(ma1);
     }
@@ -162,7 +162,7 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
         listGG = daoGG.selectAll();
         DefaultComboBoxModel cboModel = (DefaultComboBoxModel) cboMaGG.getModel();
         cboModel.removeAllElements();
-        cboModel.addElement("vui lòng chọn !");
+        cboModel.addElement("Vui lòng chọn !");
 
         for (GiamGia itempCD : listGG) {
             cboModel.addElement(itempCD.getMaGG());
@@ -182,7 +182,7 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 
     public void timkiem1(String ma) {
         try {
-            String rowSP[] = {"MaSP", "LoaiSP", "TenSP", "Kichco", "Mausac", "gia ban", "soLuong"};
+            String rowSP[] = {"Mã SP", "Loại SP", "Tên SP", "Kích cỡ", "Màu sắc", "Giá bán", "Số lượng"};
             Sanpham sp = daoSP.selectById(ma);
 //            listSP = (List<Sanpham>) daoSP.selectById(ma);
             SetFromSP(sp);
@@ -196,7 +196,7 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 
     public void fillTableHDCT1(String ma) {
         lblMaHD.setText(ma);
-        String row[] = {"Mã HDCT", "MaHD", "MaSP", "soluong", "ghi chu", "ma gg", "Thành tiền"};
+        String row[] = {"Mã HDCT", "mã HD", "Mã SP", "Số lượng ", "Ghi chú", "Mã GG", "Thành tiền"};
         DefaultTableModel model = new DefaultTableModel(row, 0);
         listHDCT = daoHDCT.getAllByID(ma);
         for (HoaDonChiTiet hd : listHDCT) {
@@ -573,7 +573,7 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
 //        || index > soluong
         if (index < 0) {
             spnSL.setValue(1);
-            JOptionPane.showMessageDialog(this, "Số lượng không được nhỏ hơn 0 hoăc lớn hớn soluong đã có");
+            JOptionPane.showMessageDialog(this, "Số lượng không được nhỏ hơn 0 hoăc lớn hớn số lượng đã có!");
         } else {
             thanhtien();
             System.out.println(" index: " + index);
@@ -588,7 +588,7 @@ public class ChiTietHoaDonView extends javax.swing.JDialog {
         if (listHD.isEmpty()) {
             listHD = dao.selectAll();
         } else {
-            System.out.println("lisst roongx");
+            System.out.println("Danh sách rỗng!");
         }
         cthd.fillTable(listHD);
     }//GEN-LAST:event_jButton1ActionPerformed

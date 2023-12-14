@@ -68,7 +68,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
     // fill dữ liệu lên bảng
 
     void fillTable(List<Sanpham> list) {
-        String row[] = {"MaSP", "LoaiSP", "TenSP", "Kichco", "Mausac", "gia ban", "soLuong"};
+        String row[] = {"Mã SP", "Loại SP", "Tên SP", "Kích cỡ", "Màu sắc", "Giá bán", "Số lượng"};
         DefaultTableModel model = new DefaultTableModel(row, 0);
         model.setRowCount(0);
         listSP = dao.selectAll();
@@ -152,11 +152,11 @@ public class SanPhamView1 extends javax.swing.JPanel {
         
         try {
             dao.insert(getForm());
-            MsgBox.alert(null, "Thêm sản phẩm  Thành Công");
+            MsgBox.alert(null, "Thêm sản phẩm  thành công!");
             fillTable(listSP);
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(null, "Thêm sản phẩm Thất Bại");
+            MsgBox.alert(null, "Thêm sản phẩm thất bại!");
         }
 //        if (checkFrom()) {
 //            try {
@@ -175,20 +175,20 @@ public class SanPhamView1 extends javax.swing.JPanel {
     void update() {
         try {
             dao.update(getForm());
-            MsgBox.alert(null, "Cập nhật sản phẩm Thành Công");
+            MsgBox.alert(null, "Sửa sản phẩm thành công!");
             fillTable(listSP);
         } catch (Exception e) {
-            MsgBox.alert(null, "Cập nhật sản phẩm Thất Bại");
+            MsgBox.alert(null, "Sửa sản phẩm thất bại!");
         }
     }
     
     void delete() {
         try {
             dao.delete(String.valueOf(masp));
-            MsgBox.alert(null, "Delete sản phẩm Thành Công");
+            MsgBox.alert(null, "Xóa sản phẩm thành công!");
             fillTable(listSP);
         } catch (Exception e) {
-            MsgBox.alert(null, "Delete sản phẩm Thất Bại");
+            MsgBox.alert(null, "Xóa sản phẩm thất bại!");
         }
 //        try {
 //            if (!Auth.isManager()) {
@@ -238,7 +238,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
 
         // có thể thay đổi
         if (txtKichCo.getText().isEmpty()) {
-            errorMessages.add("Vui lòng nhập màu");
+            errorMessages.add("Vui lòng nhập kích cỡ!");
             txtKichCo.setBackground(Color.red);
             txtKichCo.requestFocus();
         } else {
@@ -246,11 +246,11 @@ public class SanPhamView1 extends javax.swing.JPanel {
         }
         
         if (txtMaSP.getText().isEmpty()) {
-            errorMessages.add("Vui lòng nhập mã đăng nhập SP");
+            errorMessages.add("Vui lòng nhập mã SP!");
             txtMaSP.setBackground(Color.red);
             txtMaSP.requestFocus();
         } else if (txtMaSP.getText().length() > 10) {
-            errorMessages.add("Vui lòng nhập dưới 10 kí tự ");
+            errorMessages.add("Vui lòng nhập dưới 10 kí tự! ");
             txtMaSP.setBackground(Color.red);
             txtMaSP.requestFocus();
         } else {
@@ -258,7 +258,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
         }
         
         if (txtMauSac.getText().isEmpty()) {
-            errorMessages.add("Vui lòng nhập màu");
+            errorMessages.add("Vui lòng nhập màu sắc!");
             txtMauSac.setBackground(Color.red);
             txtMauSac.requestFocus();
         } else {
@@ -266,7 +266,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
         }
         
         if (txtTenSP.getText().isEmpty()) {
-            errorMessages.add("Vui lòng nhập tên san phẩm");
+            errorMessages.add("Vui lòng nhập tên sản phẩm!");
             txtTenSP.setBackground(Color.red);
             txtTenSP.requestFocus();
         } else {
@@ -280,7 +280,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
 
             if (soluong <= 0) {
                 txtSoLuong.setBackground(Color.BLUE);
-                errorMessages.add("vui lòng nhập số lượng lớn hơn 0");
+                errorMessages.add("Vui lòng nhập số lượng lớn hơn 0!");
                 
             } else {
                 txtSoLuong.setBackground(null);
@@ -288,7 +288,7 @@ public class SanPhamView1 extends javax.swing.JPanel {
             
         } catch (NumberFormatException e) {
             // Handle the exception (e.g., display an error message or log it)
-            errorMessages.add("vui long nhập số lượng ");
+            errorMessages.add("Vui lòng nhập số lượng! ");
             txtSoLuong.setBackground(Color.red);
             txtSoLuong.requestFocus();
         }
@@ -297,23 +297,23 @@ public class SanPhamView1 extends javax.swing.JPanel {
             double gia = Double.parseDouble(txtGiaBan.getText());
             if (gia <= 0) {
                 txtGiaBan.setBackground(Color.red);
-                errorMessages.add("vui lòng nhập giá lớn hơn 0");
+                errorMessages.add("Vui lòng nhập giá lớn hơn 0!");
             } else {
                 txtGiaBan.setBackground(null);
             }
         } catch (NumberFormatException e) {
-            errorMessages.add("vui long nhập giá");
+            errorMessages.add("Vui lòng nhập giá bán!");
             txtGiaBan.setBackground(Color.red);
             txtGiaBan.requestFocus();
         }
         
         int d = CboMaloai.getSelectedIndex();
-        System.out.println("chọn:" + d);
+        System.out.println("Chọn:" + d);
         if (d != 0) {
 //            row = CboMaloai.getSelectedIndex() - 1;
 
         } else {
-            errorMessages.add("vui lòng chọn loại sản phẩm");
+            errorMessages.add("Vui lòng chọn loại sản phẩm!");
             
         }
 
