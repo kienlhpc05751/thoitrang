@@ -130,6 +130,7 @@ public class Form_Home extends javax.swing.JPanel {
 
         card4.setColor2(new java.awt.Color(211, 184, 61));
 
+        tblLichSu.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         tblLichSu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

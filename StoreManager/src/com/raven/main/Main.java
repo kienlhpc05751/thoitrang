@@ -13,31 +13,28 @@ import com.raven.form.HoaDonView;
 import com.raven.form.NhanVienView;
 import com.raven.form.KhachHangView;
 import com.raven.form.Login;
-import com.raven.form.Load;
-
-import com.raven.form.LoginJDialog;
 import com.raven.form.SanPhamView1;
 import com.raven.form.loadJDialog;
+import com.raven.utils.Auth;
 import com.raven.utils.XImage;
+import com.raven.utils.MsgBox;
+
 import java.awt.Color;
 import javax.swing.JComponent;
 
-/**
- *
- * @author RAVEN
- */
 public class Main extends javax.swing.JFrame {
 
     /**
      * Creates new form Main
      */
     private Form_Home home;
-    private Form_1 form1;
+//    private Form_1 form1;
     private HoaDonView form2;
     private Form_3 form3;
     private KhachHangView khachhang;
     private NhanVienView form4;
     private SanPhamView1 form5;
+    private Login form1;
 //    private NewJFrame fa;
 
     public Main() {
@@ -51,11 +48,11 @@ public class Main extends javax.swing.JFrame {
 //            // Tắt chế độ fullscreen
 //            gd.setFullScreenWindow(null);
 //        });
-        
+
         setIconImage(XImage.getAppicon());
         setBackground(new Color(0, 0, 0, 0));
         home = new Form_Home();
-        form1 = new Form_1();
+        form1 = new Login();
         form2 = new HoaDonView();
         form3 = new Form_3();
         form4 = new NhanVienView();
@@ -76,13 +73,19 @@ public class Main extends javax.swing.JFrame {
                     setForm(form5);
                 } else if (index == 4) {
                     setForm(form4);
-
                 } else if (index == 8) {
                     setForm(home);
                 } else if (index == 9) {
-                    setForm(form4);
+                    if (MsgBox.confirm(null, "bạn có chắc muốn đăng xuất ?")) {
+                        Login d = new Login();
+                        d.setVisible(true);
+                        Auth.clear();
+                        dispose();
+                    }
                 } else if (index == 15) {
-                    dispose();
+                    if (MsgBox.confirm(null, "bạn có chắc muốn thoát ứng dụng ?")) {
+                        dispose();
+                    }
                 }
             }
         });
@@ -95,17 +98,18 @@ public class Main extends javax.swing.JFrame {
         mainPanel.repaint();
         mainPanel.revalidate();
     }
-       void openlogin() {
+
+    void openlogin() {
 //        new LoginJDialog(this, true).setVisible(true);
-         new Login().setVisible(true);
+        new Login().setVisible(true);
     }
 
     void openWellcom() {
         new loadJDialog(this, true).setVisible(true);
 //          new Load().setVisible(true);
-           
 
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

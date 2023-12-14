@@ -40,14 +40,14 @@ public class Menu extends javax.swing.JPanel {
         listMenu2.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));
 
         listMenu2.addItem(new Model_Menu("6", "Thống kê", Model_Menu.MenuType.MENU));
-        listMenu2.addItem(new Model_Menu("7", "Sample Page", Model_Menu.MenuType.MENU));
-        listMenu2.addItem(new Model_Menu("8", "Extra", Model_Menu.MenuType.MENU));
-        listMenu2.addItem(new Model_Menu("9", "More", Model_Menu.MenuType.MENU));
-        listMenu2.addItem(new Model_Menu("10", "Logout1", Model_Menu.MenuType.MENU));
+        listMenu2.addItem(new Model_Menu("7", "Đăng xuất", Model_Menu.MenuType.MENU));
+        listMenu2.addItem(new Model_Menu("8", "", Model_Menu.MenuType.MENU));
+        listMenu2.addItem(new Model_Menu("9", "", Model_Menu.MenuType.MENU));
+        listMenu2.addItem(new Model_Menu("10", "", Model_Menu.MenuType.MENU));
         listMenu2.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));
         listMenu2.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));
         
-        listMenu2.addItem(new Model_Menu("10", " đăng xuất", Model_Menu.MenuType.MENU));
+        listMenu2.addItem(new Model_Menu("10", "Thoát", Model_Menu.MenuType.MENU));
     }
 
     @SuppressWarnings("unchecked")
