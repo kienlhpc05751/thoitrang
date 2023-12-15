@@ -40,13 +40,12 @@ public class Menu extends javax.swing.JPanel {
         listMenu2.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));
 
         listMenu2.addItem(new Model_Menu("6", "Thống kê", Model_Menu.MenuType.MENU));
+        listMenu2.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         listMenu2.addItem(new Model_Menu("7", "Đăng xuất", Model_Menu.MenuType.MENU));
-        listMenu2.addItem(new Model_Menu("8", "", Model_Menu.MenuType.MENU));
-        listMenu2.addItem(new Model_Menu("9", "", Model_Menu.MenuType.MENU));
-        listMenu2.addItem(new Model_Menu("10", "", Model_Menu.MenuType.MENU));
+        listMenu2.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
+        listMenu2.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         listMenu2.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));
         listMenu2.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));
-        
         listMenu2.addItem(new Model_Menu("10", "Thoát", Model_Menu.MenuType.MENU));
     }
 
@@ -67,7 +66,7 @@ public class Menu extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/Logonen1.png"))); // NOI18N
-        jLabel1.setText("Application");
+        jLabel1.setText("lightning");
         jLabel1.setAutoscrolls(true);
 
         javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);
@@ -94,7 +93,7 @@ public class Menu extends javax.swing.JPanel {
             .addComponent(panelMoving, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(listMenu2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
