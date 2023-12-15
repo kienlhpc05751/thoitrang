@@ -64,7 +64,7 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                 if (index == 0) {
-                    setForm(home);
+                    setForm(form3);
                 } else if (index == 1) {
                     setForm(khachhang);
                 } else if (index == 2) {
