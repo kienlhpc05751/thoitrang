@@ -36,7 +36,7 @@ public class Load extends javax.swing.JFrame {
                giaTriHienTai = giaTriHienTai + 1;
                prbLoad.setValue(giaTriHienTai);
                
-               if (giaTriHienTai > 5)
+               if (giaTriHienTai > 10)
                {
                    thoiGian.stop();
                    //JOptionPane.showMessageDialog(rootPane, "Download hoàn thành");

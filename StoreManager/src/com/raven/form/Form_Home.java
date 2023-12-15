@@ -66,14 +66,14 @@ public class Form_Home extends javax.swing.JPanel {
         }
         tblLichSu.setModel(model1);
         //
-            String row1[] = {"Tên loại", " số lượng "};
-        DefaultTableModel model2 = new DefaultTableModel(row1, 0);
-        model1.setRowCount(0);
+         String[] cols = {"TenLoaiSanPham", "TongSoLuongTonKho"};
+        DefaultTableModel model2 = new DefaultTableModel(cols, 0);
+        model2.setRowCount(0);
         List<Object[]> listkho = dao.Tonkho();
         for (Object[] objects : listkho) {
-            model1.addRow(objects);
+            model2.addRow(objects);
         }
-        tblKho.setModel(model1);
+        tblKho.setModel(model2);
 
 //        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
 //        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
